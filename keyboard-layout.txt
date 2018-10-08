@@ -1,0 +1,2 @@
+localectl list-x11-keymap-layouts
+localectl set-keymap --no-convert hr

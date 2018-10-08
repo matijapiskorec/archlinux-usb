@@ -1,0 +1,6 @@
+Silent beep on tab completion, add this line to /etc/inputrc or .inputrc in home:
+set bell-style none
+
+Silent beeps on less and man listings, add this to .bashrc:
+alias less='less -Q'
+alias man='man -P "less -Q"'

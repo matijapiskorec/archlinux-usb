@@ -1,0 +1,9 @@
+Start i3 tilling window manager at boot...
+
+Add following lines to ~/.bashrc:
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+startx
+fi
+
+Add following line to ~/.xinitrc:
+exec i3

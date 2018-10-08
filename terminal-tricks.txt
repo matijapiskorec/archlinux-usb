@@ -1,0 +1,11 @@
+List file with line numbers:
+less -N .bashrc
+cat -n .bashrc
+
+Append lines 14-16 from .bashrc to another file:
+sed -n 14,16p .bashrc >> i3-setup.txt
+
+Execute line 5 from .bashrc file:
+$(sed -n 5p .bashrc)
+
+
