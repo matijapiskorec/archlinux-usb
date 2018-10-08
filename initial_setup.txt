@@ -1,0 +1,9 @@
+loadkeys croat
+pacman -Sy
+pacman -S git
+pacman -S screen
+git clone https://gitlab.com/c.magyar/archlinux-usb.git
+pacman -S html2text
+html2text archlinux-usb/html/arch-usb.html | less
+pacman -S w3m
+w3m -dump archlinux-usb/html/arch-usb.html | less
