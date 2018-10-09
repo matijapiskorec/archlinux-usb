@@ -1,2 +1,12 @@
 localectl list-x11-keymap-layouts
 localectl set-keymap --no-convert hr
+
+# locale, uncomment 'en_US.UTF-8 UTF-8'
+$ nano /etc/locale.gen
+$ locale-gen
+$ echo LANG=en_US.UTF-8 > /etc/locale.conf
+$ export LANG=en_US.UTF-8
+# console font and keymap
+# nano /etc/vconsole.conf
+KEYMAP=pt-latin1
+FONT=lat9w-16

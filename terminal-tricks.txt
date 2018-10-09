@@ -8,4 +8,8 @@ sed -n 14,16p .bashrc >> i3-setup.txt
 Execute line 5 from .bashrc file:
 $(sed -n 5p .bashrc)
 
+Clone a html guide from Github and convert it to text for easy reading:
+pacman -S w3m
+git clone https://gitlab.com/c.magyar/archlinux-usb.git
+w3m -dump archlinux-usb/html/arch-usb.html | less
 
