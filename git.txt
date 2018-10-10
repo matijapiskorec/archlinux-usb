@@ -9,3 +9,7 @@ git hist
 
 If you want to see which lines changed:
 git hist -p
+
+Setup global user name and email:
+git config --global user.name "Matija Piskorec"
+git config --global user.email "matija.piskorec@gmail.com"
