@@ -242,11 +242,11 @@ feh –bg-scale –zoom fill /home/username/path/to/wallpaper.jpg
 
 Linux Tutorial: Adding a Graphical Interface to Arch Linux (Youtube video)
 
-pacman -S xorg-server xorg-server-utils xorg-init xorg-xclock xorg-twm 
-xterm
+pacman -S xorg-server xorg-xinit xorg-xclock xorg-twm xterm
+pacman -S i3 dmenu
 
-pacman -S i3-gaps dmenu
+sudo 'exec i3' > ~/.xinitrc
 
-pacman -S lightdm lightdm-gtk-greeter
+sudo pacman -S xorg-server-xephyr xorg-backlight lightdm lightdm-gtk-greeter feh
+
 systemctl start lightdm.service
-
