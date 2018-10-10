@@ -469,9 +469,10 @@ Command (? for help): p
 
 It should look like to this:
 
-Number Start (sector) End (sector) Size Code Name 1 64 20543 10.0 MiB EF02 BIOS
-boot partition 2 20544 1044543 500.0 MiB EF00 EFI System 3 1044544 62521310
-29.3 GiB 8300 Linux filesystem
+Number Start (sector) End (sector) Size Code Name 
+1 64 20543 10.0 MiB EF02 BIOS boot partition 
+2 20544 1044543 500.0 MiB EF00 EFI System 
+3 1044544 62521310 29.3 GiB 8300 Linux filesystem
 
 If it's all good, write it to the USB stick and exit gdisk:
 
@@ -482,7 +483,7 @@ format
 
 View the new block layout of the target USB device:
 
-lsblk /dev/sdX
+lsblk -f /dev/sdX
 
 You should now have three blocks on your target USB device: a 10MB block /dev/
 sdX1, a 500MB block /dev/sdX2, and block taking all the remaining memory/dev/
@@ -574,9 +575,11 @@ arch-chroot /mnt /bin/bash
 locale
 
 Set the time zone (use tab-completion to discover available entries for region
-and city):
+and city) by creating a symbolic link to your chosen region/city (for example, Europe/Zagreb):
 
 ln -s /usr/share/zoneinfo/region/city /etc/localtime
+
+By default, destination link should not already exit, otherwise use an -f option (--force).
 
 Generate /etc/adjtime:
 
