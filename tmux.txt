@@ -1,3 +1,5 @@
+Tmux has Session->Window->Pane hierarchy.
+
 Start your session: tmux
 
 Split pane vertically: Ctrl-b %
@@ -24,4 +26,11 @@ Rename a session: tmux rename-session -t [number] [name of new session]
 
 Attach a named session: tmux attach -t [name of session]
 
+Available commands: Ctrl-b ?
+
+Toggle fullscreen of a pane: Ctrl-b z
+
+Resize pane in direction of [arrow]: Ctrl-b Ctrl-[arrow]
+
+Rename the current window: Ctrl-b ,
 
