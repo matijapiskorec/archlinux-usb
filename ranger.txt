@@ -1,0 +1,27 @@
+Install ranger terminal filesystem manager:
+sudo pacman -S ranger
+
+Commands in ranger:
+Quite ranger: Q
+Reload current directory: R
+Open file with: r
+Change sort order: O
+View hidden files: zh
+Rename current file: cw
+Yank/copy: yy
+Search for files: /
+Execute range command: :
+Execute shell command: !
+Change file permissions: chmod
+Disk usage current directory: du
+Create a new tab: Ctrl-n
+Close current tab: Ctrl-w
+Next/previous tab: Tab / Shift-Tab
+
+Additional dependencies needed for viewing certain file formats:
+w3m poppler ffmpegthumbailer elinks atool
+
+Preview images in ragner:
+https://github.com/ranger/ranger/wiki/Image-Previews
+
+
