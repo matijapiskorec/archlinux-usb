@@ -21,6 +21,13 @@ Next/previous tab: Tab / Shift-Tab
 Additional dependencies needed for viewing certain file formats:
 w3m poppler ffmpegthumbailer elinks atool
 
+First, copy all ranger configuration files in your home folder so that you can mess around with them:
+ranger --copy-config=all
+
+Configuration files are now in ~/.config/ranger/, edit rc.config:
+set preview_images true
+set preview_images_method w3m
+
 Preview images in ragner:
 https://github.com/ranger/ranger/wiki/Image-Previews
 
