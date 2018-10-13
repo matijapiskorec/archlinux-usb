@@ -257,4 +257,25 @@ i3-config-wizard
 It creates i3 config file in ~/.config/i3/config. Before you rerun the i3-config-wizard make sure to 
 delete the old config.
 
+Setup desktop background:
+feh --bg-fill geeky_wallpaper.png
 
+For startup, put it into ~/.xinitrc:
+echo 'feh --bg-fill geeky_wallpaper.png' >> ~/.xinitrc
+
+If you have no background image, you can fetch them with wget:
+sudo pacman -S wget
+wget https://www.dropbox.com/s/d8rr7mjb4ifa8u4/geeky_wallpaper.png?dl=0
+
+Set transparent terminal windows with Compton:
+sudo pacman -S compton
+
+Run compton as a daemon, without shadow effects (for autostart, put it into ~/.xinitrc):
+compton -CGb
+
+Add following lines in your .Xdefaults file:
+urxvt*depth: 32
+urxvt*background: rgba:0000/0000/0200/c800
+
+Restart your xrdb:
+xrdb .Xresources
