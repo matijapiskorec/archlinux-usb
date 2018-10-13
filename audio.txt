@@ -1,0 +1,9 @@
+Install alsa and pulseaudio (alsa alone should work but not with me):
+sudo pacman -S alsa-utils pulseaudio
+reboot
+
+Add yourself to audio group:
+sudo gpasswd -a matija audio
+
+Run alsamixer to set volume:
+alsamixer
