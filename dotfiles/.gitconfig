@@ -1,0 +1,8 @@
+[user]
+	email = matija.piskorec@gmail.com
+	name = Matija Piskorec
+[core]
+	pager = less -q
+[alias]
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	hist-color = log --color --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit
