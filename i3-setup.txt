@@ -1,69 +1,18 @@
 Start i3 tilling window manager at boot...
 
-Add following lines to ~/.bashrc:
+You can start X manually by simply:
+startx
+
+Our you can do it at startup by assing following lines to ~/.bashrc:
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
 startx
 fi
 
-Add following line to ~/.xinitrc:
-exec i3
-
-
-"Installing Arch Linux on laptop and how to make it usable"
-https://tutos.readthedocs.io/en/latest/source/Arch.html
-
-pacman -S i3 dmenu xorg xorg-xinit
-
-Edit ~/.xinitrc:
-
-#! /bin/bash
-exec i3
-
-To start i3 (startx) after logging in after boot. Open file /etc/profile and add this:
-
-# autostart systemd default session on tty1
-if [[ "$(tty)" == '/dev/tty1' ]]; then
-    exec startx
-fi
-
-
-"How to Install i3 Window Manager in Linux"
-https://linoxide.com/gui/install-i3-window-manager-linux/
-
-sudo pacman -S i3
+To start i3 as soon as X starts add following line to ~/.xinitrc:
 echo "exec i3" >> ~/.xinitrc
-sudo pacman -S xorg-server xorg-xinit
-startx
 
-
-"Your guide to a damn light Arch Linux with i3 and text apps"
-https://medium.com/avalanche-of-sheep/your-guide-to-a-damn-light-arch-linux-with-i3-and-text-apps-8bc576c502b9
-
-Well, when you get to the point of getting startx to work, there isn’t much mystery to getting i3 installed, just do:
-
-sudo pacman -S i3
-
-You should install all the optional dependencies too, they will come in pretty handy. Now, once you have .i3 installed, just go to your ~/.xinitrc and add:
-
-exec i3
-
-Save the changes. When you startx again, you should log in to i3. It will ask if you want it to create a default settings file for you. You should say yes unless you really know what you’re doing. If you, for some reason, miss this step or want to repeat it, you can at any moment go into a terminal and type:
-
-i3-config-wizard
-
-Now, you have i3 configured. Your config should be located at ~/.i3/config
-
-Configuring GTK without a GUI can be a pain in the ass, but we don't want to install GNOME just to have access to gnome-tweaks-tools and such. We instead will use lxappearance, which can be installed as easily as:
-
-sudo pacman -S lxappearance
-
-
-"How To Install GNOME Desktop Environment In Arch Linux"
-https://www.ostechnix.com/how-to-install-gnome-desktop-environment-in-arch-linux/
-
-sudo pacman -Syu
-sudo reboot
-sudo pacman -S xorg xorg-server
+If you want to install Gnome as a desktop environment, which comes fully equiped with 
+tons of applications (maybe even too much for my taste) you should run:
 sudo pacman -S gnome
 sudo systemctl start gdm.service
 sudo systemctl enable gdm.service
@@ -76,48 +25,6 @@ sudo systemctl disable gdm.service
 sudo systemctl start lxdm.service
 sudo systemctl enable lxdm.service
 sudo reboot
-
-
-"HOW TO INSTALL MINIMAL ARCH LINUX DESKTOP (USING I3, MATE, OPENBOX AND LIGHTDM)"
-https://coelhorjc.wordpress.com/2014/12/16/howto-install-minimal-arch-linux-desktop-using-i3-mate-openbox-and-lightdm/
-
-# update system
-$ pacman -Syu
-# removing orphaned packages
-$ pacman -Rns $(pacman -Qtdq)
- 
-# install xorg and drivers
-$ pacman -S xf86-video-vmware | xf86-video-intel | nvidia nvidia-utils pangox-compat | xf86-video-ati (see https://wiki.archlinux.org/index.php/xorg)
-$ pacman -S xorg-server ttf-dejavu
-$ pacman -S xterm (or rxvt-unicode, see https://wiki.archlinux.org/index.php/rxvt-unicode)
-$ localectl set-x11-keymap pt
- 
-# install lightdm login/display manager, use F9 to change session
-$ pacman -S xorg-server-xephyr lightdm lightdm-gtk2-greeter
-$ systemctl enable lightdm.service
-# see https://wiki.archlinux.org/index.php/LightDM#Missing_icons_with_GTK_greeter
-$ pacman -S adwaita-icon-theme
-$ nano /etc/lightdm/lightdm-gtk-greeter.conf
-[greeter]
-theme-name = TraditionalGreen
-icon-theme-name = mate
-font-name = Sans 10
-background = /usr/share/backgrounds/mate/nature/Wood.jpg
- 
-# install desktops 
-$ pacman -S i3 dmenu
-$ pacman -S mate mate-extra (or just 'mate-panel')
-$ pacman -S lxde (or just 'lxde-common openbox obconf obmenu lxappearance tint2')
-$ pacman -S xfce4 xfce4-goodies
-$ pacman -S cinnamon
-$ pacman -S gnome gnome-extra (or just 'gnome-shell')
-$ pacman -S kde (or just 'kdebase')
- 
-# generate openbox menus, see http://trizenx.blogspot.co.uk/2012/02/obmenu-generator.html
-$ yaourt obmenu-generator
-$ obmenu-generator -i -p
-$ openbox --reconfigure
-
 
 
 [lightdm-webkit2-greeter]
@@ -231,24 +138,24 @@ To lock the current session and initialize LightDM greeter and login new user us
 $ dm-tool switch-to-greeter
 
 
-The Beginners Guide To The i3 Window Manager
-https://www.addictivetips.com/ubuntu-linux-tips/beginners-guide-i3-window-manager/
-
-sudo pacman -S i3 i3status dmenu i3lock xorg-xbacklight feh
-
-feh –bg-scale –zoom fill /home/username/path/to/wallpaper.jpg
 
 
 
 Linux Tutorial: Adding a Graphical Interface to Arch Linux (Youtube video)
 
-pacman -S xorg-server xorg-xinit xorg-xclock xorg-twm xterm
-pacman -S i3 dmenu
+Install Xorg server, i3 window manager, LightDM display manager, and two terminals 
+(rxvt will be used as default, xterm is a fallback option):
+sudo pacman -S xorg-server xorg-xinit xorg-xclock xorg-twm xterm rxvt-unicode
+sudo pacman -S i3 dmenu
+sudo pacman -S lightdm lightdm-gtk-greeter
 
+Some other xorg packages might be needed:
+sudo pacman -S xorg-server-xephyr xorg-backlight ttf-dejavu
+
+Make sure i3 is started when X starts:
 sudo 'exec i3' > ~/.xinitrc
 
-sudo pacman -S xorg-server-xephyr xorg-backlight lightdm lightdm-gtk-greeter feh
-
+Start LightDM service (if you want autostart put 'enable' instead of 'start'):
 systemctl start lightdm.service
 
 On the first start i3 should prompt you for the setup. If not, just run:
@@ -258,6 +165,7 @@ It creates i3 config file in ~/.config/i3/config. Before you rerun the i3-config
 delete the old config.
 
 Setup desktop background:
+sudo pacman -S feh
 feh --bg-fill geeky_wallpaper.png
 
 For startup, put it into ~/.xinitrc:
@@ -273,9 +181,17 @@ sudo pacman -S compton
 Run compton as a daemon, without shadow effects (for autostart, put it into ~/.xinitrc):
 compton -CGb
 
-Add following lines in your .Xdefaults file:
+Add following configuration for rxvt in your ~/.Xdefaults file to manage transparency:
 urxvt*depth: 32
 urxvt*background: rgba:0000/0000/0200/c800
+
+Also, add these lines to ~/.Xdefaults to make rxvt dark and pretty:
+URxvt*scrollBar: false
+URxvt*background: Black
+URxvt*foreground: White
+URxvt*colorUL: yellow
+URxvt*underlineColor: yellow
+URxvt.font: xft:monospace:size=8
 
 Restart your xrdb:
 xrdb .Xresources
