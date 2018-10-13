@@ -250,3 +250,11 @@ sudo 'exec i3' > ~/.xinitrc
 sudo pacman -S xorg-server-xephyr xorg-backlight lightdm lightdm-gtk-greeter feh
 
 systemctl start lightdm.service
+
+On the first start i3 should prompt you for the setup. If not, just run:
+i3-config-wizard
+
+It creates i3 config file in ~/.config/i3/config. Before you rerun the i3-config-wizard make sure to 
+delete the old config.
+
+

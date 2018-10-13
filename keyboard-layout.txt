@@ -1,5 +1,9 @@
+# This should make configration persistent but it does not:
 localectl list-x11-keymap-layouts
 localectl set-keymap --no-convert hr
+
+# Add following line to ~/.xinitrc:
+setxkbmap hr
 
 # locale, uncomment 'en_US.UTF-8 UTF-8'
 $ nano /etc/locale.gen
