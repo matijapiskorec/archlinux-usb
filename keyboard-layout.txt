@@ -1,16 +1,24 @@
-# This should make configration persistent but it does not:
+Change keyboard layout in tty:
+loadkeys croat
+
+Make it permanent for tty (saves to /etc/vconsole.conf):
+localectl set-keymap croat
+
+To set keymap in X environment run (for permanent change put it in ~/.xinitrc if you 
+use it):
+setxkbmap hr
+
+This should make configration persistent in X environment but it does not:
 localectl list-x11-keymap-layouts
 localectl set-keymap --no-convert hr
 
-# Add following line to ~/.xinitrc:
-setxkbmap hr
+To set locale, uncomment 'en_US.UTF-8 UTF-8' in /etc/locale.gen:
+sudo nano /etc/locale.gen
 
-# locale, uncomment 'en_US.UTF-8 UTF-8'
-$ nano /etc/locale.gen
-$ locale-gen
-$ echo LANG=en_US.UTF-8 > /etc/locale.conf
-$ export LANG=en_US.UTF-8
-# console font and keymap
-# nano /etc/vconsole.conf
-KEYMAP=pt-latin1
+And then generate lcoale:
+locale-gen
+
+For manual setup of keymap and console font edit (with sudo) /etc/vconsole.conf 
+with:
+KEYMAP=croat
 FONT=lat9w-16
