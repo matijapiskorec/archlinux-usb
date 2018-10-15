@@ -195,3 +195,18 @@ URxvt.font: xft:monospace:size=8
 
 Restart your xrdb:
 xrdb .Xresources
+
+If you don't need a display manager (LightDM) and want to start X manually you can 
+simply configure ~/.xinitrc with something like:
+
+setxkbmap hr
+feh --bg-fill ~/geeky_wallpaper.png
+compton -CGb
+xrdb ~/.Xresources
+exec i3
+
+And then, after logging to tty with your credentials, start X manually with:
+startx
+
+If you later want to kill X server and return to tty simply use Ctrl-Alt-Backspace 
+shortcut. 
