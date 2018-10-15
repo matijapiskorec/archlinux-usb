@@ -6,3 +6,9 @@ sudo pacman -S [package name]
 
 Check all explicitly installed packages:
 sudo pacman -Qe | less
+
+Find out optional dependencies for a program:
+sudo pacman -Si [program]
+
+Install optional dependencies for the specific program:
+sudo pacman -S --asdeps [optional dependencies]
