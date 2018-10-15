@@ -164,6 +164,11 @@ i3-config-wizard
 It creates i3 config file in ~/.config/i3/config. Before you rerun the i3-config-wizard make sure to 
 delete the old config.
 
+Setup gaps between windows in i3-gaps (probably installed by default instead of 
+i3-wm) by adding following lines in ~/.config/i3/config (measurement is in px):
+gaps inner 5
+gaps outer 5
+
 Setup desktop background:
 sudo pacman -S feh
 feh --bg-fill geeky_wallpaper.png
