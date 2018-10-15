@@ -7,3 +7,13 @@ sudo gpasswd -a matija audio
 
 Run alsamixer to set volume:
 alsamixer
+
+Install cmus music player and optional dependency for mp3 playback:
+sudo pacman -S cmus
+sudo pacman -S --asdeps libmaid
+
+For other optional dependencies for cmus run:
+sudo pacman -Si cmus
+
+For cmus tutorial run:
+man cmus-tutorial
