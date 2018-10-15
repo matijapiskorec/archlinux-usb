@@ -1,0 +1,9 @@
+URxvt*scrollBar: false
+URxvt*background: Black
+URxvt*foreground: White
+URxvt*colorUL: yellow
+URxvt*underlineColor: yellow
+URxvt.font: xft:monospace:size=8
+
+urxvt*depth: 32
+urxvt*background: rgba:0000/0000/0200/c800
