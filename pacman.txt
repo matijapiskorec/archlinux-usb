@@ -1,0 +1,8 @@
+Update pacman:
+sudo pacman -Sy
+
+Install a package:
+sudo pacman -S [package name]
+
+Check all explicitly installed packages:
+sudo pacman -Qe | less
