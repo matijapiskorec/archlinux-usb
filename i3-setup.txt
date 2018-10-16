@@ -215,3 +215,7 @@ startx
 
 If you later want to kill X server and return to tty simply use Ctrl-Alt-Backspace 
 shortcut. 
+
+Setup conky:
+sudo pacman -S conky
+conky -bd
