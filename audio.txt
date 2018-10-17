@@ -17,3 +17,11 @@ sudo pacman -Si cmus
 
 For cmus tutorial run:
 man cmus-tutorial
+
+Basic cmus commands...
+Cycle through menus (playlist, library): [1-7]
+Add folder to library (in menu 5): a
+Refresh library after folder contents changed (in menu 2): u
+Play/Restart: x
+Pause/Play: c
+Stop: v
