@@ -11,3 +11,5 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 Update pacman and install Sublime Text:
 sudo pacman -Syu sublime-text
 
+Run Sublime Text with:
+subl
