@@ -10,5 +10,7 @@ makepkg -sri
 Removing a package with pacman is the same as with regular packages:
 sudo pacman -R polybar
 
+In case of polybar, make sure you also install a jsoncpp dependency:
+sudo pacman -S jsoncpp
 
 
