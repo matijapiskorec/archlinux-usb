@@ -26,6 +26,9 @@ install -Dm644 /usr/share/doc/polybar/config ~/.config/polybar/config
 And run it with:
 polybar example
 
+To specify a monitor on which to run:
+MONITOR="DVI-I-2" polybar example
+
 Setup polybar on startup:
 https://github.com/jaagr/polybar/wiki
 
