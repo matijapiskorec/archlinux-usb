@@ -173,8 +173,8 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # Setup gaps between windows (in px):
-gaps inner 5
-gaps outer 5
+gaps inner 0
+gaps outer 3
 
 # Windows have no border (reload with "i3-msg reload")
 # new_window pixel 0

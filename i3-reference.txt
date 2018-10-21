@@ -12,3 +12,4 @@ Move window to another workspace: $mod Shift [numbers]
 Open application launcher (dmenu): $mod d
 Move window: $mod Shift [arrows]
 Kill a window: $mod Shift q
+Restart i3 (when modifying config): $mod Shift r
