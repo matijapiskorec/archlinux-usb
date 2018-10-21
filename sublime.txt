@@ -13,3 +13,23 @@ sudo pacman -Syu sublime-text
 
 Run Sublime Text with:
 subl
+
+Files can also be run with:
+subl filename.txt
+
+Goto anything:
+Ctrl+Shift+p
+
+Useful commands in Goto menu:
+View: Toggle Menu (hides/shows menu at the top)
+UI: Select theme (go for Adaptive)
+UI: Select color scheme (go for Monokai)
+
+Keyboard shortcuts:
+Goto anything: Ctrl+Shift+p
+Open new tab: Ctrl+n
+Close current tab: Ctrl+w
+Switch between tabs: Ctrl+[PgDn|PgUp]
+Split screen to two side-by-side regions: Shift+Alt+2
+Remove split screen :Shift+Alt+1
+Move a tab to one of the regions: Ctrl+Shift+[1|2]
