@@ -26,6 +26,9 @@ install -Dm644 /usr/share/doc/polybar/config ~/.config/polybar/config
 And run it with:
 polybar example
 
+Run it so that it reloads as soon as you change configuration:
+polybar -r example
+
 To specify a monitor on which to run:
 MONITOR="DVI-I-2" polybar example
 
@@ -34,3 +37,16 @@ https://github.com/jaagr/polybar/wiki
 
 Cool polybar theme:
 https://github.com/nicomazz/i3-polybar-config
+
+Remove i3 bar by commenting out this line in ~/.config/i3:
+bar {
+	status_command i3status
+}
+
+And adding following line which executes launch script:
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+Usually you could just reload the i3 config with $mod+Shift+c but because you modified 
+status bar you have to restart it with $mod-Shift-r. Before you do, make sure you close 
+all the open windows (easiest with $mod-Shift-q on each window).
+
