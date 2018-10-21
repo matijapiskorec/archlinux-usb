@@ -515,7 +515,7 @@ mount /dev/sdX3 /mnt
 Mount the FAT32 formatted ESP partition to /mnt/boot:
 
 mkdir /mnt/boot
-# mount /dev/sdX2 /mnt/boot
+mount /dev/sdX2 /mnt/boot
 
 
 pacstrap
@@ -889,3 +889,25 @@ quickly as possible, I have written several installer scripts to aid in this
 process.
 
 Have fun!
+
+
+ADDITIONAL NOTES
+
+Installation from an existing Arch system
+
+If you already have an existing Arch system up and running, you don't have to use live installation medium at all. First, install Arch installation helper scripts:
+
+sudo pacman -S arch-install-scripts
+
+You now have a pacstrap script which you can use in the same way as previously. Most of the steps from the previous tutorial are identical. Except that you can skip directly to mounting and formating the target USB drive. You don't have to download all of the base packages all over again, you have them already on your working Arch system, so you can run pacstrap with -c option to use the host's package cache:
+
+pacstrap -c /mnt base base-devel
+
+After arch-chrooting to my newly installed Arch system, I experienced some problems due to (as I understood it) using urxvt terminal. So make sure you arch-chroot from the xterm or some other more standard terminal.
+
+Apparently there is also an option of simply copying the whole Arch system from the USB, which should be even simpler if you just want to copy your existing system. There is some info on Arch Wiki but I didn't try it.
+
+
+
+
+
