@@ -721,8 +721,7 @@ grub-install --target=i386-pc --boot-directory /boot /dev/sdX
 
 Setup GRUB for UEFI booting mode:
 
-grub-install --target=x86_64-efi --efi-directory /boot --boot-directory /boot
---removable
+grub-install --target=x86_64-efi --efi-directory /boot --boot-directory /boot --removable
 
 Generate a GRUB configuration:
 
@@ -909,5 +908,80 @@ Apparently there is also an option of simply copying the whole Arch system from 
 
 
 
+Cloning Arch system to another disk
 
+Format the 500MB EFI system partition with a FAT32 filesystem:
+mkfs.fat -F32 /dev/sdX2
 
+Format the Linux partition with an ext4 filesystem:
+mkfs.ext4 /dev/sdX3
+
+Mount the ext4 formatted partition as the root filesystem:
+mount /dev/sdX3 /mnt
+
+Mount the FAT32 formatted ESP partition to /mnt/boot:
+mkdir /mnt/boot
+mount /dev/sdX2 /mnt/boot
+
+Before copying files you might want to set the root partition to be read-only. That way files will not be changed while we're copying files. This step is optional, in my experience it does not matter much, however it's still recommended to do:
+mount -o remount,ro /
+
+Now you can make the root partition writable again, so normal processes can continue again:
+mount -o remount,rw /
+
+rsync will work even while the system is running, but files changed during the transfer may or may not be transferred, which can cause undefined behavior of some programs using the transferred files. This approach works well for migrating an existing installation to a new hard drive or SSD. Run the following command as root to make sure that rsync can access all system files and preserve the ownership:
+
+rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} / /mnt
+
+By using the -aAX set of options, the files are transferred in archive mode which ensures that symbolic links, devices, permissions, ownerships, modification times, ACLs, and extended attributes are preserved, assuming that the target file system supports the feature. 
+
+Generate fstab:
+genfstab -U /mnt >> /mnt/etc/fstab
+
+Ensure that the fstab is good:
+cat /mnt/etc/fstab
+
+Chroot to target system and continue the setup from above:
+arch-chroot /mnt /bin/bash
+
+To configure a custom RAM disk image, edit the HOOKS variable in /etc/mkinitcpio.conf:
+nano /etc/mkinitcpio.conf
+
+Ensure the block hook comes before the filesystems hook and directly after the 
+udev hook like the following:
+HOOKS="base udev block filesystems keyboard fsck"
+
+Now regenerate the initial RAM disk image with the changes made:
+mkinitcpio -p linux
+
+Install the grub and efibootmgr packages (if not already installed):
+pacman -S grub efibootmgr
+
+View the current block devices to determine the target USB device:
+lsblk
+
+Note the target USB device name (without any numbers) /dev/sdX.
+
+Setup GRUB for MBR/BIOS booting mode:
+grub-install --target=i386-pc --boot-directory /boot /dev/sdX
+
+Setup GRUB for UEFI booting mode:
+grub-install --target=x86_64-efi --efi-directory /boot --boot-directory /boot --removable
+
+Generate a GRUB configuration:
+grub-mkconfig -o /boot/grub/grub.cfg
+
+Exit the chroot environment:
+exit
+
+Unmount the new USB drive:
+umount /mnt/boot /mnt
+
+Powerdown the computer:
+poweroff
+
+If you booted off a Live USB installation medium, remove it now.
+
+Powerup the computer and use the machine's boot menu to boot off your newly
+created Arch Linux USB. We still need to configure a few things so login as the
+root user with the password chosen above.
