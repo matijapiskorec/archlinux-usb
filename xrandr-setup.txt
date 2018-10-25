@@ -1,1 +1,0 @@
-xrandr --output DVI-I-2 --left-of DVI-I-1

@@ -1,5 +1,0 @@
-loadkeys croat
-pacman -Sy
-pacman -S git
-pacman -S screen
-git clone https://github.com/matijapiskorec/archlinux-usb
