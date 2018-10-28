@@ -9,7 +9,7 @@ Download a binary:
 curl https://getmic.ro | bash
 ```
 
-Then simply copy it to `/usr/bin` directory:
+Then simply copy it to `/usr/local/bin` directory:
 ```
-sudo mv micro /usr/bin/.
+sudo mv micro /usr/local/bin/.
 ```
