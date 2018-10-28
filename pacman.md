@@ -34,3 +34,8 @@ Update the whole system:
 ```
 sudo pacman -Syu
 ```
+
+Install packages from a list `pkglist.txt` (produced by running pacman with `-Qe`):
+```
+sudo pacman -S --needed - < pkglist.txt
+```
