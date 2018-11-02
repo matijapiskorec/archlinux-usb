@@ -1,9 +1,12 @@
 URxvt*scrollBar: false
-URxvt*background: Black
-URxvt*foreground: White
 URxvt*colorUL: yellow
 URxvt*underlineColor: yellow
-URxvt.font: xft:monospace:size=8
+URxvt*font: xft:monospace:size=8
 
-urxvt*depth: 32
-urxvt*background: rgba:0000/0000/0200/c800
+#include "Themes/wal-blue/colors.Xresources"
+!#include "Themes/wal-red/colors.Xresources"
+
+! Default fallback, in case themes above are not working
+!URxvt*foreground: White
+!URxvt*background: rgba:0000/0000/0200/c800
+!URxvt*depth: 32

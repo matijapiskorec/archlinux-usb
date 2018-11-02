@@ -143,7 +143,18 @@ sudo pacman python-pywal python-setuptools
 wal -i [PATH-TO-WALLPAPER] -a 50
 ```
 
+Two themes that I find visually appealing:
+```
+wal -i Images/1359330091856.jpg -a 95 --saturate 0.8
+wal -i Images/1432908749300.jpg -a 95 --saturate 0.8
+```
+
 To make a theme persistent on boot add following line to `~/.xinitrc`:
 ```
 wal -R
+```
+
+However, this does not work as expected, and so I decided to add `#include` statement in `.Xresources` that loads generated theme colors (located in `.cache/wal/`) directly:
+```
+#include "Themes/wal-red/colors.Xresources"
 ```

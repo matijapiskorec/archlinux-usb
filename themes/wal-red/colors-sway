@@ -1,0 +1,21 @@
+set $wallpaper /home/matija/Images/1432908749300.jpg
+
+set $background #09040c
+set $foreground #f3c98a
+
+set $color0 #09040c
+set $color1 #2f12a2
+set $color2 #ab1319
+set $color3 #e72e27
+set $color4 #e7612e
+set $color5 #e51a25
+set $color6 #e98e38
+set $color7 #f3c98a
+set $color8 #aa8c60
+set $color9 #2f12a2
+set $color10 #ab1319
+set $color11 #e72e27
+set $color12 #e7612e
+set $color13 #e51a25
+set $color14 #e98e38
+set $color15 #f3c98a

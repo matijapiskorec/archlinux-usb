@@ -1,5 +1,7 @@
+# Load .Xresources
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
+
 setxkbmap hr
-feh --bg-fill ~/geeky_wallpaper.png
+feh --bg-fill ~/Themes/wal-red/*.jpg
 compton -CGb
-xrdb ~/.Xresources
 exec i3
