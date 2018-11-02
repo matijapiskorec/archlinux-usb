@@ -4,4 +4,6 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-archey3
+if ! { [ "$TERM" = "screen" ] && [ -n "$TMUX" ]; } then
+  archey3
+fi
