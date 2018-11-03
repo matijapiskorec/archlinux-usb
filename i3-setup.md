@@ -158,3 +158,8 @@ However, this does not work as expected, and so I decided to add `#include` stat
 ```
 #include "Themes/wal-red/colors.Xresources"
 ```
+
+To list all colors available in `.Xresources`:
+```
+(x=`tput op` y=`printf %76s`;for i in {0..15};do o=00$i;echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;done)
+```
