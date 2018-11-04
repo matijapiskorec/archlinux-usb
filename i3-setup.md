@@ -163,3 +163,22 @@ To list all colors available in `.Xresources`:
 ```
 (x=`tput op` y=`printf %76s`;for i in {0..15};do o=00$i;echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;done)
 ```
+
+To set the same colors to tty put following in your `.bash_profile`:
+```
+source ~/Theme/wal-red/colors.Xresources
+```
+
+To include cool colored prompt with git information (idea from this [page](https://stackoverflow.com/questions/4133904/ps1-line-with-git-current-branch-and-colors)) add the following to your `.bashrc`:
+```
+function color_my_prompt {
+    local __user_and_host="\[\033[01;32m\]\u\[\033[01;34m\]@\h"
+    local __cur_location="\[\033[01;34m\]\w"
+    local __git_branch_color="\[\033[31m\]"
+    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
+    local __prompt_tail="\n\[\033[35m\]>"
+    local __last_color="\[\033[00m\]"
+    export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+}
+color_my_prompt
+```
