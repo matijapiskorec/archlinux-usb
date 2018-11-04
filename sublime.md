@@ -28,12 +28,21 @@ Files can also be run with:
 subl filename.txt
 ```
 
+If you want to open a file in new window then add `-n` option:
+```
+subl filename.txt -n
+```
+
 Goto anything: `Ctrl+Shift+p`
 
 Useful commands in Goto menu:
 - View: Toggle Menu (hides/shows menu at the top)
 - UI: Select theme (go for Adaptive)
 - UI: Select color scheme (go for Monokai)
+- Package Control: Install Package
+
+Useful packages:
+- Hide Menu - hide menu by default with all new instances of Sublime 
 
 Keyboard shortcuts:
 Goto anything: `Ctrl+Shift+p`
