@@ -12,7 +12,9 @@ Open file with: `r`
 Change sort order: `O`
 View hidden files: `zh`
 Rename current file: `cw`
+Select file: `space`
 Yank/copy: `yy`
+Paste: `pp`
 Search for files: `/`
 Execute range command: `:`
 Execute shell command: `!`
