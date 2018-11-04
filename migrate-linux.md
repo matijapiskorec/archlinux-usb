@@ -140,6 +140,23 @@ umount /mnt/boot /mnt
 
 Powerdown the computer with `poweroff`. If you booted off a Live USB installation medium, remove it now. Powerup the computer and use the machine's boot menu to boot off your newly created Arch Linux USB. Your system should be identical to the one from which you cloned from.
 
+If you wish, you could login to your old system from your new system (and vice versa). Simply plug in the old USB drive, mount it with:
+```
+sudo mount /dev/sdX /mnt
+```
+
+Then you can chroot to the old system:
+```
+sudo arch-chroot /mnt
+```
+
+You can then login as any of the user and start normal application, for example X server (in that case, make sure you are in tty1 terminal!):
+```
+su matija
+startx
+```
+
+If you install and run ssh deamon on the old system, you can ssh to it!
 
 Useful links:
 [Migrate installation to new hardware](https://wiki.archlinux.org/index.php/migrate_installation_to_new_hardware)
