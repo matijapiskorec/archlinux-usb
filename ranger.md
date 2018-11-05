@@ -45,3 +45,14 @@ set preview_images true
 set preview_images_method w3m
 ```
 
+To allow PDF preview uncomment following lines in `.config/ranger/scope.sh`:
+```
+application/pdf)
+    pdftoppm -f 1 -l 1 \
+             -scale-to-x 1920 \
+             -scale-to-y -1 \
+             -singlefile \
+             -jpeg -tiffcompression jpeg \
+             -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
+        && exit 6 || exit 1;;
+```
