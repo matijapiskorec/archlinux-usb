@@ -20,3 +20,8 @@ In case of polybar, make sure you also install a jsoncpp dependency:
 ```
 sudo pacman -S jsoncpp
 ```
+
+List all AUR and other foreign packages that have been explicitly installed:
+```
+sudo pacman -Qqem
+```

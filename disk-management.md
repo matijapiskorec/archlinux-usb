@@ -51,3 +51,8 @@ To unmount it:
 ```
 udisksctl unmount -b /dev/sda2
 ```
+
+Install `ncdu` simple disk usage analyzer:
+```
+sudo pacman -Syu ncdu
+```
