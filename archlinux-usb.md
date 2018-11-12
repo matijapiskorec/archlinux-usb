@@ -637,10 +637,30 @@ systemctl enable netctl-ifplugd@eth0.service
 
 ## wifi-menu
 
-We have already installed all the necessary packages to connect to most wifi networks. To scan for available networks and attempt to make a connection, use the simple command line interface wifi-menu:
+We have already installed all the necessary packages to connect to most wifi networks. To scan for available networks and attempt to make a connection, use the simple command line interface `wifi-menu` (`-o` option is for obscure interface where passwords are hidden):
 ```
 wifi-menu -o
 ```
+
+When you choose and connect to the wifi network you can save it as a profile. To list all network profiles run:
+```
+netctl list
+```
+
+To start or stop a network service from a profile run:
+```
+sudo netctl [start|stop] [network profile name]
+```
+
+If `wifi-menu` doesn't find any networks, make sure your wifi is not hard or soft blocked. Check this with `rfkill`:
+```
+sudo rfkill list
+```
+
+For hard block, use your hardware button to unblock it. For soft block, run:
+```
+sudo rfkill unblock wifi
+``` 
 
 ## Network time protocol
 
