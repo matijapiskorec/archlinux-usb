@@ -22,3 +22,8 @@ To unmount it:
 ```
 udisksctl unmount -b /dev/sda2
 ```
+
+In order to write to a NTFS volume (Windows filesystem) you need to install `ntfs-3g` package, as Arch Linux only support reading from NTFS:
+```
+sudo pacman -Syu ntfs-3g
+```
