@@ -10,7 +10,9 @@ Check current settings with
 xset q
 ```
 
-Disable display power management so that display will always stay on (if you want to make it permanent on startup put it into `.xinitrc`):
+Disable display power management and prevent screen from blanking (monitor is turned on but with a black image):
 ```
 xset -dpms
 ```
+
+If you want to make it permanent on startup put it into `.xinitrc`.
