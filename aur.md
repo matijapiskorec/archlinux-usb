@@ -25,3 +25,15 @@ List all AUR and other foreign packages that have been explicitly installed:
 ```
 sudo pacman -Qqem
 ```
+
+Install a suckless software, for example `dwm` (dynamic window manager):
+```
+git clone git://git.suckless.org/dwm
+cd dwm
+make clean install
+```
+
+And then run it with (or put it in `.xinitrc`):
+```
+exec dwm
+```
