@@ -7,6 +7,13 @@ First, install rsync for advanced copying:
 sudo pacman -S rsync
 ```
 
+It's maybe easier if you run all of the commands as a root user:
+```
+su
+```
+
+If you don't have an access to root account you will have to run all of the commands bellow with `sudo`.
+
 Prepare the USB drive. Run `lsblk` to check exact path of type `/dev/sdX`. Partition the USB drive with `gdisk`.
 ```
 gdisk /dev/sdX
@@ -66,7 +73,7 @@ Now you can make the root partition writable again, so normal processes can cont
 mount -o remount,rw /
 ```
 
-rsync will work even while the system is running, but files changed during the transfer may or may not be transferred, which can cause undefined behavior of some programs using the transferred files. This approach works well for migrating an existing installation to a new hard drive or SSD. Run the following command as root to make sure that rsync can access all system files and preserve the ownership:
+rsync will work even while the system is running, but files changed during the transfer may or may not be transferred, which can cause undefined behavior of some programs using the transferred files. This approach works well for migrating an existing installation to a new hard drive or SSD. Run the following command as root (execute `su`) to make sure that rsync can access all system files and preserve the ownership:
 ```
 rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found"} / /mnt
 ```
