@@ -14,6 +14,8 @@ Apply patches:
 patch < patches/[patch.diff]
 ```
 
+Configure st by editing `config.h`.
+
 Compile and install:
 ```
 sudo make clean install
