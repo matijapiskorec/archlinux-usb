@@ -17,8 +17,10 @@ User user
 
 # host-specific options
 Host myserver
-    HostName server-address
-    Port     port
+    HostName     server-address
+    Port         port
+    User         user
+    IdentityFile ~/.ssh/key
 ```
 
 You can now connect with:
@@ -26,27 +28,83 @@ You can now connect with:
 ssh myserver
 ```
 
+## SSH access with a public key
 
-Generate key:
+Generate key with rsa method:
 ```
-ssh-keygen
-```
-
-Copy public key to server:
-```
-ssh-copy-id
+ssh-keygen -t rsa
 ```
 
-Put a key to `ssh-agent` (cache) so you don't have to enter keyphrase:
+Copy the generated key to server (if you have more keys then specify a key with `-i` option):
+```
+ssh-copy-id user@host
+```
+
+You can try to ssh to the server. ssh will prompt you for the key password (private key is encrypted!):
+```
+ssh user@server
+```
+
+Check that your public key is added to `~/.ssh/authorized_keys`:
+```
+cat ~/.ssh/authorized_keys
+```
+
+## Adding keys to ssh-agent so you don't have to type password
+
+Run ssh-agent which will allow you to put keys in cache so you don't have to enter keyphrase:
 ```
 eval `ssh-agent`
-ssh-add -L
 ```
 
-Add key to cache for eight hours and then delete it (so that someone cannot steal the key):
+Add key to cache for eight hours and then delete it (so that someone cannot steal the key from memory):
 ```
 ssh-add -t 8h
 ```
+
+List all keys that are added to the ssh-agent:
+```
+ssh-add -L
+```
+
+Delete all keys currently in ssh-agent:
+```
+ssh-add -D
+```
+
+## Simplifying key management with keychain
+
+ssh-agent relies on environment variables which are not shared between bash sessions, so each time you start a new terminal you have to run it and add keys again. This is solved with keychain program: 
+```
+sudo pacman -Syu keychain
+```
+
+Put the following line in `.bashrc` to start keychain in each new bash session. It will either run a new ssh-agent or inherit from an existing one:
+```
+eval $(keychain --eval --quiet --noask)
+```
+
+At this point you didn't yet added any keys to the keychain (you can check this with `ssh-add -L`). You can add keys with:
+```
+keychain id_rsa
+```
+
+Or, if you want, you can add a key with a time limit in minutes, after which it is deleted from keychain:
+```
+keychain --timeout 30 id_rsa
+```
+
+Clear all keys currently in keychain (for example, before logout):
+```
+keychain --clear
+```
+
+You can also use `ssh-add` to list all keys currently added to keychain (keychain is just a manager for ssh-agent!):
+```
+ssh-add -L
+```
+
+## Tunneling
 
 Tunnelling local->remote:
 ```
