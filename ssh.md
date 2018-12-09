@@ -135,9 +135,25 @@ Poor's man VPN. We have to be root on both machines:
 ssh -w0:0 root@some.server
 ```
 
-sshfs - secure remote mounts:
+# Mount remote directories with sshfs
+
+Install sshfs for mounting remote directories through ssh:
 ```
-sshfs host:remote_directory local_directory
+sudo pacman -Syu sshfs
+```
+
+You can now mount remote directories locally:
+```
+sshfs user@host:remote_directory local_directory
+```
+
+You can now edit directory locally and the changes will persist remotelly, and vice versa. You can unmount with fusermount3 (installed automatically with sshfs):
+```
+fusermount3 -u local_directory
+```
+
+Can we unmount with umount?
+```
 sudo umount local_directory
 ```
 
