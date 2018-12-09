@@ -22,3 +22,11 @@ You can now run PopcornTime from terminal (or by using dmenu):
 ```
 popcorntime
 ```
+
+If the mouse pointer annoys you when you are watching a movie, you can install and run unclutter program that hides a mouse when you are not using it. This is actually useful in general, not only in Popcorn Time. Install and run unclutter in background:
+```
+sudo pacman -Syu unclutter
+unclutter &
+```
+
+You can also put it in `.xinitrc`. If you experience some problems with i3 or other tilling window managers you can try using `-grab` option.
