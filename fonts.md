@@ -20,3 +20,18 @@ Include one of the fonts in Sublime text editor:
 ```
 "font_face": "Hack"
 ```
+
+To improve font rendering, edit `/etc/profile.d/freetype2.sh` and uncomment following line (version 40 is the default minimal mode, you can also check 38 which is for Infinality mode):
+```
+export FREETYPE_PROPERTIES="truetype:interpreter-version=40"
+```
+
+Then enable following presets available in `/etc/fonts/conf.avail/` by creating following symbolic links in `/etc/fonts/conf.d/` (if they aren't already there):
+```
+sudo ln -s /etc/fonts/conf.avail/10-hinting-slight.conf /etc/fonts/conf.d
+sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
+sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
+sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
+```
+
+It appears that this also eliminates annoying flickering in polybar and i3status bar!
