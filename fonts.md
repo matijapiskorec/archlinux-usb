@@ -31,7 +31,14 @@ Then enable following presets available in `/etc/fonts/conf.avail/` by creating 
 sudo ln -s /etc/fonts/conf.avail/10-hinting-slight.conf /etc/fonts/conf.d
 sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
 sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
-sudo ln -s /etc/fonts/conf.avail/70-no-bitmaps.conf /etc/fonts/conf.d
 ```
 
-It appears that this also eliminates annoying flickering in polybar and i3status bar!
+You can also try these:
+```
+sudo ln -s /etc/fonts/conf.avail/10-antialias.conf /etc/fonts/conf.d
+sudo ln -s /etc/fonts/conf.avail/30-urw-aliases.conf /etc/fonts/conf.d
+sudo ln -s /etc/fonts/conf.avail/30-win32-aliases.conf /etc/fonts/conf.d
+sudo ln -s /etc/fonts/conf.avail/70-yes-bitmaps.conf /etc/fonts/conf.d
+```
+
+It appears that this also eliminates annoying flickering in polybar and i3status bar!?
