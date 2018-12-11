@@ -135,6 +135,27 @@ Poor's man VPN. We have to be root on both machines:
 ssh -w0:0 root@some.server
 ```
 
+## Tunel to a server through intermediary
+
+You want to tunnel to a server2 through an intermediary server1. Setup your ssh config file in the following way:
+```
+Host server1
+	HostName server1.com
+	User user1
+	IdentityFile ~/.ssh/id_rsa
+
+Host server2
+	HostName server2.com
+	User user2
+	IdentityFile ~/.ssh/id_rsa
+	ProxyJump server1
+```
+
+You can copy your local ssh key to server2 using:
+```
+ssh-copy-id -i ~/.ssh/id_rsa server2
+```
+
 # Mount remote directories with sshfs
 
 Install sshfs for mounting remote directories through ssh:
