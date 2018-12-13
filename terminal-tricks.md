@@ -44,3 +44,13 @@ git log | xclip -selection clip
 ```
 
 Default X selection that xclip uses is primary (can be pasted inside terminal), there is also secondary (not sure where this is used) and clipboard (can be pasted inside other applications, not terminal). 
+
+# Share bash history between terminals
+
+In order to share bash history between terminals, put the following two lines in `.bashrc`: 
+```
+shopt -s histappend
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
+```
+
+First command makes sure to append to the history file instead of overwriting it. Second command makes sure that bash appends to the history file and rereads it after every command.
