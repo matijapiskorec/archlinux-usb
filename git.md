@@ -76,3 +76,20 @@ If everything is ok and Github responds with your username, your key is set and 
 ```
 ssh-add -L
 ```
+
+In order to push to Github using ssh key, without having to type username or password, you have to setup origin of a repository. Go to the respository and check origin url:
+```
+git remote show origin
+```
+
+The origin url probably starts with `https://`, you have to change this to `git@` in order to authorize with ssh key. Change origin in the following way:
+```
+git remote set-url origin git@github.com:[USERNAME]/[REPOSITORY].git
+```
+
+Before you actually try to connect you have to add your ssh key to keychain:
+```
+keychain github_rsa
+```
+
+You can now check origin again with `git remote show origin`. If authorization succeeds without errors this means that your key works.
