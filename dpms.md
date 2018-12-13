@@ -12,7 +12,7 @@ xset q
 
 Disable display power management and prevent screen from blanking (monitor is turned on but with a black image):
 ```
-xset -dpms
+xset s off -dpms
 ```
 
 If you want to make it permanent on startup put it into `.xinitrc`.
