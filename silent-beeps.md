@@ -15,3 +15,13 @@ Silent beeps when using git diff and other git paging commands:
 ```
 git config --global core.pager 'less -q'
 ```
+
+You can disable PC speaker globally by unloading pcspkr kernel module:
+```
+rmmod pcspkr
+```
+
+Blacklisting the pcspkr module will prevent udev from loading it at boot:
+```
+echo "blacklist pcspkr" > /etc/modprobe.d/nobeep.conf
+```
