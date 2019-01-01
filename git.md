@@ -1,5 +1,22 @@
 # Git versioning system
 
+Install git versioning system:
+```
+sudo pacman -Syu git
+```
+
+Clone a repository:
+```
+git clone [REPOSITORY URL]
+```
+
+If you want just a specific file from Github, without the whole git repository, you can simply download the raw file directly. Find the link to the file's raw content and use wget:
+```
+wget [GITHUB RAW CONTENT LINK]
+```
+
+## Git configuration
+
 Git log in pretty format:
 ```
 git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
