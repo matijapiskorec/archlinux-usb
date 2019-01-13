@@ -99,8 +99,9 @@ Clear all keys currently in keychain (for example, before logout):
 keychain --clear
 ```
 
-You can also use `ssh-add` to list all keys currently added to keychain (keychain is just a manager for ssh-agent!):
+List all keys currently added to keychain (you can also use ssh-add with the same option because keychain is just a manager for ssh-agent!):
 ```
+keychain -L
 ssh-add -L
 ```
 
