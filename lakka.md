@@ -70,3 +70,9 @@ sudo pacman -Syu ecm-tools
 ecm2bin [ROM IN BIN.ECM COMPRESSED FORMAT]
 ```
 
+You can convert img/ccd to bin/cue format with Poweriso:
+```
+wget http://www.poweriso.com/poweriso-1.3.tar.gz
+tar xvzf poweriso-1.3.tar.gz -C poweriso/
+./poweriso convert [IMG FILE] -o [BIN FILE] -ot bin
+```
