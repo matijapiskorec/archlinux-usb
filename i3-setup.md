@@ -182,3 +182,20 @@ function color_my_prompt {
 }
 color_my_prompt
 ```
+
+## Notifications with dunst
+
+Install dunst, a lightweight replacement for notification daemons:
+```
+sudo pacman -Syu dunst
+```
+
+Initialize dunst (you can put it in `.xinitrc`):
+```
+dunst &
+```
+
+Send notifications:
+```
+notify-send "Notification text!"
+```
