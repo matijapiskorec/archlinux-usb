@@ -52,3 +52,30 @@ Switch between tabs: `Ctrl+[PgDn|PgUp]`
 Split screen to two side-by-side regions: `Shift+Alt+2`
 Remove split screen: `Shift+Alt+1`
 Move a tab to one of the regions: `Ctrl+Shift+[1|2]`
+
+## Piping to Sublime
+
+Unfortunatelly, you cannot pipe directly to Sublime in order to edit text. For this you can use vipe program from moreutils:
+```
+sudo pacman -Syu moreutils
+```
+
+You have to set your EDITOR variable to Sublime (for example, in `.bashrc`):
+```
+export EDITOR='subl --wait'
+```
+
+Now you can pipe to Sublime:
+```
+ls | vipe
+```
+
+Pipe output will be in a temporary file, you can modify and change the content of the pipe, as soon as you close the file the pipe will continue, so in the example above it will output to your terminal. This means you can also use vipe in the middle of the pipe:
+```
+ls | vipe | cat
+```
+
+As an alternative, you can always pipe to xclip clipboard selection and then paste it manually to Sublime:
+```
+ls | xclip -selection clip
+```
