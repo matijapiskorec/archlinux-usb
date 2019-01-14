@@ -164,3 +164,30 @@ This will actually disown all running processes in this bash session. There is n
 sudo pacman -Syu reptyr
 reptyr [PID]
 ```
+
+## The only cheat sheet you need
+
+Unified access to the best community driven documentation repositories in the world [https://cheat.sh/](https://cheat.sh/), and on [Github](https://github.com/chubin/cheat.sh).
+
+From the browser: [https://cheat.sh/python/lambda](https://cheat.sh/python/lambda)
+
+From the command line:
+```
+curl cht.sh/python/lambda
+```
+
+From the same author (Igor Chubin), more fun with `curl` and a [list of awesome console services](https://github.com/chubin/awesome-console-services).
+
+For example, fetch teh weather forecast in terminal:
+```
+curl wttr.in
+```
+
+Or exchange rates for cryptocurrenices:
+```
+curl BTG.rate.sx
+curl rate.sx/btc
+curl rate.sx
+curl rate.sx/eth@30d  # Ethereum to USD rate for the last 30 days
+curl eur.rate.sx/btc@february  # How Bitcoin (BTC) price in EUR changed in February
+```
