@@ -16,3 +16,21 @@ rsync -avzhe ssh --progress --delete user@server:~/folder .
 ```
 
 You can always add a dry run option `--dry-run` which will output results without actually copying anything.
+
+## Synchronizing with an Arch Linux installation on USB drive
+
+First, check and mount the usb drive:
+```
+lsblk
+sudo mount /dev/sdX3 /mnt
+```
+
+Then, copy the whole root partition to USB with rsync, in archive mode but excluding some machine-specific directories, including `/etc/fstab`:
+```
+rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/etc/fstab"} --delete / /mnt
+```
+
+You can now unmount the USB drive. When you boot from it, it should boot to the equivalent system!
+```
+sudo umount /mnt
+```
