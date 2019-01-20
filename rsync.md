@@ -19,18 +19,26 @@ You can always add a dry run option `--dry-run` which will output results withou
 
 ## Synchronizing with an Arch Linux installation on USB drive
 
-First, check and mount the usb drive:
+First, check and mount the usb drive, main partition (`/dev/sdX3`) to `/mnt` and boot partition (`/dev/sdX2/`) to `/mnt/boot`:
 ```
 lsblk
 sudo mount /dev/sdX3 /mnt
+sudo mkdir /mnt/boot
+sudo mount /dev/sdX2 /mnt/boot
 ```
 
-Then, copy the whole root partition to USB with rsync, in archive mode but excluding some machine-specific directories, including `/etc/fstab`:
+Then, copy the whole root partition to USB with rsync, in archive mode but excluding some machine-specific directories, including `/etc/fstab` and `/boot`:
 ```
-sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/etc/fstab"} --delete / /mnt
+sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/etc/fstab","/boot/*"} --delete / /mnt
+```
+
+In case there are some changes to `/boot` folder, for example after a kernel upgrade, you have to additionally run following commands so that the boot configuration is rebuilt on the USB drive:
+```
+arch-chroot /mnt mkinitcpio -p linux
+arch-chrott /mnt grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 You can now unmount the USB drive. When you boot from it, it should boot to the equivalent system!
 ```
-sudo umount /mnt
+sudo umount /mnt/boot /mnt
 ```
