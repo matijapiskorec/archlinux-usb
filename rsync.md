@@ -29,13 +29,15 @@ sudo mount /dev/sdX2 /mnt/boot
 
 Then, copy the whole root partition to USB with rsync, in archive mode but excluding some machine-specific directories, including `/etc/fstab` and `/boot`:
 ```
-sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/etc/fstab","/boot/*"} --delete / /mnt
+sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/etc/fstab","/boot/*"} --delete / /mnt/
 ```
+
+When you are rsynching from the USB drive to your local Arch installation, just reverse the source and destination folder, from `/ /mnt/` to `/mnt/ /`.
 
 In case there are some changes to `/boot` folder, for example after a kernel upgrade, you have to additionally run following commands so that the boot configuration is rebuilt on the USB drive:
 ```
 arch-chroot /mnt mkinitcpio -p linux
-arch-chrott /mnt grub-mkconfig -o /boot/grub/grub.cfg
+arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
 You can now unmount the USB drive. When you boot from it, it should boot to the equivalent system!
