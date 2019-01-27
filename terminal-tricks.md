@@ -191,3 +191,14 @@ curl rate.sx
 curl rate.sx/eth@30d  # Ethereum to USD rate for the last 30 days
 curl eur.rate.sx/btc@february  # How Bitcoin (BTC) price in EUR changed in February
 ```
+
+## Symlinks
+
+To create a symlink to a directory or file, use:
+```
+ln -s /absolute/path/to/directory /absolute/path/to/symlink
+```
+
+Most commands see symlinks as actual files. If it is a directory, you can `cd` to it. If it is a file, you can open and change it. If you delete an actual link only the link is deleted, not the actual file.
+
+
