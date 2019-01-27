@@ -201,4 +201,8 @@ ln -s /absolute/path/to/directory /absolute/path/to/symlink
 
 Most commands see symlinks as actual files. If it is a directory, you can `cd` to it. If it is a file, you can open and change it. If you delete an actual link only the link is deleted, not the actual file.
 
-
+To copy dereference symlinks as actual files use `-L` option in cp and rsync:
+```
+cp -rL /absolute/path/to/symlink /absolute/path/to/directory
+rsync -aAXvL /absolute/path/to/symlink /absolute/path/to/directory
+```
