@@ -34,11 +34,18 @@ sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/
 
 When you are rsynching from the USB drive to your local Arch installation, just reverse the source and destination folder, from `/ /mnt/` to `/mnt/ /`.
 
-In case there are some changes to `/boot` folder, for example after a kernel upgrade, you have to additionally run following commands so that the boot configuration is rebuilt on the USB drive:
+In case there are some changes to `/boot` folder, for example after a kernel upgrade, you must not exclude the `/boot` folder! Run the following rsync command instead:
+```
+sudo rsync -aAXv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/etc/fstab"} --delete / /mnt/
+```
+
+In addition, you have to run following commands so that the boot configuration is rebuilt on the USB drive:
 ```
 arch-chroot /mnt mkinitcpio -p linux
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 ```
+
+In case you have Arch Linux LTS kernel installed (check with `uname -r`) use `linux-lts` instead of `linux` in the above mkinitcpio command!
 
 You can now unmount the USB drive. When you boot from it, it should boot to the equivalent system!
 ```

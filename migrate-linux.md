@@ -113,6 +113,11 @@ Now regenerate the initial RAM disk image with the changes made:
 mkinitcpio -p linux
 ```
 
+In case you have Arch Linux LTS kernel installed (check with `uname -r`) run this instead:
+```
+mkinitcpio -p linux-lts
+```
+
 Install the grub and efibootmgr packages (if not already installed):
 ```
 pacman -S grub efibootmgr
