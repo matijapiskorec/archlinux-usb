@@ -15,6 +15,8 @@ Rename current file: `cw`
 Select file: `space`
 Yank/copy: `yy`
 Paste: `pp`
+Cut: `dd`
+Delete: `dD`
 Search for files: `/`
 Execute range command: `:`
 Execute shell command: `!`
