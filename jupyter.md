@@ -45,6 +45,21 @@ You can now install packages with `pip` or `pip3` and they will be visible in yo
 pip install numpy
 ```
 
+To run jupyter notebook in a specific directory run:
+```
+jupyter notebook --notebook-dir=[NOTEBOOK DIRECTORY]
+```
+
+To list all running notebook servers:
+```
+jupyter notebook list
+```
+
+To stop a notebook server (if there is only one running you don't have to specify a name):
+```
+jupyter notebook stop
+```
+
 ## Setting up Jupyter notebook on a remote machine
 
 SSH to remote machine (probably after running separate screen session with `screen`):
