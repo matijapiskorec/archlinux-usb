@@ -28,6 +28,22 @@ You can now connect with:
 ssh myserver
 ```
 
+## Setup a ssh server
+
+To setup a ssh server first edit the configuration in `/etc/ssh/sshd_config`. Reasonable options to uncomment and set are:
+```
+AllowUsers [USER]
+PermitRootLogin no
+Port 22
+```
+
+Then run systemd service either as start (just for this session) or enable (to start automatically at boot):
+```
+sudo systemctl [start|enable] sshd.socket
+```
+
+Enabling `sshd.socket` service at boot allows the computer to be used as a headless server, after appropriate networking setup.
+
 ## SSH access with a public key
 
 Generate key with rsa method:
