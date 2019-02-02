@@ -5,6 +5,18 @@ Install `openssh` package:
 sudo pacman -Syu openssh
 ```
 
+To check the IP address of your machine run:
+```
+ip address
+```
+
+To check IP's of neighbors run:
+```
+ip neighbor
+```
+
+## Connecting to a remote ssh server
+
 Connect to a server:
 ```
 ssh -p [PORT] [USERNAME]@[SERVER]
@@ -43,6 +55,11 @@ sudo systemctl [start|enable] sshd.socket
 ```
 
 Enabling `sshd.socket` service at boot allows the computer to be used as a headless server, after appropriate networking setup.
+
+If `sshd.socket` service is active it should be listed under `user.slice` section when you run systemctl command:
+```
+systemctl
+```
 
 ## SSH access with a public key
 
