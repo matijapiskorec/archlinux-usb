@@ -93,13 +93,13 @@ Run compton as a daemon, without shadow effects (for autostart, put it into `~/.
 compton -CGb
 ```
 
-Add following configuration for rxvt in your `~/.Xdefaults` file to manage transparency:
+Add following configuration for rxvt in your `~/.Xresources` file to manage transparency:
 ```
 urxvt*depth: 32
 urxvt*background: rgba:0000/0000/0200/c800
 ```
 
-Also, add these lines to `~/.Xdefaults` to make rxvt dark and pretty:
+Also, add these lines to `~/.Xresources` to make rxvt dark and pretty:
 ```
 URxvt*scrollBar: false
 URxvt*background: Black
@@ -135,52 +135,6 @@ Setup conky:
 ```
 sudo pacman -S conky
 conky -bd
-```
-
-Setup a color theme matching your chosen background with pywal and 50% terminal transparency:
-```
-sudo pacman python-pywal python-setuptools
-wal -i [PATH-TO-WALLPAPER] -a 50
-```
-
-Two themes that I find visually appealing:
-```
-wal -i Images/1359330091856.jpg -a 95 --saturate 0.8
-wal -i Images/1432908749300.jpg -a 95 --saturate 0.8
-```
-
-To make a theme persistent on boot add following line to `~/.xinitrc`:
-```
-wal -R
-```
-
-However, this does not work as expected, and so I decided to add `#include` statement in `.Xresources` that loads generated theme colors (located in `.cache/wal/`) directly:
-```
-#include "Themes/wal-red/colors.Xresources"
-```
-
-To list all colors available in `.Xresources`:
-```
-(x=`tput op` y=`printf %76s`;for i in {0..15};do o=00$i;echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;done)
-```
-
-To set the same colors to tty put following in your `.bash_profile`:
-```
-source ~/Theme/wal-red/colors.Xresources
-```
-
-To include cool colored prompt with git information (idea from this [page](https://stackoverflow.com/questions/4133904/ps1-line-with-git-current-branch-and-colors)) add the following to your `.bashrc`:
-```
-function color_my_prompt {
-    local __user_and_host="\[\033[01;32m\]\u\[\033[01;34m\]@\h"
-    local __cur_location="\[\033[01;34m\]\w"
-    local __git_branch_color="\[\033[31m\]"
-    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
-    local __prompt_tail="\n\[\033[35m\]>"
-    local __last_color="\[\033[00m\]"
-    export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
-}
-color_my_prompt
 ```
 
 ## Notifications with dunst
