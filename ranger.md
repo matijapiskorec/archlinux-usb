@@ -58,3 +58,10 @@ application/pdf)
              -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
         && exit 6 || exit 1;;
 ```
+
+To setup a custom colorscheme, put the colorscheme config in `~/.config/ranger/colorschemes`. Use the template for the default theme [here](https://github.com/ranger/ranger/blob/master/ranger/colorschemes/default.py). Then set the colorscheme by running `:` inside ranger and then typing:
+```
+set colorscheme [NAME OF YOUR .PY COLORSCHEME]
+```
+
+To make it permanent at startup put it in `.config/ranger/rc.conf` file.
