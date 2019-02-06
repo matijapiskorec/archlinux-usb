@@ -1,23 +1,21 @@
 # i3 tilling window manager
 
-Start i3 tilling window manager at boot...
-
-You can start X manually by simply:
-```
-startx
-```
-
-Our you can do it at startup by assing following lines to `~/.bashrc`:
-```
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-startx
-fi
-```
-
 To start i3 as soon as X starts add following line to `~/.xinitrc`:
 ```
-echo "exec i3" >> ~/.xinitrc
+exec i3
 ```
+
+Then you can start X manually from tty by running:
+```
+startx
+```
+
+Our you can do it at startup by adding following line to `~/.bash_profile`, preferably near the end:
+```
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
+```
+
+Your tty1 virtual console will now be running i3. If you want to log out from a virtual console press `Ctrl+Alt+BackSpace`. You can also change a virtual console by pressing `Ctrl+Alt+F1` through `Ctrl+Alt+F2`. 
 
 If you want to install Gnome as a desktop environment, which comes fully equiped with  tons of applications (maybe even too much for my taste) you should run:
 ```
