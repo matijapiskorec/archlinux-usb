@@ -12,14 +12,19 @@ Run mutt-wizard script:
 ./mutt-wizard.sh
 ```
 
+Fetch email with:
+```
+offlineimap
+```
+
+And start neomutt with:
+```
+neomutt
+```
+
 ## Configure sup
 
-sup is as program for managing a lot of email. First, install Ruby Version Manager (RVM):
-```
-
-```
-
-Next, install Ruby version 2.3.3 which is needed for sup. You have to do it manually as Arch moved to newer versions of Ruby. Make sure you have both curl and git installed, then download rvm script:
+Unfortunatelly, sup only works with Ruby version 2.3.3. You will have to install it manually as Arch moved to newer versions of Ruby. First, install Ruby Version Manager (RVM). Make sure you have both curl and git installed, then download rvm script:
 ```
 curl -L get.rvm.io > rvm-install
 ```
