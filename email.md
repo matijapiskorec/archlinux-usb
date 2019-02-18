@@ -1,6 +1,16 @@
 # Configure email on Arch Linux
 
-## Configure mutt
+## Install mutt through the mutt-wizard script
+
+Install dependencies for mutt-wizard:
+```
+sudo pacman -Syu dialog neomutt offlineimap msmtp
+```
+
+Optionally, you can also install notmuch for searching your email (wizard will set it to `Ctrl+f`):
+```
+sudo pacman -Syu notmuch
+```
 
 Clone mutt-wizard script:
 ```
