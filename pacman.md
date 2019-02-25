@@ -1,4 +1,4 @@
-Pacman package manager for Arch Linux
+# Pacman package manager for Arch Linux
 
 Update pacman:
 ```
@@ -44,3 +44,14 @@ Install packages from a list `pkglist.txt` (produced by running pacman with `-Qe
 ```
 sudo pacman -S --needed - < pkglist.txt
 ```
+
+Remove a package:
+```
+sudo pacman -R [program]
+```
+
+Remove a package along with all of its dependecies which are not explicitly required by any other installed package:
+```
+sudo pacman -Rs [program]
+```
+
