@@ -5,6 +5,8 @@ Install git versioning system:
 sudo pacman -Syu git
 ```
 
+## Basic git commands
+
 Clone a repository:
 ```
 git clone [REPOSITORY URL]
@@ -13,6 +15,26 @@ git clone [REPOSITORY URL]
 If you want just a specific file from Github, without the whole git repository, you can simply download the raw file directly. Find the link to the file's raw content and use wget:
 ```
 wget [GITHUB RAW CONTENT LINK]
+```
+
+Check which files are modified:
+```
+git status
+```
+
+Add changes to staging area:
+```
+git add [file]
+```
+
+Commit changes:
+```
+git commit -m "Commit message"
+```
+
+Reset the last commit. Commit will be deleted and the changes will re-enter the staging area:
+```
+git reset HEAD~1
 ```
 
 ## Git configuration
