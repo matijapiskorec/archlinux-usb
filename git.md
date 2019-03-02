@@ -132,3 +132,52 @@ keychain github_rsa
 ```
 
 You can now check origin again with `git remote show origin`. If authorization succeeds without errors this means that your key works.
+
+
+## Managing dotfiles with git bare repositories
+
+Create a git bare repository where you will store your dotfiles:
+```
+git init --bare $HOME/dev/repo/dotfiles
+```
+
+Put the following in your `.bashrc` (if you are using bash) or `config.fish` (if you are using fish):
+```
+alias dotfiles='/usr/bin/git --git-dir=$HOME/dev/repo/dotfiles --work-tree=$HOME'
+```
+
+Run new shell to activate the alias. Configure your new bare repository not to show untracked files in order to ignore all of the non-dotfile files in your home directory:
+```
+dotfiles config --local status.showUntrackedFiles no
+```
+
+To add a file to your dotfiles repo just do:
+```
+dotfiles add .bashrc
+```
+
+You can check the current status:
+```
+dotfiles status
+```
+
+Commit and all other commands work the same as in normal git:
+```
+dotfiles commit -m "Commit message"
+```
+
+If you want to push it to Github, first create a repository named dotfiles on your Github account, then add the remote origin and push the changes from your local repo:
+```
+dotfiles remote add origin [PATH TO YOUR GITHUB DOTFILES REPO]
+dotfiles push origin master
+```
+
+If you have a ssh authorization on your Github account then setup the remote url in this way:
+```
+dotfiles remote set-url origin git@github.com:[USERNAME]/[REPOSITORY].git
+```
+
+If you want to download all of your dotfiles just do (assuming you don't yet have dotfile aliases properly configured on your current system):
+```
+git clone --bare git@[PATH TO YOUR GITHUB DOTFILES REPO]
+```
