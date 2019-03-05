@@ -20,7 +20,7 @@ However, it is recommended you update your system along with every package insta
 sudo pacman -Syu [package name]
 ```
 
-Check all explicitly installed packages:
+Check all explicitly installed packages (add `-q` to list only package names):
 ```
 sudo pacman -Qe | less
 ```
@@ -40,6 +40,11 @@ Install optional dependencies for the specific program:
 sudo pacman -S --asdeps [optional dependencies]
 ```
 
+List orphaned packages, dependencies that are not needed by any other package anymore:
+```
+pacman -Qdt
+```
+
 Install packages from a list `pkglist.txt` (produced by running pacman with `-Qe`):
 ```
 sudo pacman -S --needed - < pkglist.txt
@@ -50,8 +55,13 @@ Remove a package:
 sudo pacman -R [program]
 ```
 
-Remove a package along with all of its dependecies which are not explicitly required by any other installed package:
+Remove a package along with all of its dependecies which are not explicitly required by any other installed package (`-s`), and system config files (`-n`):
 ```
-sudo pacman -Rs [program]
+sudo pacman -Rns [program]
+```
+
+Clean package cache (old packages which are not needed anymore):
+```
+sudo pacman -Sc
 ```
 
