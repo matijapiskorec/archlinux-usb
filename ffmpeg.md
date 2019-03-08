@@ -37,3 +37,38 @@ Play the recorded video:
 ```
 mpv /tmp/output.mkv 
 ```
+
+## Rip the DVD video
+
+Mount the DVD to `/mnt/` directory:
+```
+sudo mount /dev/sr0 /mnt/
+```
+
+Combine all the video files into one which will be stored locally:
+```
+cat /mnt/VIDE_TS/*.VOB > ~/media/rom/output.vob
+```
+
+Analyze deep buried streams:
+```
+ffmpeg -analyzeduration 100M -probesize 100M -i ~/media/rom/output.vob
+```
+
+Convert it to .mkv file:
+```
+ffmpeg \
+  -analyzeduration 100M -probesize 100M \
+  -i ~/media/rom/jezeva-kuca/jezeva-kuca.vob \
+  -map 0:1 -map 0:4 -map 0:5 -map 0:6 \
+  -metadata:s:a:0 language=hrv -metadata:s:a:0 title="Croatian stereo" \
+  -metadata:s:a:1 language=eng -metadata:s:a:1 title="English stereo" \
+  -metadata:s:a:2 language=fra -metadata:s:a:2 title="French stereo" \
+  -codec:v libx264 -crf 21 \
+  -codec:a libmp3lame -qscale:a 2 \
+  ~/media/rom/jezeva-kuca/jezeva-kuca-ffmpeg.mkv
+```
+
+Map streams 0:1 (video) and three audio streams 0:4, 0:5 and 0:6, discard the subtitles. As for the quality, we have chosen 21 (51 is the worst quality, 0 is lossless).
+
+Although, probably the easiest way is to use vlc media player's convert features to rip DVD directly to mp4 with default settings.
