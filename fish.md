@@ -38,3 +38,25 @@ In this way fish will replace bash process as soon as it starts, and exiting the
 ```
 urxvt -e fish
 ```
+
+## Sourcing bash scripts in fish
+
+Install fisher package (function) manager for fish:
+```
+curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
+```
+
+Add bass plugin:
+```
+fisher add edc/bass
+```
+
+Now you can source bash scripts within fish with:
+```
+bass source bash-script.sh
+```
+
+For simple use cases a simple alternative might also work:
+```
+exec bash -c "source some-bash-setup.sh; exec fish"
+```
