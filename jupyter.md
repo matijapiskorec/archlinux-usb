@@ -28,6 +28,11 @@ Activate it:
 source science/bin/activate
 ```
 
+You can check whether you are in virtual environment with:
+```
+pip -V
+```
+
 Deactivate it with:
 ```
 deactivate
@@ -59,6 +64,25 @@ To stop a notebook server (if there is only one running you don't have to specif
 ```
 jupyter notebook stop
 ```
+
+## Virtual environment in fish shell
+
+Python virtual environments are configured to work in bash only, you cannot source environment to fish shell directly. However, you can try this (run in fish shell):
+```
+exec bash -c "source $HOME/[PATH TO ENV]/bin/activate; exec fish"
+```
+
+You can now check to which environment does your pip points to:
+```
+pip -V
+```
+
+There will be no usual environment name appended to the front of your prompt. This is because it is actually appended to the bash's PS1 variable which is not used by fish shell. To check this:
+```
+echo $PS1
+```
+
+Should print just `(env-name)`.
 
 ## Setting up Jupyter notebook on a remote machine
 
