@@ -37,6 +37,11 @@ Reset the last commit. Commit will be deleted and the changes will re-enter the 
 git reset HEAD~1
 ```
 
+If you want to rename a file you should use a `git mv` command:
+```
+git mv [OLD FILENAME] [NEW FILENAME]
+```
+
 ## Git configuration
 
 Git log in pretty format:
