@@ -164,6 +164,11 @@ ssh -D<PORT> <HOST>
 
 In your browser go to manual proxy settings and setup proxy. In Firefox go to network settings, add `127.0.0.1` as proxy address, port `<PORT>` and select `SOCKS5` as protocol. This is great for connecting from public places as SSH is encrypted and safe. You can also use it if the webpage does not allow connection from outside of certain network. You have to setup GatewayPorts on client to make it work.
 
+You can also use curl through proxy in the same way, for example to download a pdf file from behind a paywall:
+```
+curl -x socks5://127.0.0.1:<PORT> <URL> --output [FILE NAME].pdf
+```
+
 Poor's man VPN. We have to be root on both machines:
 ```
 ssh -w0:0 root@some.server
