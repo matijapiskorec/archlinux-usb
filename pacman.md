@@ -30,6 +30,11 @@ Check whether a specific package is installed:
 pacman -Qi [package name]
 ```
 
+Check which packages need to be updated (in order to get the newest state it's best to first update the package database with `sudo pacman -Sy`):
+```
+pacman -Qu
+```
+
 Find out optional dependencies for a program:
 ```
 sudo pacman -Si [program]
