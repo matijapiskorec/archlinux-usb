@@ -21,3 +21,56 @@ If you want to add some metadata to your markdown, you can specify it at the beg
 % Author
 % Date
 ```
+
+You can also specify these as YAML metadata:
+```
+---
+Title: Full Title
+Author: Author One
+Date: date
+...
+```
+
+## References
+
+If you want to manage references and cross-references, install pandoc-citeproc and pandoc-crossref:
+```
+sudo pacman -Syu pandoc-citeproc pandoc-crossref
+```
+
+Cross-references are used in a following way:
+```
+$$ math $$ {#eq:label}
+[-@eq:label]
+```
+
+You have to use `eq` for equations and `sec` for sections! Minus `-` in front of a reference is to suppress default prefix like `fig.` and `sec.` in the output text.
+
+Cross-references are compiled with:
+```
+pandoc [INPUT MARKDOWN] --filter pandoc-crossref -o [OUTPUT PDF]
+```
+
+Bibliographic references are used in a following way:
+```
+[@AuthorYear]
+```
+
+Where `AuthorYear` is a label from `.bib` file:
+```
+@book{AuthorYear,
+	doi = {doi},
+	author = {author},
+	title = {title}
+}
+```
+
+To compile your markdown with references just add `--bibliography=file.bib` option when you compile with pandoc. In this simple case you do not have to add `--filter pandoc-citeproc`. Bibliographic references will be added at the end of the output pdf in Chichago citation style.
+
+## Links 
+
+To have hyperlinked and colored links put the following in your YAML metadata declaration: 
+```
+link-citations: true
+colorlinks: true
+```
