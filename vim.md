@@ -58,3 +58,10 @@ let g:airline_theme="dark"
 let g:airline_powerline_fonts=1
 let t_Co=256
 ```
+
+## fzf fuzzy file finder
+
+If you have fzf fuzzy file finder you probably already installed vim fzf plugin as an optional dependency. You can use `:FZF` command to search files and folder in the current directory, or add path to search, for example:
+```
+:FZF doc/note/evernote/
+```
