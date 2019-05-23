@@ -49,9 +49,11 @@ Goto anything: `Ctrl+Shift+p`
 Open new tab: `Ctrl+n`
 Close current tab: `Ctrl+w`
 Switch between tabs: `Ctrl+[PgDn|PgUp]`
-Split screen to two side-by-side regions: `Shift+Alt+2`
+Split screen to [two|three] side-by-side panels: `Shift+Alt+[2|3]`
+Split screen to [two|three] vertical panels: `Shift+Alt+[8|9]`
+Switch to panel [one|two]: `Ctrl+[1|2]`
 Remove split screen: `Shift+Alt+1`
-Move a tab to one of the regions: `Ctrl+Shift+[1|2]`
+Move a tab to one of the panels: `Ctrl+Shift+[1|2]`
 
 ## Piping to Sublime
 
