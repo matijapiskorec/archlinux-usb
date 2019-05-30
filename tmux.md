@@ -19,3 +19,15 @@ Available commands: `Ctrl-b ?`
 Toggle fullscreen of a pane: `Ctrl-b z`
 Resize pane in direction of [arrow]: `Ctrl-b Ctrl-[arrow]`
 Rename the current window: `Ctrl-b ,`
+
+## Powerline status bar
+
+Install powerline status bar:
+```
+sudo pacman -Syu powerline powerline-fonts
+```
+
+Add following to your `~/.tmux.conf`:
+```
+source /usr/lib/python3.7/site-packages/powerline/bindings/tmux/powerline.conf
+```

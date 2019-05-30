@@ -65,3 +65,10 @@ If you have fzf fuzzy file finder you probably already installed vim fzf plugin 
 ```
 :FZF doc/note/evernote/
 ```
+
+## Reading from stdin
+
+Vim can read text from standard input. Just supply it with `-` as an argument instead of the actual file. For example:
+```
+ls | vim -
+```
