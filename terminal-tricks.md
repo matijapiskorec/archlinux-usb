@@ -23,11 +23,6 @@ git clone https://gitlab.com/c.magyar/archlinux-usb.git
 w3m -dump archlinux-usb/html/arch-usb.html | less
 ```
 
-Open all files starting with "i3" from a current folder for editing in Sublime Text:
-```
-ls | grep i3 | xargs subl
-```
-
 ## Clipboard management
 
 Pipe to clipboard using xclip. First, install xclip:
