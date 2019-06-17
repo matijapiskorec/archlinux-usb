@@ -44,6 +44,12 @@ Now you can extract text from pdf:
 pdftotext [PDF FILE] [TXT FILE]
 ```
 
+Pipe the result of pdftotext directly to vim or to Sublime text using vipe command line utility (in that case you need to make sure your EDITOR shell variable is set to Sublime):
+```
+pdftotext [PDF FILE] - | vim -
+pdftotext [PDF FILE] - | vipe
+```
+
 Unfortunatelly, Adobe pdf comments (in form of popup annotations or sticky notes) will not be extracted! :-(
 
 ## Searching within pdf file
