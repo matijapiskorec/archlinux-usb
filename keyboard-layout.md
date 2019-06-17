@@ -36,3 +36,17 @@ For manual setup of keymap and console font edit (with sudo) `/etc/vconsole.conf
 KEYMAP=croat
 FONT=lat9w-16
 ```
+
+## Keyboard repeat
+
+Adjust typematic delay (amount of time a key needs to be pressed in order for the repeating process to begin) and rate:
+```
+sudo kbdrate -d 200 -r 30
+```
+
+## Swap escape and caps lock key
+
+Swap escape and caps lock key:
+```
+setxkbmap -option caps:swapescape
+```
