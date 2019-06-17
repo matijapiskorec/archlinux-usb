@@ -72,3 +72,107 @@ Vim can read text from standard input. Just supply it with `-` as an argument in
 ```
 ls | vim -
 ```
+
+## Installing the sorround plugin manually
+
+surround.vim: quoting/parenthesizing made simple
+<https://github.com/tpope/vim-surround>
+
+Use vim's built-in package support to install sorround package:
+```
+mkdir -p ~/.vim/pack/tpope/start
+cd ~/.vim/pack/tpope/start
+git clone https://tpope.io/vim/surround.git
+vim -u NONE -c "helptags surround/doc" -c q
+```
+
+## Vim reference
+
+Insert Mode: i, a, c
+Visual Mode: v, V, <Ctrl-v>
+Command-line Mode: :, /
+Show status line indicating file name: <Ctrl-g>
+Scroll down/up half a screen: <Ctrl-d>, <Ctrl-u>
+ 
+### Operators
+
+Change: c
+Change the whole line: cc
+Delete: d
+Delete the whole line: dd
+Swap case: ~
+Make lowercase: gu
+Make uppercase: gU
+Filter to external program: !
+Shift left: <
+Shift right: >
+Indent: =
+Repeat the last command: .
+Yank (copy): y
+Yank the whole line: yy, Y
+Paste: p
+Join lines: J
+
+### Text objects
+
+A word is a sequence of letters, digits, separated by various non-blank characters. WORD is a sequence of any characters separated by whitespaces.
+Following sentence "tmp/var e.g." consists of four words but only two WORDS!
+
+A word: aw
+Inner word: iw
+A WORD: aW
+Inner WORD: iW
+A paragraph: ap
+Inner paragraph: ip
+A bracket: ab
+Inner bracket: ib
+A tag block: at
+Inner tag block: it
+A sentence: as
+Inner quotes: i"
+
+### Motions
+
+Go forward by a word/WORD (beginning): w, W
+Go forward by a word/WORD (end): e, E
+Go backward by a word/WORD: b, B
+Go down: j
+Go up: k
+Go left: h
+Go right: l
+Go up/down the display line: gk, gj
+Go to first matching paren / bracket: %
+Down to first non-blank char of line: [count]+
+To end of line: [count]$
+
+Move to end of line and switch to editing mode (Append): Shift+A
+Move to the beginning of line and switch to editing mode (Insert): Shift+I
+Move to beginning of the line: 0
+Delete line and start editing at the beginning: Shift+S
+Move to the end of the line: $
+
+## Vim oneliners 
+
+Change double quotes to single with the surround plugin: ci"'
+Delete one word three times: 3dw
+Delete three words one time: d3w
+Delete two words, repeated three times: 3d2w
+
+## Reading from a shell
+
+Read an output from a command from shell:
+```
+:r ! ls ~
+```
+
+Pipe the current buffer to the external command:
+```
+:w ! wc
+```
+
+Sort the current buffer in place:
+```
+:%!sort
+```
+
+
