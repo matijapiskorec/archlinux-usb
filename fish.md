@@ -60,3 +60,23 @@ For simple use cases a simple alternative might also work:
 ```
 exec bash -c "source some-bash-setup.sh; exec fish"
 ```
+
+## Shell keyboard shortcuts
+
+Shell keyboard shortcuts (might be some overlap with bash shell).
+
+Cut the line from the cursor to the beginning of the line: `Ctrl+u`
+Cut the line from the cursor to the end of the line; `Ctrl+k`
+Paste the last thing you had copied: `Ctrl+y`
+
+Delete a word after the cursor: `Alt+d`
+
+Go to the beginning of the line: `Ctrl+a` or `Home`
+Go to the end of the line: `Ctrl+e` or `End`
+
+Clear the screen while leaving the current line: `Ctrl+l`
+
+Bash specific:
+
+Edit the current command in your text editor: `Ctrl-x-e`
+
