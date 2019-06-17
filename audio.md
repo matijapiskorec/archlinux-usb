@@ -39,3 +39,13 @@ Refresh library after folder contents changed (in menu 2): `u`
 Play/Restart: `x`
 Pause/Play: `c`
 Stop: `v`
+
+## Troubleshooting
+
+Sometimes sound from the speakers dies while headphones continue to work fine. In that case you have too:
+```
+pusleaudio --kill
+rm -r .config/pulse
+```
+
+Reboot and the sound from the speakers should return.
