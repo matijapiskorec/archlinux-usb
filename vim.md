@@ -5,6 +5,11 @@ Install vim text editor:
 sudo pacman -Syu vim
 ```
 
+However, in this way you will not get xorg clipboard support which is only available by installing gvim package which, in addition to standard vim cli editor also contains gvim GUI editor. The only downside is the installation of (potentially unneccessary) gtk libraries. To install gvim package:
+```
+sudo pacman -Syu gvim
+``` 
+
 You can set custom themes by downloading them and then putting them in `.vim/colors/`. For example a monokai theme:
 ```
 mkdir -p .vim/colors
@@ -35,8 +40,30 @@ And run it within vim with:
 ```
 :NERDTree
 ```
+## How to exit and save
 
-To switch between windows: `Ctrl+ww`
+Quit the current window / override if modified: `:q`, `:q!`
+Save the current buffer / save and quit: `:w`, `:wq`
+Write only lines 10 to 20 to a separate file (ommiting the filename overwrites the current file!): `:10,20w [FILE NAME]`
+Pipe the buffer to the external command: `:w ! wc -l`
+
+## Windows
+
+Create a new window: `Ctrl+w n`
+Close a window (corresponding buffer is still available!): `Ctrl+w q`
+To switch between windows: `Ctrl+w w`
+To move between windows: `Ctrl+w [ARROWS or hjkl movements]`
+
+## Buffers
+
+Create a split window with an unnamed buffer: `:new`
+Create a vertically split window with an unnamed buffer: `:vnew`
+Open an unnamed buffer in a current window: `:enew`
+Open an unnamed buffer in a new tab: `:tabnew`
+Open a buffer available in memory: `:b [BUFFER NAME]`
+Go to next/previous buffer: `:bn,` `:bp`
+Delete a buffer (close a file): `:bd`
+List all available buffers in memory: `:buffers`
 
 ## Powerline and Airline status line
 
@@ -73,12 +100,12 @@ Vim can read text from standard input. Just supply it with `-` as an argument in
 ls | vim -
 ```
 
-## Installing the sorround plugin manually
+## Installing the surround plugin manually
 
 surround.vim: quoting/parenthesizing made simple
 <https://github.com/tpope/vim-surround>
 
-Use vim's built-in package support to install sorround package:
+Use vim's built-in package support to install surround package:
 ```
 mkdir -p ~/.vim/pack/tpope/start
 cd ~/.vim/pack/tpope/start
@@ -130,6 +157,9 @@ A tag block: at
 Inner tag block: it
 A sentence: as
 Inner quotes: i"
+A quotes: a"
+Inner curly braces: i}
+A curly braces: a} 
 
 ### Motions
 
@@ -151,12 +181,35 @@ Move to beginning of the line: 0
 Delete line and start editing at the beginning: Shift+S
 Move to the end of the line: $
 
+## Autocompletion and spelling suggestions
+
+To autocomplete the text under the cursor in the Insert mode press Ctrl+p while typing.
+
+To suggest spelling choices press Ctrl+n while typing.
+
+## Registers
+
+Registers that contains X primary selection: "+, "* 
+Paste from a primary selection register: "+p
+Display registers: :registers, :di
+
+## Surround plugin oneliners
+
+Change double quotes to single: csi"'
+Put double quotes on inner word: ysiw"
+Delete double quotes: ds"
+Sorround visual selection with double quotes: S"
+
 ## Vim oneliners 
 
-Change double quotes to single with the surround plugin: ci"'
 Delete one word three times: 3dw
 Delete three words one time: d3w
 Delete two words, repeated three times: 3d2w
+Change the next match (can be repeated with .): cgn
+Substitute all occurrences across all lines: :s/pattern/replacement/g
+Substitute all occurrences across all lines with confirmation: :s/pattern/replacement/g
+Append semicolon at the end of each line in file: :%normal A;
+Append semicolon at the beginning of each line in file: :%normal I;
 
 ## Reading from a shell
 
@@ -170,9 +223,30 @@ Pipe the current buffer to the external command:
 :w ! wc
 ```
 
+For example, curl a cheat sheet from `cht.sh` service (with additional stripping of the color codes with sed):
+```
+:r ! curl cht.sh/python/lambda | sed 's/\x1b\[[0-9;]*m//g' 
+```
+
 Sort the current buffer in place:
 ```
 :%!sort
 ```
 
+## CtrP fuzzy file finder
+
+Install CtrlP fuzzy file finder plugin:
+```
+cd ~/.vim
+git clone https://github.com/ctrlpvim/ctrlp.vim.git bundle/ctrlp.vim
+```
+
+Add to your .vimrc:
+```
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+```
+
+You can now use `:CtrlP` command to fuzzy search the current directory or supply a path to search the subdirectory.
+ 
+The default key mapping (in the Normal mode) for the CtrlP is Ctrl+p. In the Insert mode the same mapping is used for autocompletion! If you want to restrict the search while using the key binding you can first `:cd` into the directory.
 
