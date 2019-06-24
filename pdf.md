@@ -64,3 +64,48 @@ Now you can search for a keyword within pdf:
 pdfgrep -nHm 10 "keyword" [PATH TO PDF]
 ```
 
+## Optical character recognition with tesseract and ocrmypdf
+
+ocrmypdf is a program available in AUR that adds a searchable text layer to pdfs. Install it through AUR:
+```
+cd ~/src/
+git clone https://aur.archlinux.org/ocrmypdf.git
+cd ocrmypdf
+makepkg -sri
+```
+
+Unfortunatelly, in order for these to work you have to install several other AUR packages by following the same procedure (run `makepkg -sri` in the appropriate directory after each one):
+```
+cd ~/src
+git clone https://aur.archlinux.org/python-pikepdf.git
+git clone https://aur.archlinux.org/python-pdfminer.six.git
+git clone https://aur.archlinux.org/python-ruffus.git
+```
+
+In addition you have to download tesseract language data which is available in the official Arch repository:
+```
+sudo pacman -Syu tesseract-data-eng tesseract-data-hrv
+```
+
+You are now ready to ocr some pdfs! Lets first convert an image to pdf using ImageMagick:
+```
+convert image.jpg converted-image.pdf
+```
+
+You can combine multiple images into a single pdf, as well as rotate and resize them if needed:
+```
+convert -rotate 90 -resize 50% image*.jpg converted-image.pdf
+```
+
+Make sure your ImageMagick permissions are set up properly for converting pdfs. Modify `/etc/ImageMagick-6/policy.xml` (check the ImageMagick version!) by changing the line:
+```
+<policy domain="coder" rights="none" pattern="PDF" />
+```
+
+And replace `"none"` by `"read|write"`.
+
+You can now ocr your pdf with (with an optional specification of a language):
+```
+ocrmypdf -l eng converted-image.pdf converted-image-scanned.pdf
+```
+
