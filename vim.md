@@ -139,6 +139,13 @@ Yank (copy): y
 Yank the whole line: yy, Y
 Paste: p
 Join lines: J
+Move current line one line down: :m+1, :m+
+Move current line one line up: :m-2
+Move current line to after line 12: :m 12
+Move lines 5, 6 and 7 to before first line: :5,7 0
+Move lines 5, 6 and 7 to after last line: :5,7m $ 
+Delete all lines matching a pattern: :g/pattern/d
+Run ex command on all lines matching a pattern: g/pattern/norm i"
 
 ### Text objects
 
@@ -210,6 +217,11 @@ Substitute all occurrences across all lines: :s/pattern/replacement/g
 Substitute all occurrences across all lines with confirmation: :s/pattern/replacement/g
 Append semicolon at the end of each line in file: :%normal A;
 Append semicolon at the beginning of each line in file: :%normal I;
+Delete first word after first space on each line matching pattern: :g/pattern/norm f de
+Copy all matching lines to the end of the file: :g/pattern/co $
+
+Copy all matching lines by appending them to register a: :let @a='' | %g/pattern/y A
+You can then paste them by: "ap
 
 ## Reading from a shell
 
@@ -232,6 +244,9 @@ Sort the current buffer in place:
 ```
 :%!sort
 ```
+
+Leave only the lines containing matching pattern: :%!grep pattern
+View only matching lines in mini buffer: :w ! grep pattern
 
 ## CtrP fuzzy file finder
 
