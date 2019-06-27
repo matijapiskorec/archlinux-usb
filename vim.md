@@ -121,6 +121,13 @@ Command-line Mode: :, /
 Show status line indicating file name: <Ctrl-g>
 Scroll down/up half a screen: <Ctrl-d>, <Ctrl-u>
  
+## Shortcuts in insert mode
+
+Delete back one character: <Ctrl-h>
+Delete back one word: <Ctrl-w>
+Delete back to the start of line: <Ctrl-u>
+Interrupt the insert mode to insert exactly one command from the normal mode: <Ctrl-o>
+
 ### Operators
 
 Change: c
@@ -196,32 +203,32 @@ To suggest spelling choices press Ctrl+n while typing.
 
 ## Registers
 
-Registers that contains X primary selection: "+, "* 
-Paste from a primary selection register: "+p
+Registers that contains X primary selection: `"+`, `"*` 
+Paste from a primary selection register: `"+p`
 Display registers: :registers, :di
 
 ## Surround plugin oneliners
 
-Change double quotes to single: csi"'
-Put double quotes on inner word: ysiw"
+Change double quotes to single: `csi"'`
+Put double quotes on inner word: `ysiw"`
 Delete double quotes: ds"
-Sorround visual selection with double quotes: S"
+Sorround visual selection with double quotes: `S"`
 
 ## Vim oneliners 
 
-Delete one word three times: 3dw
-Delete three words one time: d3w
-Delete two words, repeated three times: 3d2w
-Change the next match (can be repeated with .): cgn
-Substitute all occurrences across all lines: :s/pattern/replacement/g
-Substitute all occurrences across all lines with confirmation: :s/pattern/replacement/g
-Append semicolon at the end of each line in file: :%normal A;
-Append semicolon at the beginning of each line in file: :%normal I;
-Delete first word after first space on each line matching pattern: :g/pattern/norm f de
-Copy all matching lines to the end of the file: :g/pattern/co $
+Delete one word three times: `3dw`
+Delete three words one time: `d3w`
+Delete two words, repeated three times: `3d2w`
+Change the next match (can be repeated with .): `cgn`
+Substitute all occurrences across all lines: `:s/pattern/replacement/g`
+Substitute all occurrences across all lines with confirmation: `:s/pattern/replacement/g`
+Append semicolon at the end of each line in file: `:%normal A;`
+Append semicolon at the beginning of each line in file: `:%normal I;`
+Delete first word after first space on each line matching pattern: `:g/pattern/norm f de`
+Copy all matching lines to the end of the file: `:g/pattern/co $`
 
-Copy all matching lines by appending them to register a: :let @a='' | %g/pattern/y A
-You can then paste them by: "ap
+Copy all matching lines by appending them to register a: `:let @a='' | %g/pattern/y A`
+You can then paste them by: `"ap`
 
 ## Reading from a shell
 
@@ -264,4 +271,37 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 You can now use `:CtrlP` command to fuzzy search the current directory or supply a path to search the subdirectory.
  
 The default key mapping (in the Normal mode) for the CtrlP is Ctrl+p. In the Insert mode the same mapping is used for autocompletion! If you want to restrict the search while using the key binding you can first `:cd` into the directory.
+
+## Remove Arch based plugins and switch to Vundle
+
+Having vim plugins installed through plugins makes them imposible to disable as they reside in the `\usr\share\vim\` directory. We will use Vindle instead to manage all our plugins. First, remove all pacman installed plugins:
+```
+sudo pacman -Rns powerline-vim vim-airline vim-airline-themes vim-molokai vim nerdtree
+```
+
+Leave powerline and powerline-fonts Arch packages so that you have nice powerline statusline for other programs if needed (for example, tmux) and a patched powerline fonts which you can use with your airline vim statusline.
+
+Clone Vundle:
+```
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
+
+Add the following at the beginning of your .vimrc:
+```
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+
+" Put all your plugins here
+Plugin 'vim-airline/vim-airline'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+```
+
+You can install plugins by running: `:PluginInstall`.
 
