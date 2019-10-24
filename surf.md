@@ -35,8 +35,22 @@ Apply patches:
 git apply patches/[patch.diff]
 ```
 
-If neccessary, configure surf by editing `config.h`. Compile and install surf:
+If neccessary, configure surf by editing `config.h`. For example, in the case of the homepage patch the line where the HOMEPAGE variable is defined in `config.def.h` needs to be copied to `config.h`. Or you can just:
+```
+cp config.def.h config.h
+```
+
+Compile and install surf:
 ```
 sudo make clean install
 ```
+
+## Bookmarks
+
+Add bookmarks to `.surf/bookmarks` file:
+```
+echo aldaily.com/ >> .surf/bookmarks
+```
+
+If site requires `https` connection make sure you add forward slash `/` at the end! Otherwise an `http` site will be requested!
 
