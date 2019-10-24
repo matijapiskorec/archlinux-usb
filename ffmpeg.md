@@ -38,6 +38,11 @@ Play the recorded video:
 mpv /tmp/output.mkv 
 ```
 
+Shorten the duration of the audio to 79 minutes:
+```
+ffmpeg -t 1:19:00 -i input.mp3 input-short.mp3
+``` 
+
 ## Rip the DVD video
 
 Mount the DVD to `/mnt/` directory:
