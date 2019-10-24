@@ -28,3 +28,8 @@ In terminal and micro you can paste it with `Shift Insert`.
 
 Don't forget to run clipmenu to select what you want before you paste!
 
+To clear all entries from the clipboard:
+```
+clipdel -d ".*"
+```
+
