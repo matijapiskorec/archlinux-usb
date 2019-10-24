@@ -154,7 +154,8 @@ Powerdown the computer with `poweroff`. If you booted off a Live USB installatio
 
 If you wish, you could login to your old system from your new system (and vice versa). Simply plug in the old USB drive, mount it with:
 ```
-sudo mount /dev/sdX /mnt
+sudo mount /dev/sdX3 /mnt
+sudo mount /dev/sdX2 /mnt/boot
 ```
 
 Then you can chroot to the old system:
