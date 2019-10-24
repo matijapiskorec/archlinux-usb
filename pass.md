@@ -37,11 +37,19 @@ Or, if you want to copy the password to clipboard with xclip:
 pass -c service.com/user@service.com
 ```
 
-The password clears from clipboard after 45 seconds, although it may linger longer if you use a clipboard manager such as clipmenu!
-
-To generate a new password for a particular service run:
+The password clears from clipboard after 45 seconds, although it may linger longer if you use a clipboard manager such as clipmenu! To clear all entries in clipmenu run:
 ```
-pass generate service.com/user@service.com n
+clipdel -d ".*"
+```
+
+To generate a new random password of length 8 for a particular service (argument `-n` is to generate a password without symbols!) run:
+```
+pass -n generate service.com/user@service.com 8
+```
+
+You can edit a password in your default text editor:
+```
+pass edit service.com/user@service.com
 ```
 
 You can additionally initialize a password store as a git repozitory, which will automatically make a commit each time you generate a new password:
