@@ -92,7 +92,7 @@ You are now ready to ocr some pdfs! Lets first convert an image to pdf using Ima
 convert image.jpg converted-image.pdf
 ```
 
-You can combine multiple images into a single pdf, as well as rotate and resize them if needed:
+You can combine multiple images into a single pdf, as well as rotate and resize them if needed (you can also use `-auto-orient` option):
 ```
 convert -rotate 90 -resize 50% image*.jpg converted-image.pdf
 ```
