@@ -1,6 +1,6 @@
 # tmux terminal multiplexer (instead of screen)
 
-Tmux has Session->Window->Pane hierarchy.
+Tmux has Session-Window-Pane hierarchy.
 
 Start your session: `tmux`
 Split pane vertically: `Ctrl-b %`
