@@ -123,3 +123,21 @@ Add the hashed password to your `jupyter_notebook_config.py` file, usually locat
 c.NotebookApp.password = u'sha1:67c***aed'
 ```
 
+## Change default browser
+
+In order to change the default web browser that is run at startup, first create Jupyter config:
+```
+jupyter notebook --generate-config
+```
+
+This will generate `.jupyter/jupyter_notebook_config.py`. There find the following line, uncomment it and add the path to your browser:
+```
+c.NotebookApp.browser = ''
+```
+
+Depending on the browser, you might add the `%s` argument, for example for surf browser:
+```
+c.NotebookApp.browser = '/usr/local/bin/surf %s'
+```
+
+
