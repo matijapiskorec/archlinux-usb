@@ -70,3 +70,10 @@ Clean package cache (old packages which are not needed anymore):
 sudo pacman -Sc
 ```
 
+Include a multilib repository which contains 32-bit packages. Uncomment the following lines in the pacman config file `/etc/pacman.conf`:
+```
+[multilib]
+Include = /etc/pacman.d/mirorlist
+```
+
+You will need to run `sudo pacman -S` to synchronize package cache in order to make the new packages visible.
