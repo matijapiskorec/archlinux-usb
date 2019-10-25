@@ -60,3 +60,9 @@ To make sure sup is always run with Ruby version 2.3.3 put the following in your
 ```
 alias sup='rvm 2.3.3 do sup'
 ```
+
+## Thunderbird
+
+Turn off annoying notifications in Thunderbird. Go to `Preferences`, `Advanced`, `Config Editor`. Search for options `mail.biff.show_alert` and `mail.biff.use_system_alert` and set them to false.
+
+
