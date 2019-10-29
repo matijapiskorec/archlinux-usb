@@ -203,3 +203,11 @@ To copy dereference symlinks as actual files use `-L` option in cp and rsync:
 cp -rL /absolute/path/to/symlink /absolute/path/to/directory
 rsync -aAXvL /absolute/path/to/symlink /absolute/path/to/directory
 ```
+
+## Batch rename files
+
+For batch renaming files, use rename utility from util-linux. For example, to rename files `file***.jpg` to `FILE***.jpg` for all jpg files in the current folder use:
+```
+rename file FILE *.jpg
+```
+
