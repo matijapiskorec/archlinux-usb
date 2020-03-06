@@ -50,6 +50,7 @@ And run it within vim with:
 ```
 :NERDTree
 ```
+
 ## How to exit and save
 
 Quit the current window / override if modified: `:q`, `:q!`
@@ -133,6 +134,8 @@ Visual Mode: v, V, <Ctrl-v>
 Command-line Mode: :, /
 Show status line indicating file name: <Ctrl-g>
 Scroll down/up half a screen: <Ctrl-d>, <Ctrl-u>
+Undo: u
+Redo: <Ctrl-r>
  
 ## Shortcuts in insert mode
 
@@ -223,7 +226,8 @@ Registers that contains X primary selection: `"+`, `"*`
 Paste from a primary selection register: `"+p`
 Copy to a primary selection register: `"+y`, `"*y`
 Display registers: `:registers`, `:di`
-Copy the content of the `"` register to the command line: `:<Ctrl-r>"`
+Paste the content of the `"` register to the command line: `:<Ctrl-r>"`
+Paste the content of the `+` register to the command line: `:<Ctrl-r>+`
 
 ## Surround plugin oneliners
 
@@ -244,6 +248,7 @@ Append semicolon at the end of each line in file: `:%normal A;`
 Append semicolon at the beginning of each line in file: `:%normal I;`
 Delete first word after first space on each line matching pattern: `:g/pattern/norm f de`
 Copy all matching lines to the end of the file: `:g/pattern/co $`
+Select the previously selected area: `gv`
 
 Copy all matching lines by appending them to register a: `:let @a='' | %g/pattern/y A`
 You can then paste them by: `"ap`
@@ -366,4 +371,27 @@ vimdiff FILE1 FILE2
 Or, inside vim, open the two files in a split window view (ideally horizontally with `:vnew`) and then run `:windo diffthis`.
 
 Open a file for diffing the already openned file in a vertical split window: `:vert diffs FILE`
+
+## gvim
+
+If you installed gvim:
+```
+sudo pacman -Syu gvim
+```
+
+You can edit `.gvimrc` for custom GUI-specific options. A basic setup might look something like this:
+```
+set guioptions-=m  "remove menu bar
+set guioptions-=T  "remove toolbar
+set guioptions-=r  "remove right-hand scroll bar
+set guioptions-=L  "remove left-hand scroll bar
+set guifont=Hack\ 9
+```
+
+## Copy search matches
+
+Hacks to copy search matches. Unfortunatelly there is no way to execute an operation on search matches, only on lines that match the pattern (with the `:g` and `:norm`).
+
+<https://vim.fandom.com/wiki/Copy_search_matches>
+
 
