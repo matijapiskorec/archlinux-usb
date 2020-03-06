@@ -42,3 +42,16 @@ xargs -L 1 find [PATH] -name
 ```
 
 To signal the end of input to xargs type `Ctrl d`.
+
+## Unzip multiple archives
+
+You can use find and xargs to unzip large number of zip archives:
+```
+find ~/path/ -type f -name "*.zip" -print0 | xargs -0 -n 1 unzip
+```
+
+Option `-n 1` is needed because otherwise xargs will try to feed one unzip command with multiple arguments, while we want at most one argument - one for each filename in the input. Additionally, you can unzip everything to standard output and search through all the lines with fzf (option `-e` is for exact matches):
+```
+find ~/path/ -type f -name "*.zip" -print0 | xargs -0 -n 1 unzip -p | fzf -e
+```
+
