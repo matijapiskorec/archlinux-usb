@@ -7,6 +7,6 @@ sudo pacman -Syu dmidecode lshw
 
 Check installed RAM modules with:
 ```
-dmidecode -t 16
-lshw -class memory
+sudo dmidecode -t 16
+sudo lshw -class memory
 ```
