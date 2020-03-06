@@ -56,3 +56,7 @@ Install `ncdu` simple disk usage analyzer:
 ```
 sudo pacman -Syu ncdu
 ```
+
+Disk usage for a given file or directory: `du -sh [path|file|dir]`
+Disk usage for a given file or directory, along with total: `du -shc [path|file|dir]`
+
