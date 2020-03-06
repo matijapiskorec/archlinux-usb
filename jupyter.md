@@ -50,6 +50,23 @@ You can now install packages with `pip` or `pip3` and they will be visible in yo
 pip install numpy
 ```
 
+To upgrade a package which is already installed:
+```
+pip install --upgrade numpy
+```
+
+Some useful packages to install into science environment: 
+```
+pip install numpy matplotlib pandas cython sklearn xlrd 
+```
+
+For PyMC3 make sure you have hdf5 package installed, only then you can install pymc3 into your kernel:
+```
+sudo pacman -Syu hdf5
+source ~/dev/env/science/bin/activate
+pip install pymc3
+```
+
 To run jupyter notebook in a specific directory run:
 ```
 jupyter notebook --notebook-dir=[NOTEBOOK DIRECTORY]
@@ -138,6 +155,79 @@ c.NotebookApp.browser = ''
 Depending on the browser, you might add the `%s` argument, for example for surf browser:
 ```
 c.NotebookApp.browser = '/usr/local/bin/surf %s'
+```
+
+## Exporting
+
+To export to HTML without code blocks:
+```
+jupyter nbconvert path/to/your/ipynb --to=html --TemplateExporter.exclude_input=True --no-prompt
+```
+
+Regardless of you current directory, the output file will be in the directory of your notebook! You can change `--to=html` flag to `--to=pdf` to export to PDF, but for some reason the images are not displayed at all? Anyway, for now I just export to HTML and then print to PDF from browser.
+
+## Installing tensorflow
+
+Unfortunatelly, Tensorflow currently does not support Python 3.8 which is the default version in Arch Linux, only versions up to Python 3.7. Once you install appropriate version of Python you can install Tensorflow for a specific version using links provided on tensorflow website. I had problems installing Python 3.7 from AUR but Python 3.6 worked fine:
+```
+cd ~/src/
+git clone https://aur.archlinux.org/python36.git
+cd python36
+makepkg -sri
+```
+
+If you are using fish as your shell make sure you switch it to bash, as there will otherwise e problems while entering the virual environment:
+```
+bash
+```
+
+Now create Python3.6 virtual environment:
+```
+cd ~/dev/env/
+python3.6 -m venv tensorflow
+source tensorflow/bin/activate
+pip install ipykernel
+ipython kernel install --user --name=tensorflow
+```
+
+For example, for Python 3.6 CPU-only version:
+```
+pip install --upgrade https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow_cpu-2.1.0-cp36-cp36m-manylinux2010_x86_64.whl
+```
+
+Or you can simply do:
+```
+pip install --upgrade tensorflow
+```
+
+Now you installed Tensorflow! Unfortunatelly, trying to import tensorflow module throws an error ("Illegal instruction (core dumped)"):
+```
+python -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+```
+
+This is because my current processor does not support some advanced instructions which are used in newer version of Tensorflo (currently in version 1.15). In particular, AVX and AVX2 instruction sets are not supported on my processor. You can check which instruction sets are supported by your processor by running:
+```
+more /proc/cpuinfo | grep flags
+```
+
+Which outputs this on my laptop:
+```
+flags: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 popcnt aes lahf_lm pti tpr_shadow vnmi flexpriority ept vpid dtherm
+ida arat
+```
+
+Notice there are no `avx` nor `avx2`. It seems that only Tensorflow 1.5 or earlier supports older processors. It is also possible to compile Tensorflow yourself while excluding the offending flags, which would have unkonwn consequences. There are some custom builds for Tensorflow 1.10 on the following Github repo:
+<https://github.com/amikelive/tf-build>
+
+Other than that, you can try to downgrade to 1.5:
+```
+pip uninstall tensorflow
+pip install tensorflow==1.5
+```
+
+You can check that the new installation runs without errors:
+```
+python -c 'import tensorflow as tf; print(tf.__version__)'
 ```
 
 
