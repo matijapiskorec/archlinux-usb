@@ -32,3 +32,36 @@ To change colors with pywal, remove all color definitions in your `config.h` (th
 ```
 
 You can now recompile st in the same way as above.
+
+## LukeSmith version of st
+
+Luke Smith made a preconfigured st version with many usefull patches. You can install it in the following way:
+```
+git clone https://github.com/LukeSmithxyz/st
+cd st
+sudo make install
+```
+
+Scroll in terminal: `Alt-[j|k]` or `Alt-[up|down]`
+Change font size with: `Alt-Shift-[j|k]` or `Alt-Shift-[up|down]`
+
+Default font size and alpha transparency is set in your Xresources file, for example like this:
+```
+st.font: Hack:pixelsize=12:antialias=true:autohint=true;
+st.alpha: 0.95
+```
+
+Don't forget to restart your Xresources with xrdb (and open a new terminal!):
+```
+xrdb ~/.Xresources
+```
+
+## Problems with tmux
+
+If you have problems with tmux and vim under st - for example exiting vim under tmux exits the current session as well, this is the solution. If you did not install st with make clean install, you must compile the st terminfo entry with the following command (within the st source folder):
+```
+tic -sx st.info
+```
+
+This will create `~/.terminfo` folder with relevant data.
+
