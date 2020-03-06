@@ -83,3 +83,9 @@ ls *.tex *.bib figures/* | entr make
 This will track all existing tex and bib files, as well figures in figures folder, and rerun make when any of them changes. If you are using zathura as a pdf viewer, your output pdf will automatically update as well. Unfortunatelly, deleting some of the existing files will crash entr, and adding new files will have no effect because entr does not tracks them.
 
 In theory, make can be used to reproduce the whole data scientific workflow. More  information on how to use it in reproducible scientific research is available [here](http://kbroman.org/minimal_make/).
+
+## Some useful Latex commands
+
+While compiling a Latex code there can be errors due to which compiler halts and seeks input. In these cases you typically want to abort compilation and start again. To abort compilation simply type `X` into the command line and press enter.
+
+
