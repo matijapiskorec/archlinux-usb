@@ -15,3 +15,7 @@ Go to `about:config` page in your browser and set following settings:
 `browser.cache.memory.enable true` to turn memory cache instead
 `browser.cache.memory.capacity` set memory capacity to desired value, or -1 to disable
 
+## Hardware acceleration
+
+Sometimes hardware acceleration can cause strange horizontal streaks when scrolling. To disable it go to `Preferences` and then uncheck first `Use recommended performance settings` and then `Use hardware acceleration when available`.
+
