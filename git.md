@@ -12,6 +12,11 @@ Clone a repository:
 git clone [REPOSITORY URL]
 ```
 
+Clone into a specific folder:
+```
+git clone [REPOSITORY URL] [FOLDER NAME]
+```
+
 If you want just a specific file from Github, without the whole git repository, you can simply download the raw file directly. Find the link to the file's raw content and use wget:
 ```
 wget [GITHUB RAW CONTENT LINK]
@@ -186,3 +191,42 @@ If you want to download all of your dotfiles just do (assuming you don't yet hav
 ```
 git clone --bare git@[PATH TO YOUR GITHUB DOTFILES REPO]
 ```
+
+## Github Pages
+
+Github Pages is a great hosting service for static web pages. If you already have a static webpage which you would like to host, this is how you do it.
+
+First, go to your Github account and create an empty repository (assumption is that your username is `username` and repository name is `repository-name`). Then go to your filesystem, in the folder where your webpage is, and initialize a git repository which you will connect to the one on Github:
+```
+git init
+git add .
+```
+
+This will add all files withing your folder. At the bearest minimum you should have a README.md file, or if you actually want a webpage to host, an index.html file. If there are any files which you want to remove from staging area use:
+```
+git rm --cached file.txt 
+```
+
+Now you can commit the changes to your local repository:
+```
+git commit -m "Initial commit"
+```
+
+If you have a public key set up on your account:
+```
+git remote add origin git@github.com:username/repository-name.git
+```
+
+Or a normal login with username and password:
+```
+git remote add origin https://github.com/username/repository-name.git
+```
+
+You can now push the changes to the remote repository on Github:
+```
+git push -u origin master
+```
+
+Now go to your repository Settings under Github Pages section and select your master branch as the source. Now you master branch is served as a static webpage and you can access it line in your browser by following this link:
+<https://username.github.io/repository-name/>
+
