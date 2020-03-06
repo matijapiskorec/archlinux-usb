@@ -74,3 +74,11 @@ To have hyperlinked and colored links put the following in your YAML metadata de
 link-citations: true
 colorlinks: true
 ```
+
+## Output to standard output
+
+You can use pandoc to output to standard output, and then read from some other program that reads from standard input on the fly. For example, generate a pdf from markdown and load it directly in Zathura:
+```
+cat README.md | pandoc --pdf-engine=pdflatex --from markdown --to pdf | zathura -
+```
+
