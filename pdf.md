@@ -109,3 +109,8 @@ You can now ocr your pdf with (with an optional specification of a language):
 ocrmypdf -l eng converted-image.pdf converted-image-scanned.pdf
 ```
 
+## PDF readers
+
+There are several pdf readers you can use - `zathura` and `mupdf` which are command line based and `FoxitReader` which is more similar to standard GUI pdf viewers.
+
+
