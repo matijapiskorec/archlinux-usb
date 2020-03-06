@@ -52,8 +52,29 @@ You can edit a password in your default text editor:
 pass edit service.com/user@service.com
 ```
 
-You can additionally initialize a password store as a git repozitory, which will automatically make a commit each time you generate a new password:
+You can additionally initialize a password store as a git repository, which will automatically make a commit each time you generate a new password:
 ```
 pass git init
 ```
+
+## Reneving an expired key
+
+If your key associated with your password store expired you might have problems while inserting or retrieving you passwords.
+
+Check your GPG keys: `gpg --list-keys`
+Edit your GPG key: `gpg --edit-key <user-id>`
+
+Once in the edit key sub menu you can run commands:
+
+Change passphrase: `passwd`
+Change the key expiration date: `expire`
+
+## Reencrypting the password store
+
+You can reencrypt your password store with a completelly new key.
+
+First, generate a new key pair: `gpg --full-key-gen`
+Check the newly generated key ID: `gpg --list-keys`
+Optionally, you can edit the key and add additional users: `gpg --edit-key [KEY-ID]`
+Now you can reencrypt the password store: `pass init [KEY-ID]`
 
