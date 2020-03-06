@@ -19,3 +19,15 @@ To get files 7 to 13 from the list output by the above command:
 ```
 gphoto2 --get-file 7-13
 ```
+
+To get all files from the camera:
+```
+gphoto2 --get-all-files
+```
+
+## Using ImageMagick for photo manipulation
+
+Extract EXIF information from a photo:
+```
+identify -verbose [PHOTO]
+```
