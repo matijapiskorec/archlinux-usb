@@ -35,3 +35,12 @@ Usefull and commonly used programs which can be run from dmenu...
 `firefox` - a web browser
 `thunderbird` - email client, retrieves email from several accounts for which master password is needed
 
+Run from terminal:
+Search titles of notes and open them in vim: `note`
+Search titles of Arch notes and open them in vim: `arch`
+Search titles of articles and open them in Zathura: `article`
+Search titles of books and open them in Zathura: `book`
+Search within all notes and open them in vim on corresponding line: `search note`
+Search within all Arch notes and open them in vim on corresponding line: `search arch`
+Search titles of dotfiles and open them in vim: `dot`
+
