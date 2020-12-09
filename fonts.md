@@ -6,6 +6,7 @@ sudo pacman -Syu terminus-font
 sudo pacman -Syu ttf-hack
 sudo pacman -Syu adobe-source-code-pro-fonts
 sudo pacman -Syu inconsolata
+sudo pacman -Syu ttf-lato
 ```
 
 Include one of the fonts in `.Xresources` (reset it with `xrdb .Xresources`):
