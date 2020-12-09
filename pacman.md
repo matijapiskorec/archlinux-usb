@@ -77,3 +77,31 @@ Include = /etc/pacman.d/mirorlist
 ```
 
 You will need to run `sudo pacman -S` to synchronize package cache in order to make the new packages visible.
+
+## Failed to commit transaction (conflicting files) error
+
+If you see this error when updating Pacman packages, followed by a list of files which "exist in filesystem", this means that you installed some programs manually (without Pacman) and these installations are now conflicting with the ones in official Pacman repos. One case where this mihgt happen is when you install Python packages through pip by using root privileges, instead of using virtual environment and installing them locally. This happened to me with python-psutil package, which I installed globally through pip and also tried to update through Pacman.
+
+You can check whether a file is owned by any package:
+```
+pacman -Qo /path/to/file
+```
+
+If you get a message that no package owns this file, and the file is somewhere where Pacman might want to install a package (for example `/usr/lib/python3.8/` or similar) then this might cause a conflict. The solution is to uninstall the package manually and then initiate Pacman upgrade. For example, in the case of python-psutil which exist both as a Pacman package and as a pip package, first check globally installed pip packages:
+```
+pip freeze
+```
+
+If psutil is there, uninstall it through pip:
+```
+pip uninstall psutil
+```
+
+Now you can install python-psutil through Pacman and everything should be ok.
+
+As a general rule - never use pip with root (sudo) privileges, always install it into virtual environment or locally. Keep your global pip package repository clean. In this way you can install any of the pyhton-related packages from Pacman repository safely, and they will be available globally for you programs to use, and the ones from pip will be available within your virtual environment for your projects.
+
+More information on this error:
+<https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error>
+
+
