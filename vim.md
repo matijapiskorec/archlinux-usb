@@ -51,6 +51,13 @@ And run it within vim with:
 :NERDTree
 ```
 
+I've mapped `F7` as a shortcut to open NERDTree, in `.vimrc`:
+```
+:map <F7> :NERDTreeToggle<CR>
+```
+
+For help just type `?` inside NERDTree.
+
 ## How to exit and save
 
 Quit the current window / override if modified: `:q`, `:q!`
@@ -73,11 +80,20 @@ To move between windows: `Ctrl+w [ARROWS or hjkl movements]`
 Create a split window with an unnamed buffer: `:new`
 Create a vertically split window with an unnamed buffer: `:vnew`
 Open an unnamed buffer in a current window: `:enew`
-Open an unnamed buffer in a new tab: `:tabnew`
 Open a buffer available in memory: `:b [BUFFER NAME]`
 Go to next/previous buffer: `:bn,` `:bp`
 Delete a buffer (close a file): `:bd`
 List all available buffers in memory: `:buffers`
+Set all buffers as hidden: `:set hidden`
+
+## Tabs
+
+Tabs are just a way of viewing buffers. Split arrangement is preserved for tabs.
+
+Open an unnamed buffer in a new tab: `:tabnew`
+Close tab: `:tabclose`
+Go to next tab (in normal mode): `gt`
+Go to previous tab (in normal mode): `gT`
 
 ## Powerline and Airline status line
 
@@ -202,23 +218,35 @@ Go down: j
 Go up: k
 Go left: h
 Go right: l
-Go up/down the display line: gk, gj
-Go to first matching paren / bracket: %
-Down to first non-blank char of line: [count]+
-To end of line: [count]$
+Go up/down the display line: `gk,` `gj`
+Go to the beginning/end of file: `gg`, `G`
+Go to the place of last edit: `g;`
+Go to first matching paren / bracket: `%`
+Down to first non-blank char of line: `[count]+`
+To end of line: `[count]$`
 Go to the start of the next line: `+`
+Go forward to the next character `C` / open parenthis `(`: `fC` / `f(`
+Go back to the previous character `C` / closed parenthis `)`: `FC` / `F(`
+Go forward until the next character `C` / open parenthis `(`: `tC` / `t(` 
+Go back until the next character `C` / closed parenthis `)`: `TC` / `T(` 
  
-Move to end of line and switch to editing mode (Append): Shift+A
-Move to the beginning of line and switch to editing mode (Insert): Shift+I
-Move to beginning of the line: 0
-Delete line and start editing at the beginning: Shift+S
-Move to the end of the line: $
+Move to end of line and switch to editing mode (Append): `Shift+A`
+Move to the beginning of line and switch to editing mode (Insert): `Shift+I`
+Move to beginning of the line: `0`
+Delete line and start editing at the beginning: `Shift+S`
+Move to the end of the line: `$`
+
+### Motions in visual mode
+
+Once you enter in visual mode by pressing `v` you have a wider range of motions.
+You can move with regular motions: `w`, `W`, `hjkl`, `%`
+But you can also move by text objects: `as`, `at`, `aw`, `is`, `it`, `iw`
 
 ## Autocompletion and spelling suggestions
 
-To autocomplete the text under the cursor in the Insert mode press Ctrl+p while typing.
+To autocomplete the text under the cursor in the Insert mode press `Ctrl+p` while typing.
 
-To suggest spelling choices press Ctrl+n while typing.
+To suggest spelling choices press `Ctrl+n` while typing.
 
 ## Registers
 
@@ -233,7 +261,7 @@ Paste the content of the `+` register to the command line: `:<Ctrl-r>+`
 
 Change double quotes to single: `csi"'`
 Put double quotes on inner word: `ysiw"`
-Delete double quotes: ds"
+Delete double quotes: `ds"`
 Sorround visual selection with double quotes: `S"`
 
 ## Vim oneliners 
@@ -242,8 +270,8 @@ Delete one word three times: `3dw`
 Delete three words one time: `d3w`
 Delete two words, repeated three times: `3d2w`
 Change the next match (can be repeated with .): `cgn`
-Substitute all occurrences across all lines: `:s/pattern/replacement/g`
-Substitute all occurrences across all lines with confirmation: `:s/pattern/replacement/g`
+Substitute all occurrences across all lines: `:%s/pattern/replacement/g`
+Substitute all occurrences across all lines with confirmation: `:%s/pattern/replacement/g`
 Append semicolon at the end of each line in file: `:%normal A;`
 Append semicolon at the beginning of each line in file: `:%normal I;`
 Delete first word after first space on each line matching pattern: `:g/pattern/norm f de`
@@ -268,6 +296,8 @@ Delete all lines in a file (position at the start and delete until the end): `gg
 Delete/change all characters until the next occurrence (but not including) of pattern: `d/pattern`, `c/pattern`
 
 Count the number of words and characters in the visual selection: `g Ctrl-g`
+
+Download online text file directly to the current buffer (use `<Ctrl-r>+` to paste url from primary selection register): `:r ! wget -qO- [URL]`
 
 ## Shortcuts in the command line
 
@@ -392,6 +422,40 @@ set guifont=Hack\ 9
 
 Hacks to copy search matches. Unfortunatelly there is no way to execute an operation on search matches, only on lines that match the pattern (with the `:g` and `:norm`).
 
+However, there is a simple function which you can put into your `.vimrc`:
 <https://vim.fandom.com/wiki/Copy_search_matches>
+```
+function! CopyMatches(reg)
+  let hits = []
+  %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+  let reg = empty(a:reg) ? '+' : a:reg
+  execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register CopyMatches call CopyMatches(<q-reg>)
+```
+
+After which you can use `:CopyMatches` command after any search to copy all matches.
+
+List all lines matching the search pattern: `:g/pattern`
+
+## Regular expressions
+
+Non-greedy mathcing in Vim - intstead of greedy matching `.*` you can use non-greedy version `.\{-}`. For more info type `:help non-greedy`.
+
+Find everything enclosed in square brackets: `\[.\{-}\]`
+
+## Problems with maxmempattern
+
+Sometimes you can get a `E363: pattern uses more memory than 'maxmempattern'` error, for example when you try to type in square bracket `[` in large Markdown files. You can check the amount of memory each variable takes with:
+```
+:verbose set mm? mmt? mmp?
+``` 
+
+Usually maxmempattern is 1000. You can set it to a large value:
+```
+:set maxmempattern=200000
+```
+
+Also, make sure you don't use square brackets as a part of text inside Markdown, they have a separate meaning in Markdown. I think you can escape them if you need with `\[` and `\]`.
 
 
