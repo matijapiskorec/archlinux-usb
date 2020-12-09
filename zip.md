@@ -66,3 +66,10 @@ Option `-n 1` is needed because otherwise xargs will try to feed one unzip comma
 find ~/path/ -type f -name "*.zip" -print0 | xargs -0 -n 1 unzip -p | fzf -e
 ```
 
+## tar
+
+To extract the `.tar.bz2` archive to a specific directory:
+```
+tar -xvf archive.tar.bz2 -C /directory
+``` 
+
