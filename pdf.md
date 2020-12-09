@@ -61,7 +61,12 @@ sudo pacman -Syu pdfgrep
 
 Now you can search for a keyword within pdf:
 ```
-pdfgrep -nHm 10 "keyword" [PATH TO PDF]
+pdfgrep -inHm 10 "keyword" [PATH TO PDF]
+```
+
+Search recursivelly all PDF's in a folder and pipe the results to fzf:
+```
+pdfgrep -irnHm 10 "keyword" [PATH TO FOLDER] | fzf
 ```
 
 ## Optical character recognition with tesseract and ocrmypdf
@@ -109,8 +114,28 @@ You can now ocr your pdf with (with an optional specification of a language):
 ocrmypdf -l eng converted-image.pdf converted-image-scanned.pdf
 ```
 
+You can use tesseract as a standalone tool to perform OCR and output text. It works only on images, not pdf's, and can output to stdout:
+```
+tesseract image.jpeg stdout -l hrv | vim -
+```
+
 ## PDF readers
 
 There are several pdf readers you can use - `zathura` and `mupdf` which are command line based and `FoxitReader` which is more similar to standard GUI pdf viewers.
 
+## Creating a combined pdf from har archive
+
+Parse all jpeg urls from a har archive and download all images:
+```
+cat hararchive.har | grep -o '"url": "https://.*\.jpeg"' | sed 's|"url": "||g;s|"||g;s| ||g' | xargs wget
+```
+
+Convert all images in folder in order of creation to a combined pdf (in fish shell):
+```
+pdfjam (ls -1 -cr *.jpeg) -o output.pdf
+convert (ls -1 -cr *.jpeg) -compress jpeg -quality 25 output.pdf
+```
+
+See more info on how to create pdf from multiple images and how to perform optical character recognition:
+<https://askubuntu.com/questions/246647/convert-a-directory-of-jpeg-files-to-a-single-pdf-document>
 
