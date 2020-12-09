@@ -74,3 +74,10 @@ You can also try to install it using Lutris, which is available in the Arch comm
 Cons - you need to create a Lutris account. Maybe you can follow the above install script and install the mod yourself? The webpage of the mod:
 <https://mod.diablo.noktis.pl/>
 
+## Sound problems
+
+At some point the sound suddenly stopped until I installed `lib32-libpulse`:
+```
+sudo pacman -Syu lib32-libpulse
+```
+
