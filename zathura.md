@@ -25,6 +25,10 @@ Swith to presentation mode: `F5`
 Toggle status bar: `Ctrl n`
 Quit: `q`
 
+Commands in the command mode:
+Save file: `:write [PATH]`
+Close document: `:close`
+
 ## Read from stdin
 
 Zathura can read from stdin. For example, you can convert a markdown file on the fly and output it to Zathura:
