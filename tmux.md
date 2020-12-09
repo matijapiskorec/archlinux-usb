@@ -7,18 +7,20 @@ Split pane vertically: `Ctrl-b %`
 Split pane horizontally: `Ctrl-b "`
 Move between panes: `Ctrl-b [arrows]`
 Closing panes: `Ctrl-d`
+Cycle through available pane layouts (horizontal/vertical): `Ctrl-b space`
 Create a new window: `Ctrl-b c`
 Switching between windows: `Ctrl-b p`, `Ctrl-b n`, `Ctrl-b [number]`
 Detach current session: `Ctrl-b d`
 List sessions: `tmux ls`
 Attach a session: `tmux attach -t [number]`
 Create a named session: `tmux new -s [name of new session] `
-Rename a session: `tmux rename-session -t [number] [name of new session]`
+Rename a session: `tmux rename-session -t [old name] [new name]`
 Attach a named session: `tmux attach -t [name of session]`
 Available commands: `Ctrl-b ?`
 Toggle fullscreen of a pane: `Ctrl-b z`
 Resize pane in direction of [arrow]: `Ctrl-b Ctrl-[arrow]`
 Rename the current window: `Ctrl-b ,`
+Find a window across all tmux sessions: `Ctrl-b f`
 
 Tmux can enter into copy mode where all current terminal output is available in pager.
 
@@ -45,6 +47,11 @@ You can use a custom colortheme for tmux, for example the one from this link:
 To append it to your tmux configuration:
 ```
 cat tmuxcolors-256.conf >> ~/.tmux.conf
+```
+
+To reload tmux config:
+```
+tmux source-file ~/.tmux.conf
 ```
 
 ## Problems with st
