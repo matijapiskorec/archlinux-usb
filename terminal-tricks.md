@@ -211,3 +211,120 @@ For batch renaming files, use rename utility from util-linux. For example, to re
 rename file FILE *.jpg
 ```
 
+## Measuring execution time of commands
+
+Bash has a built-in time command, which is not available in fish shell. Instead, you can install and use time command from pacman repository:
+```
+sudo pacman -Syu time
+```
+
+Now you can time any command by simply prefacing it with `time`:
+```
+time ls
+```
+
+## Unique lines
+
+Count unique lines in a stream: `cat file.txt | uniq -c`
+
+## choose - a simpler alternative to awk and cut
+
+choose is a command line utility which functions as a simpler alternative to cut and awk. Install it through AUR:
+```
+git clone https://aur.archlinux.org/choose-rust-git.git
+cd choose-rust-git
+makepkg -sri
+```
+
+Now you can pipe into choose to select columns from text stream. For example to print 5th item from a line: `choose 5`
+
+For more info see Github Readme:
+<https://github.com/theryangeary/choose>
+
+## Find file with file name
+
+To find a file with file name recursivelly within home directory:
+```
+find /home/matija -iname "*Mathematical Principles*"
+```
+
+## Watching the commands with watch
+
+If your command gives a static output and you need to run it avery now and then, you can use the watch command to automatically run it multiple times. For example, memory consumption:
+```
+watch free -m
+```
+
+You can use any command and its parameters, the only restriction is that you cannot use aliases! This is because watch is shell-agnostic - it does not have access to shell aliases.
+
+Some useful watch use cases:
+```
+watch df -h
+watch tail ~/tmp/log/[LOG FILE]
+```
+
+## Sorting in command line
+
+Sort first by the third, then by the second column, where columns are comma-delimited (as opposed to default space-delimited):
+```
+sort -t, -k3 -k2 [FILE]
+```
+
+## Searching with ripgrep
+
+ripgrep is a great and fast replacement for grep, you can install it:
+```
+sudo pacman -Syu ripgrep
+```
+
+And use the binary rg for searching within all files in a directory:
+```
+rg keyword ~/doc/note/evernote
+```
+
+Unline grep, you can also use it for search and replace, if you don't want to use sed or awk for that. More info here:
+<https://hackaday.com/2020/10/14/linux-fu-global-search-and-replace-with-ripgrep/>
+
+Of course, for more options consult the man documentation:
+```
+man rg
+```
+
+## Named pipes
+
+You can create a named pipe which acts like a regular file which can be piped into or out of:
+```
+mkfifo /tmp/pipe
+```
+
+You can now pipe into it like it is a regular file:
+```
+ls > /tmp/pipe
+```
+
+And pipe out of it:
+```
+cat /tmp/pipe
+```
+
+Or pipe its contents into another command:
+```
+fzf < /tmp/pipe
+```
+
+You can also delete it like a regular file (although here it is on `/tmp` which is mounted in memory, and besides, it does not actually store any data but only redirects outputs between processes):
+```
+rm /tmp/pipe
+```
+
+Named pipes reside completelly in memory and there is no data transfer unless both ends of the pipe are open. Here is another interesting example. Create a named pipe and listen what is piped into it:
+```
+mkfifo /tmp/pipe
+tail -f /tmp/pipe
+```
+
+Now push some messages through in another terminal:
+```
+echo "This is a message!" > /tmp/pipe
+```
+
