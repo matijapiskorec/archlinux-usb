@@ -88,4 +88,33 @@ Close tab: `Ctrl q`
 
 Unlike using tabbed layout in i3, here all tabs act like one compact window which you can move across workspaces with standard i3 commands.
 
+## Shortcuts
+
+Stops loading current page or stops download: `Escape` 
+Walks back the history: `Ctrl-h` 
+Walks forward the history: `Ctrl-l` 
+Scrolls page upwards: `Ctrl-k` 
+Scrolls page downwards: `Ctrl-j` 
+Scroll up one whole page view: `Ctrl-b` 
+Scroll down one whole page view: `Ctrl-Space` 
+Scroll horizontally to the right: `Ctrl-i` 
+Scroll horizontally to the left: `Ctrl-u` 
+Zooms page in: `Ctrl-Shift-k` or `Ctrl-+` 
+Zooms page out: `Ctrl-Shift-j` or `Ctrl--` 
+Resets Zoom: `Ctrl-Shift-q` 
+Opens the search-bar: `Ctrl-f` and `Ctrl-/`
+Go to next search result: `Ctrl-n` 
+Go to previous search result: `Ctrl-Shift-n` 
+Opens the URL-bar (requires dmenu installed): `Ctrl-g` 
+Loads URI from primary selection: `Ctrl-p` 
+Calls Printpage Dialog: `Ctrl-Shift-p` 
+Reloads the website: `Ctrl-r` 
+Reloads the website without using the cache: `Ctrl-Shift-r` 
+Copies current URI to primary selection: `Ctrl-y` 
+Toggle scrollbars. This will reload the page: `Ctrl-Shift-b` 
+Toggle caret browsing. This will reload the page: `Ctrl-Shift-c` 
+Toggle auto-loading of images. This will reload the page: `Ctrl-Shift-i` 
+Toggle if the stylefile file should be loaded. This will reload the page: `Ctrl-Shift-m` 
+Open the Web Inspector (Developer Tools) window for the current page: `Ctrl-Shift-o` 
+Toggle fullscreen mode: `F11` 
 
