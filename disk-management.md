@@ -60,3 +60,10 @@ sudo pacman -Syu ncdu
 Disk usage for a given file or directory: `du -sh [path|file|dir]`
 Disk usage for a given file or directory, along with total: `du -shc [path|file|dir]`
 
+## File and directory size
+
+To check a directory size run du utility (this will also check sizes of all subdirectories):
+```
+du -h ~/directory
+```
+
