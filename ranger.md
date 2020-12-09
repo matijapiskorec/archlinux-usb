@@ -9,7 +9,7 @@ Commands in ranger:
 Quite ranger: `Q`
 Reload current directory: `R`
 Open file with: `r`
-Change sort order: `O`
+Change sort order: `o`
 View hidden files: `zh`
 Rename current file: `cw`
 Select file: `space`
