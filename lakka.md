@@ -76,3 +76,22 @@ wget http://www.poweriso.com/poweriso-1.3.tar.gz
 tar xvzf poweriso-1.3.tar.gz -C poweriso/
 ./poweriso convert [IMG FILE] -o [BIN FILE] -ot bin
 ```
+
+## Lakka HDMI configuration
+
+You can connect to the HDMI output through the Lakka video options by changing the display. Sound will probably not switch automatically, for this you need to manually type in the sound output. Typing `hdmi` worked on my system.
+
+If you don't want to use keyboard while having the HDMI output you can use controller for all input, including exiting the game to a main interface - just press `L3` and `R3` at the same time (these are middle joystick sticks which can be pressed as well as moved around).
+
+## RetroArch
+
+Lakka is built on top of RetroArch:
+<https://www.retroarch.com/>
+<https://wiki.archlinux.org/index.php/RetroArch>
+
+You can install RetroArch on you system (the last two are for nicer GUI):
+```
+sudo pacman -Syu retroarch retroarch-assets-xmb retroarch-assets-ozone
+```
+
+
