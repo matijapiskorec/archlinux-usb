@@ -221,3 +221,21 @@ Remote editing file on remote
 ```
 vim scp://<HOST>//<PATH>
 ```
+
+## Check open ports and ports in use
+
+Check which ports are in use:
+```
+sudo lsof -i -P -n
+```
+
+Check if specific port is in use:
+```
+sudo lsof -i:8000
+```
+
+Check which ports are listening for connections:
+```
+sudo lsof -i -P -n | grep LISTEN
+```
+
