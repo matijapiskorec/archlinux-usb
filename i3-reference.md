@@ -16,6 +16,10 @@ Move window: `$mod Shift [arrows]`
 Kill a window: `$mod Shift q`
 Restart i3 (when modifying config): `$mod Shift r`
 
+Send a window to scratchpad (floating hidden): `$mod Shift x`
+Cycle scratchpad windows (show/hide if there is only one): `$mod x`
+Make scratchpad window tilling again (toggle floating): `$mod Shift Space`
+
 Default layout: `$mod e`
 Stacking layout: `$mod s`
 Tabbed layout: `$mod w`
