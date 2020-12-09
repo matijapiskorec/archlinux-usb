@@ -47,6 +47,21 @@ If you want to rename a file you should use a `git mv` command:
 git mv [OLD FILENAME] [NEW FILENAME]
 ```
 
+Revert unstaged changes in the current directory (omit the dot at the end to check just what will be changed):
+```
+git checkout -- .
+```
+
+Revert both staged and unstaged changes in the current directory:
+```
+git reset --hard HEAD
+```
+
+To discard unstaged changes on a specific file:
+```
+git restore [FILE]
+```
+
 ## Git configuration
 
 Git log in pretty format:
@@ -212,6 +227,11 @@ Now you can commit the changes to your local repository:
 git commit -m "Initial commit"
 ```
 
+Recently Github introduced a requirement to rename the master branch to main, and the main branch now becomes default for a repository. You can rename your master branch with this command:
+```
+git branch -M main
+```
+
 If you have a public key set up on your account:
 ```
 git remote add origin git@github.com:username/repository-name.git
@@ -227,6 +247,70 @@ You can now push the changes to the remote repository on Github:
 git push -u origin master
 ```
 
+Or, if you renamed your master branch to main:
+```
+git push -u origin main
+```
+
 Now go to your repository Settings under Github Pages section and select your master branch as the source. Now you master branch is served as a static webpage and you can access it line in your browser by following this link:
 <https://username.github.io/repository-name/>
+
+## Github stash
+
+To make a quick stash which stashes all staged and unstaged changes to all files (but not untracked and ignored files!):
+```
+git stash
+```
+
+Stash all current changes, both staged and unstaged, in a stash with description:
+```
+git stash push -m "Message"
+```
+
+Include all untracked files: `-u`, `--include-untracked`
+Include all untracked files as well as ignored files: `-a`, `-all`
+
+You can also provide a list of files to stash as the last argument (I'm not sure whether options `-u` and `-a` make sense in this case?).
+
+Reapply previously stashed changes and remove them from the stash:
+```
+git stash pop
+```
+
+Reapply previously stashed changes and leave them in the stash:
+```
+git stash apply
+```
+
+List all stashes:
+```
+git stash list
+```
+
+Pop or apply a specific stash from the list:
+```
+git stash pop stash@{0}
+```
+
+Show the list of changes in the last stash (apparently the untracked files are not shown, although they are in the hash as well!):
+```
+git stash show
+```
+
+Show exact changes in the last stash:
+```
+git stash show -p
+```
+
+Drop a stash entry:
+```
+git stash drop
+```
+
+Drop all stashes:
+```
+git stash clear
+```
+
+Note: Some tutorials refer to the `git stash save` command. The save command is depracated in favor of push, so just use push!
 
