@@ -121,7 +121,6 @@ ps aux | grep localhost:8889
 kill -15 12418
 ```
 
-
 ## Security on remote Jupyter notebooks
 
 Starting from notebook version 4.3, every time a notebook launches it generates random token which the browser needs to authenticate, for example:
@@ -176,7 +175,7 @@ cd python36
 makepkg -sri
 ```
 
-If you are using fish as your shell make sure you switch it to bash, as there will otherwise e problems while entering the virual environment:
+If you are using fish as your shell make sure you switch it to bash, as there will otherwise e problems while entering the virtual environment:
 ```
 bash
 ```
@@ -206,6 +205,7 @@ python -c "import tensorflow as tf;print(tf.reduce_sum(tf.random.normal([1000, 1
 ```
 
 This is because my current processor does not support some advanced instructions which are used in newer version of Tensorflo (currently in version 1.15). In particular, AVX and AVX2 instruction sets are not supported on my processor. You can check which instruction sets are supported by your processor by running:
+
 ```
 more /proc/cpuinfo | grep flags
 ```
@@ -230,4 +230,13 @@ You can check that the new installation runs without errors:
 python -c 'import tensorflow as tf; print(tf.__version__)'
 ```
 
+## Installing pip modules from Github
+
+You can install pip modules directly from Github if they are available there. This is useful to get the newest versions of modules:
+
+```
+git clone https://github.com/pathpy/pathpy pathpy3
+cd pathpy3
+pip install -e .
+```
 
