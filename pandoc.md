@@ -82,3 +82,12 @@ You can use pandoc to output to standard output, and then read from some other p
 cat README.md | pandoc --pdf-engine=pdflatex --from markdown --to pdf | zathura -
 ```
 
+## Math in epub
+
+Math works fine for LaTeX/PDF output. However, if you want math output in epub format you have to make sure you are outputing in epub3 which uses MathML to display formulas, and not epub2 which is default:
+```
+pandoc input.md -t epub3 --toc --number-sections --filter pandoc-crossref --bibliography=bibliography.bib -o output.epub
+``` 
+
+Zathura is not capable of properly displaying MathML formulas in epub3. For proper display you can use Calibre.
+ 
