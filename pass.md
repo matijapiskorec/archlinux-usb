@@ -42,9 +42,9 @@ The password clears from clipboard after 45 seconds, although it may linger long
 clipdel -d ".*"
 ```
 
-To generate a new random password of length 8 for a particular service (argument `-n` is to generate a password without symbols!) run:
+To generate a new random password of length 8 for a particular service (argument `-n` or `--no-symbols` is to generate a password without symbols!) run:
 ```
-pass -n generate service.com/user@service.com 8
+pass generate -n service.com/user@service.com 8
 ```
 
 You can edit a password in your default text editor:
