@@ -49,3 +49,44 @@ rm -r .config/pulse
 ```
 
 Reboot and the sound from the speakers should return.
+
+## Testing microphone
+
+The simplest way to test is your microphone working is by running: `arecord -vv -f dat /dev/null`
+Recording audio from your microphone for 5 seconds: `arecord -d 5 test.wav`
+Playing recorded audio from your microphone: `aplay test.way`
+
+To setup microphone volume, I found that the best results with the laptop's integrated microphones are by running `alsamixer` and then set Mic Boost and Internal Mic Boost values to half-way.
+
+## Setting your default sound card
+
+Instruction from the official Alsa project webpage. Find your desired card with:
+```
+cat /proc/asound/cards
+```
+
+and then create `/etc/asound.conf` with following:
+```
+defaults.pcm.card 1
+defaults.ctl.card 1
+```
+
+Replace "1" with number of your card determined above.
+
+## pulsemixer
+
+You can use pulsemixer instead of alsamixer. Install it:
+```
+sudo pacman -Syu pulsemixer
+```
+
+And run it with:
+```
+pulsemixer
+```
+
+List sources and sinks:
+```
+pulsemixer --list
+```
+
