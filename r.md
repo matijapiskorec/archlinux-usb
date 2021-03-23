@@ -18,6 +18,9 @@ install.packages('ggplot2', repos='http://cran.us.r-project.org')
 More information on R in Arch Linux:
 <https://wiki.archlinux.org/index.php/R>
 
+Run R in interactive mode: `R`
+Run R script: `Rscript example.R`
+
 ## Runing R with Jupyter notebook
 
 In order to use R with Jupyter notebook you have to install IRkernel:

@@ -7,8 +7,10 @@ sudo pacman -Syu cups cups-pdf
 
 Enable and start cups service:
 ```
-sudo systemctl enable --now org.cups.cupsd.service
+sudo systemctl enable --now cups.service
 ```
+
+It appears that the name of the CUPDS systemd service changed recently (December 2020), previously it was `org.cupd.cupsd.service`!
 
 You can now go to your browser to configure printers:
 ```

@@ -104,4 +104,29 @@ As a general rule - never use pip with root (sudo) privileges, always install it
 More information on this error:
 <https://wiki.archlinux.org/index.php/Pacman#.22Failed_to_commit_transaction_.28conflicting_files.29.22_error>
 
+## Mirrorlists
+
+Pacman depends on the mirrors to synchronize packages. Currently used mirror list can be found in `/etc/pacman.d/mirrorlist`. You can also obtain up-to-date mirrorlist from the following page:
+<https://archlinux.org/mirrorlist/>
+
+Or you can install and use reflector, a Python program for retrieving mirrorlists:
+```
+sudo pacman -Syu reflector
+```
+
+Now you can generate a mirrorlist with reflector:
+```
+reflector > /tmp/mirrorlist
+sudo mv /tmp/mirrorlist /etc/pacman.d/mirrorlist
+```
+
+NOTE (February 2021): Apparently the mirrorlist changed since my initial Arch Linux install, and none of the mirrors in the list were responisive - the `sudo pacman -Syu` command just reported "Nothing to do." I checked the `/etc/pacman.d/` folder and there were both `mirrorlist` as well as `mirrorlist.pacnew` which was created recently and which corresponded to the mirrorlist I could obtain from Arch website. So I just backuped the old mirrorlist and replaced it with the new one:
+```
+sudo cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+sudo cp /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+sudo vim /etc/pacman.d/mirrorlist
+```
+
+And then I manually uncommented mirrors which seemed most appropriate (worldwide and in central Europe).
+ 
 

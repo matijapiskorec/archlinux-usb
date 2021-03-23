@@ -46,4 +46,38 @@ browserify main.js -o pca.js
 
 Now, you could use pca.js inside the HTML file. You can do the same with the multiple NPM modules and bundle them all together in a single Javascript file.
 
+## Programming tips
+
+Reading and writing to a file: <https://nodejs.dev/learn/writing-files-with-nodejs>
+
+The easiest way to read directly from a (JSON formated) file:
+```
+let file = require("./file.json");
+```
+
+Write to a file:
+```
+const fs = require('fs')
+const content = 'Some content!'
+fs.writeFile('test.txt', content, { flag: 'a+' }, err => {})
+```
+
+You can also write to a standard output which you can later redirect to a file (we are also writting a progress percentage to standard error):
+```
+process.stderr.write('\rProgress: '+(100*(1/(N.length**2))).toFixed(2)+'% ');
+process.stdout.write(content);
+```
+
+Redirect output to a file:
+```
+node script.js >> file.txt
+```
+
+You can also compress the stream with gzip or bzip2 (about 25% smaller than gzip) in real time:
+```
+node script.js | gzip > file.txt.gz
+node script.js | bzip2 > file.txt.bz2
+```
+
+This, however, will not write continuously to a compressed file with a constant memory footprint, but will store intermediarry result in memory!
 

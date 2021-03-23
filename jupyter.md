@@ -84,7 +84,19 @@ jupyter notebook stop
 
 ## Virtual environment in fish shell
 
-Python virtual environments are configured to work in bash only, you cannot source environment to fish shell directly. However, you can try this (run in fish shell):
+Python virtual environments are configured to work in bash only, you cannot source environment to fish shell directly. Howeverm there are separate activate scripts for csh and fish shells which are created automatically upon environment creation! So you just have to:
+```
+source $HOME/[PATH TO ENV]/bin/activate.fish
+```
+
+This is from the official venv documentation:
+<https://docs.python.org/3/tutorial/venv.html>
+
+    (This script is written for the bash shell. If you use the csh or fish shells, there are alternate activate.csh and activate.fish scripts you should use instead.)
+
+The remainder of this section are some old solutions which I leave here as a reference, but I now prefer the solution above. 
+
+One way to activate virtual environment in fish shell is this (run in fish shell):
 ```
 exec bash -c "source $HOME/[PATH TO ENV]/bin/activate; exec fish"
 ```
@@ -100,6 +112,58 @@ echo $PS1
 ```
 
 Should print just `(env-name)`.
+
+You can also try virtualfish for managing virtualenv environments in fish shell:
+<https://riptutorial.com/python/example/9956/using-virtualenv-with-fish-shell>
+
+## Managing your local Python pip installation
+
+Instructions in this section follow official Python packaging documentation:
+<https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>
+
+A recommendation is to bootstrap a user installation of pip using the system pip:
+```
+python3 -m pip install --user --upgrade pip
+```
+
+Now you can check the version of pip and verify that it is installed in your home directory:
+```
+python3 -m pip --version
+pip 9.0.1 from $HOME/.local/lib/python3.6/site-packages (python 3.6)
+```
+
+Installing directly from source:
+```
+cd source-folder
+pip install .
+```
+
+Install from a local archive:
+```
+pip install archive.tar.gz
+```
+
+Install packages from a different index than Python Package Index (PyPI):
+```
+pip install --index-url http://index.example.com/simple/ SomeProject
+```
+
+Upgrade a package in place:
+```
+pip install --upgrade package
+```
+
+Install packages from requirements file:
+```
+pip install -r requirements.txt
+```
+
+You can create requirements.txt file like this:
+```
+pip freeze > requirements.txt
+```
+
+You can use `pip freeze` as well as `pip list` to list all packages, but the freeze variant outputs in format which is suitable to be loaded back with pip for installation.
 
 ## Setting up Jupyter notebook on a remote machine
 

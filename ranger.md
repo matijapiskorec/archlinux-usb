@@ -25,6 +25,8 @@ Disk usage current directory: `du`
 Create a new tab: `Ctrl-n`
 Close current tab: `Ctrl-w`
 Next/previous tab: `Tab / Shift-Tab`
+Mark/unmark a file: `Space`
+Unmark all files in folder: `uv`
 
 Additional dependencies needed for viewing certain file formats:
 ```
@@ -65,3 +67,13 @@ set colorscheme [NAME OF YOUR .PY COLORSCHEME]
 ```
 
 To make it permanent at startup put it in `.config/ranger/rc.conf` file.
+
+## Troubleshooting
+
+I decided to turn off file preview in `.config/ranger/rc.conf`:
+```
+set preview_files false
+```
+
+The reason for this is that I had problem with previewing large files and large archives, for example gzip archives. Apparently ranger file preview uses bsdtar to preview archive files and has large memory footprint - running file preview in ranger while compressing large 11 GB file took almost 7 GB of memory! Turning off file preview made gzip compression much faster and with almost zero memory footprint!
+

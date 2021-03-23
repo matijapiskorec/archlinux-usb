@@ -33,3 +33,20 @@ To clear all entries from the clipboard:
 clipdel -d ".*"
 ```
 
+## Troubleshooting
+
+Somewhere in 2020 clipmenu stopped working - the daemon is running but no results are ever stored! I tried running journalctl to see error messsages regarding clipmenu:
+```
+journalctl -b | grep clipmenu
+```
+
+It reports "ERROR: The X dsiplay is unset, is your X server running?". When I run clipmenu from the terminal (as opposed from the dmenu selector) the error message is related to a cache file. This discussion suggests that the problem could be in the missing DISPLAY environment variable in the service configuration:
+<https://bugs.archlinux.org/task/68288>
+
+So I added:
+```
+Environment=DISPLAY=:0
+```
+
+In the Service section of the `~/.config/systemd/user/default.target.wants/clipmenud.service`. Restarted the clipmenu service and now everything works fine!
+

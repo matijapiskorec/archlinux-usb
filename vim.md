@@ -25,7 +25,7 @@ colorscheme monokai
 
 If you want to force syntax highlighting on an unsaved buffer, or on a file with wrong or unfamiliar extension, you can run:
 ```
-syntax=python
+:set syntax=python
 ```
 
 To set line numbers and nice line breaks that break at the word boundary:
@@ -70,10 +70,13 @@ If the file is already open in another buffer, use this: `:w ! cat >> [FILE]`
 
 ## Windows
 
-Create a new window: `Ctrl+w n`
+Create a new split window with unnamed buffer: `Ctrl+w n`
 Close a window (corresponding buffer is still available!): `Ctrl+w q`
 To switch between windows: `Ctrl+w w`
 To move between windows: `Ctrl+w [ARROWS or hjkl movements]`
+Split current window into two (horizontally): `sp` or `split` 
+Split current window into two (vertically): `vs` or `vsplit` 
+
 
 ## Buffers
 
@@ -236,11 +239,51 @@ Move to beginning of the line: `0`
 Delete line and start editing at the beginning: `Shift+S`
 Move to the end of the line: `$`
 
+Move to line number 50: `:50`
+Move to 50% of the file: `50%` (This is not an editor command - no colon at the beginning!)
+
 ### Motions in visual mode
 
 Once you enter in visual mode by pressing `v` you have a wider range of motions.
 You can move with regular motions: `w`, `W`, `hjkl`, `%`
 But you can also move by text objects: `as`, `at`, `aw`, `is`, `it`, `iw`
+Move to a specified line (for example, 100th): `100G`
+
+### Block visual mode
+
+How to select multiple lines with block wise visual mode and make changes to them:
+Select block wise visual mode: `Ctrl-v`
+Go down two lines: `2j`
+Horizontally select to the end of the first word: `e`
+Append at the end of selection: `A`
+Type whatever you want: `;` or `"`
+Exit visual mode: `<Esc>`
+
+### Marks
+
+Set mark {a-zA-Z} at current cursor position: `m{a-zA-z}`
+Jump to a mark named with character a: `'a`
+Jump to a previous positions: `''`
+See all marks: `:marks`
+
+## Macros
+
+Start recording a macro and save it inder letter `a`: `qa`
+Execute macro saved under letter `a` three times: `3@a`
+Execute your macro again: `@@`
+
+Some tips from Vim wiki on using macros:
+<https://vim.fandom.com/wiki/Macros>
+
+Use this mapping as a convenient way to play a macro recorded to register q: `:nnoremap <Space> @q`
+
+Start recording keystrokes by typing qq.
+End recording with q (first press Escape if you are in insert mode).
+Play the recorded keystrokes by hitting space.
+Suppose you have a macro which operates on the text in a single line. You can run the macro on each line in a visual selection in a single operation:
+
+Visually select some lines (for example, type vip to select the current paragraph).
+Type `:normal @q` to run the macro from register q on each line.
 
 ## Autocompletion and spelling suggestions
 
@@ -287,6 +330,8 @@ Move the line containing pattern to one line before the current cursor: `:/patte
 Move the line preceeding the line containing pattern to one line after the current cursor: `:/pattern/-1m+1`
 See all lines containing the match pattern in the temporary buffer: `:g/pattern`
 
+All of the commands above (`m`,`co`) can be used in the visual mode on the selection - it will operate on the whole line!
+
 Search on all lines (`%`) and replace all occurrences (`g`): `:%s/search_pattern/replace_pattern/g`
 Reuse the matched pattern in the replace section by using `&`: `:%s/pattern/"&"/g`
 Reference captured group with escaped brackets `\(\)`: `:%s/^\(\w*) \w*/\1/g`
@@ -298,6 +343,17 @@ Delete/change all characters until the next occurrence (but not including) of pa
 Count the number of words and characters in the visual selection: `g Ctrl-g`
 
 Download online text file directly to the current buffer (use `<Ctrl-r>+` to paste url from primary selection register): `:r ! wget -qO- [URL]`
+
+## Execute command
+
+Execute command allows you to execute any sequence of commands, even those that require special keys.
+
+Find all instances of a keyword and put quotes around it: `:g/keyword/ exe "norm ni\"\eea\""`
+At every line go to the end of the line, enter insert mode and then delete the last word: `:g/^/ exe "norm A\<c-w>"`
+Delete the first word of every line, move to the end of line and paste it there: `:g/^/ exe "norm dw$p"`
+
+Single quotes give you a literal string without interpretation, if you want special commands (`<Esc>` can be replaced with `\e`, `<CR>` with `\n`, `Ctrl-w` is `<c-w>`) you have to use double quotes with proper escape sequences in front of the first `<`.
+
 
 ## Shortcuts in the command line
 
@@ -457,5 +513,11 @@ Usually maxmempattern is 1000. You can set it to a large value:
 ```
 
 Also, make sure you don't use square brackets as a part of text inside Markdown, they have a separate meaning in Markdown. I think you can escape them if you need with `\[` and `\]`.
+
+## Common patterns and workflow
+
+When I want to open a quick temprary buffer to copy/paste some text I create a new window with `Ctrl+w n`. This automatically creates a new buffer which I can immediatelly edit, and the buffer is visible in the split window bellow the current one. I can switch back to the first window with `Ctrl+w w` and switch between them as well. If I don't need a window anymore but want to keep the buffer I close the window with `Ctrl+w q`, and if I want to discard the buffer alltogether with the window I do `Ctrl+c`, which is my shortcut for forcefully destrpying the buffer.
+
+To create a temporary buffer in a separate window (and not a split window) you have to run `:enew`.
 
 

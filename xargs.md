@@ -35,7 +35,7 @@ find . -name '*.py' -print0 | xargs -0 wc -l
 
 ## Interactive search
 
-Allow user to type a keyword which will be searched in all filenames in ertain paths and outputed to terminal, after which user can type some other keyword:
+Allow user to type a keyword which will be searched in all filenames in certain paths and outputed to terminal, after which user can type some other keyword:
 ```
 xargs -L 1 find [PATH] -name
 *Keyword*.md
@@ -54,4 +54,13 @@ Option `-n 1` is needed because otherwise xargs will try to feed one unzip comma
 ```
 find ~/path/ -type f -name "*.zip" -print0 | xargs -0 -n 1 unzip -p | fzf -e
 ```
+
+## More complex commands
+
+If using more complex commands it is useful to use replace string option `-I` which defines a string which will be replaced with the input to xargs (in this case the string is `{}` and it will be replaced with the file name provided by find command):
+```
+find ~/path/ -type f -name "*.pdf" -print0 | xargs -0 -I {} pdftotext "{}" - 2>/dev/null
+```
+
+For some reasone the above command works without `-n 1` although pdftotext does not work if you provide more than one file name! The `2>/dev/null` is to discard standard error because we don't want it in our final stream.
 

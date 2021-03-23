@@ -50,3 +50,11 @@ Swap escape and caps lock key:
 ```
 setxkbmap -option caps:swapescape
 ```
+
+## klavaro keyboard tutor
+
+You can install and use klavaro keyboard trainer/tutor GUI:
+```
+sudo pacman -Syu klavaro
+```
+

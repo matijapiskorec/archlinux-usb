@@ -15,6 +15,16 @@ Unzip files into a specified directory:
 unzip archivename.zip -d directory/
 ```
 
+Unzip files to standard output, works even on password protected files:
+```
+unzip -p archivename.zip
+```
+
+Uncompress archive (or a list of archives, can be provided from standard input) and pipe it to standard output. Identical to `gunzip -c`:
+```
+zcat archivename.zip
+```
+
 Update or add a new file in zip archive:
 ```
 zip -u archivename.zip newfile.txt
@@ -27,12 +37,17 @@ zip -d archivename.zip file-for-removal.txt
 
 Zip all jpeg files in directory:
 ```
-zip archivenme.zip directory/*.jpeg
+zip archivename.zip directory/*.jpeg
 ```
+
+Zip can also be used as a simple way to encrypt a file with a password, just pass the `-e` flag (`--encrypt`):
+```
+zip -e archivename.zip file.jpeg
+``` 
 
 ## Compression with gzip
 
-Compress file and keep the original:
+Compress file and keep the original. This is done by writting output to standard output with option `-c` which preserves the input file and is also very memory efficient (memory footprint is almost nill!):
 ```
 gzip -c file.txt > file.txt.gz
 ```
@@ -72,4 +87,18 @@ To extract the `.tar.bz2` archive to a specific directory:
 ```
 tar -xvf archive.tar.bz2 -C /directory
 ``` 
+
+## rar and 7z
+
+This is a copy of instructions from lakka.md. Install required decompressers:
+```
+sudo pacman -Syu unrar
+sudo pacman -Syu p7zip 
+```
+
+Now you can decompress rar and 7z archives:
+```
+unrar x [RAR ARCHIVE] destination-directory/
+7z e [7Z ARCHIVE]
+```
 

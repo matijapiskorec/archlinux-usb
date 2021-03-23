@@ -28,6 +28,18 @@ You can record audio directly in mp3 format (hw:1 is my external webcam, while h
 ffmpeg -f alsa -i hw:1 ./out.mp3
 ```
 
+Check the mp3 file properties like bitrate and sampling rate:
+```
+file out.mp3
+```
+
+Encode mp3 into higher bitrate:
+```
+ffmpeg -i out.mp3 -codec:a libmp3lame -b:a 96k out2.mp3
+```
+
+For sampling rate use `-ar` option, for example `-ar 16000` for 16kHz sampling rate.
+
 Check video recording devices:
 ```
 v4l2-ctl --list-devices

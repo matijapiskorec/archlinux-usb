@@ -207,6 +207,11 @@ If you want to download all of your dotfiles just do (assuming you don't yet hav
 git clone --bare git@[PATH TO YOUR GITHUB DOTFILES REPO]
 ```
 
+Once your repository is just a small part of your (potentially very large) working tree (whole home directory) it might be hard to see all files which are actually commited to the repository. You can view them in this way:
+```
+dotfiles ls-files
+```
+
 ## Github Pages
 
 Github Pages is a great hosting service for static web pages. If you already have a static webpage which you would like to host, this is how you do it.
@@ -313,4 +318,15 @@ git stash clear
 ```
 
 Note: Some tutorials refer to the `git stash save` command. The save command is depracated in favor of push, so just use push!
+
+## Github revokes password access from CLI
+
+Beginning in August 13, 2021, Github plans to revoke password access for CLI clients. The reasons for this and the workaround is described here:
+<https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/>
+
+In short, I either have to setup SSH key access for all my repos or use personal access token. The following page describes using personal access token:
+<https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git#next-steps-authenticating-with-github-from-git>
+
+But I don't see any information on using personal access token besides caching the Github credentials, which is again based on password access:
+<https://docs.github.com/en/free-pro-team@latest/github/using-git/caching-your-github-credentials-in-git>
 

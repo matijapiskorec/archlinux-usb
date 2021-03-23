@@ -65,7 +65,7 @@ Where `AuthorYear` is a label from `.bib` file:
 }
 ```
 
-To compile your markdown with references just add `--bibliography=file.bib` option when you compile with pandoc. In this simple case you do not have to add `--filter pandoc-citeproc`. Bibliographic references will be added at the end of the output pdf in Chichago citation style.
+To compile your markdown with references just add `--bibliography=file.bib --citeproc` option when you compile with pandoc. In this simple case you do not have to add `--filter pandoc-citeproc`. Bibliographic references will be added at the end of the output pdf in Chichago citation style. Note from January 2021 - for some reason the `--filter pandoc-citeproc` does not work anymore (I have to test this more), it seems like it was replaced with simply `--citeproc`.
 
 ## Links 
 

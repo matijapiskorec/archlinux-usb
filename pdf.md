@@ -50,6 +50,13 @@ pdftotext [PDF FILE] - | vim -
 pdftotext [PDF FILE] - | vipe
 ```
 
+Extract text from multiple pdf's using xargs:
+```
+find ~/path/ -type f -name "*.pdf" -print0 | xargs -0 -I {} pdftotext "{}" - 2>/dev/null
+```
+
+For searching the stream you can pipe the output to grep or ag along with the keyword `grep "keyword"` or `ag "keyword"`. This will not give you filenames though, for this you probably need a more powerful script.
+
 Unfortunatelly, Adobe pdf comments (in form of popup annotations or sticky notes) will not be extracted! :-(
 
 ## Searching within pdf file
