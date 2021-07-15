@@ -43,3 +43,30 @@ sudo ln -s /etc/fonts/conf.avail/70-yes-bitmaps.conf /etc/fonts/conf.d
 ```
 
 It appears that this also eliminates annoying flickering in polybar and i3status bar!?
+
+## Manual installation of fonts in ~/.fonts
+
+To install fonts manually in `~/.fonts` directory just copy them there and rnu the following command:
+```
+fc-cache -fv
+```
+
+I did it for the Palatino Linotype and TheSans LP OpenType 1.641. which I needed for my official university template.
+
+## Fonts in Xelatex
+
+To properly run my university presentation template I had to use xelatex instead of pdflatex, and the following fonts, one from official Pacman repository and one from AUR:
+```
+sudo pacman -Syu tex-gyre-fonts
+
+cd ~/src/
+git clone https://aur.archlinux.org/tex-gyre-math-fonts.git
+cd tex-gyre-math-fonts
+makepkg -sri
+```
+
+## Font Awesome cheatsheet
+
+Font Awesome cheatsheet to copy/paste into your projects:
+<https://fontawesome.com/v5/cheatsheet>
+

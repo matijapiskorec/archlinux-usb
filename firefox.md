@@ -21,3 +21,6 @@ If Firefox takes too much memory you can try to do manual garbage collection. Go
 
 Sometimes hardware acceleration can cause strange horizontal streaks when scrolling. To disable it go to `Preferences` and then uncheck first `Use recommended performance settings` and then `Use hardware acceleration when available`.
 
+## Setting as the default browser
+
+You can set Firefox as the default browser from within the Preferences. It should work for Syncthing and Jupyter at least.

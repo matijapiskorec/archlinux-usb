@@ -520,4 +520,8 @@ When I want to open a quick temprary buffer to copy/paste some text I create a n
 
 To create a temporary buffer in a separate window (and not a split window) you have to run `:enew`.
 
+## Encoding
+
+Change the file encoding that is shown on the terminal: `:set encoding=utf-8`
+Change the output encoding of the file that is written: `:set fileencoding=utf-8`
 

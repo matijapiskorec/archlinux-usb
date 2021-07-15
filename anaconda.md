@@ -21,3 +21,26 @@ conda activate gt
 conda install -n gt -c conda-forge ipython jupyter
 ```
 
+## Installing Miniconda and Anaconda on a server without sudo privileges and without GUI
+
+You can install Miniconda on a server without sudo privileges and without GUI by following this guides (do it in silent mode so you don't use gui!):
+<https://docs.conda.io/projects/conda/en/latest/user-guide/install/linux.html>:
+<https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html#install-macos-silent>
+```
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+bash ~/Miniconda3-latest-Linux-x86_64.sh -b -p $HOME/miniconda
+```
+
+If installation didn't asked you about running conda init you have to do it yourself:
+```
+source ~/miniconda/bin/activate 
+conda init
+```
+
+You will have to close and open your terminal window and then can enter conda environment.
+
+Now you can install some package, for example powerlaw package for fitting powerlaws to data:
+```
+conda install -c conda-forge powerlaw
+```
+

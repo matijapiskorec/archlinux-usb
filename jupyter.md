@@ -84,7 +84,7 @@ jupyter notebook stop
 
 ## Virtual environment in fish shell
 
-Python virtual environments are configured to work in bash only, you cannot source environment to fish shell directly. Howeverm there are separate activate scripts for csh and fish shells which are created automatically upon environment creation! So you just have to:
+Python virtual environments are configured to work in bash only, you cannot source environment to fish shell directly. However there are separate activate scripts for csh and fish shells which are created automatically upon environment creation! So you just have to:
 ```
 source $HOME/[PATH TO ENV]/bin/activate.fish
 ```
@@ -132,7 +132,7 @@ python3 -m pip --version
 pip 9.0.1 from $HOME/.local/lib/python3.6/site-packages (python 3.6)
 ```
 
-Installing directly from source:
+Installing directly from source (check that `setup.py` is present in the source folder!):
 ```
 cd source-folder
 pip install .

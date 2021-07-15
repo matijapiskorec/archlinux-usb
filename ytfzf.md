@@ -11,6 +11,11 @@ chmod +x ytfzf/ytfzf
 cp ytfzf/ytfzf ~/bin/
 ```
 
+You can also install it in `~/usr/local/bin/` with:
+```
+sudo make install
+```
+
 It needs ueberzug to show thumbnails in the terminal, you can install it from Arch repositories:
 ```
 sudo pacman -Syu ueberzug
@@ -32,7 +37,14 @@ Audio only: `ytfzf -m`
 Download to current directory: `ytfzf -d`
 Loop, prompt selector again after video ends: `ytfzf -l`
 After the video ends make another search: `ytfzf -s`
+Repeatedly search for videos and download only audio to current directory: `ytfzf -smd`
 
 A similar alternative is lf-yt (I think it needs Youtube API key while ytfzf does not need it):
 <https://github.com/pystardust/ytfzf>
+
+## Upgrading
+
+After some time the script stopped working - it could not curl the Youtube website anymore! I figured that maybe the API or the API changed and so I need to upgrade.
+
+However, I had problems with simple pulling the changes from the upstream repository - there were merge conflicts! So I simply deleted the local repository and cloned it again from scratch, then repeated the installation instructions.
 

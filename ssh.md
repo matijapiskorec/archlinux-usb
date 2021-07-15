@@ -217,9 +217,23 @@ Can we unmount with umount?
 sudo umount local_directory
 ```
 
-Remote editing file on remote
+If fusermount3 and regular umount report error that target is busy or that some other device is using the mount point, you can try lazy umount which should work:
+```
+sudo umount -l local_directory
+```
+
+However, this is not a real unmount and it will be impossible to remount the network disk later on! See comments on the umount man pages:
+
+    A system reboot would be expected in near future if you're  going  to  use  this  option  for  network filesystem  or  local filesystem with submounts.  The recommended use-case for umount -l is to prevent hangs on shutdown due to an unreachable network share where a normal umount will hang due to a  downed server or a network partition. Remounts of the share will not be possible.
+
+Remote editing file on remote:
 ```
 vim scp://<HOST>//<PATH>
+```
+
+Secure copy file from your local machine to remote:
+```
+scp /home/user/image*.jpg user@myhost.com:/home/user
 ```
 
 ## Check open ports and ports in use

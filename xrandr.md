@@ -76,4 +76,3 @@ To switch off HDMI output just run:
 xrandr --output HDMI1 --off
 ```
 
-

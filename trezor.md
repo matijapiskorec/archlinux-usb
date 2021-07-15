@@ -24,3 +24,15 @@ You can also compile Trezor Bridge yourself from Go source, but I had problem wi
 There is also Trezor Bridge package in AUR which is not maintained anymore:
 <https://aur.archlinux.org/packages/trezor-bridge-bin/>
 
+## Trezor Suite
+
+You can also use Trezor Suite:
+<https://suite.trezor.io/>
+
+Download the AppImage, copy it to your local bin folder and make it executable:
+```
+cp ~/tmp/download/Trezor-Suite-[version]-x86_64.AppImage ~/bin/
+cd ~/bin
+chmod +x ./Trezor-Suite-[version]-x86_64.AppImage
+./Trezor-Suite-[version]-x86_64.AppImage
+

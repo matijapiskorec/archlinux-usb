@@ -13,7 +13,9 @@ Change sort order: `o`
 View hidden files: `zh`
 Rename current file: `cw`
 Select file: `space`
-Yank/copy: `yy`
+Yank/copy file: `yy`
+Yank/copy file name: `yn`
+Yank/copy file path: `yp`
 Paste: `pp`
 Cut: `dd`
 Delete: `dD`

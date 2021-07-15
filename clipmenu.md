@@ -40,7 +40,7 @@ Somewhere in 2020 clipmenu stopped working - the daemon is running but no result
 journalctl -b | grep clipmenu
 ```
 
-It reports "ERROR: The X dsiplay is unset, is your X server running?". When I run clipmenu from the terminal (as opposed from the dmenu selector) the error message is related to a cache file. This discussion suggests that the problem could be in the missing DISPLAY environment variable in the service configuration:
+It reports "ERROR: The X display is unset, is your X server running?". When I run clipmenu from the terminal (as opposed from the dmenu selector) the error message is related to a cache file. This discussion suggests that the problem could be in the missing DISPLAY environment variable in the service configuration:
 <https://bugs.archlinux.org/task/68288>
 
 So I added:
