@@ -24,7 +24,12 @@ A typical transaction looks like this:
     Assets:BankAccount
 ```
 
-Transaction should have a zero sum - if you leave exactly one entry without a sum it is assumed it balances the transaction. The currency is arbitrary, it can be whatever you want (USD, HRK, apples), with positive or negative values.
+Transaction should have a zero sum - if you leave exactly one entry without a sum it is assumed it balances the transaction. The currency is arbitrary, it can be whatever you want (USD, HRK, apples), with positive or negative values. So you can do a simple currency conversion like this:
+```
+2021/8/2 * Currency conversion EUR to CHF
+    Assets:BankAccount:Foreign            -937,68 EUR
+    Assets:BankAccount:Foreign            973,60 CHF 
+```
 
 Definition of assets/expenses/liabilities is also arbitrary, you can write whatever you want, with as many subcategories as you need. A recommendation is that at the highest level you have five sorts of accounts:
 1. Expenses: where money goes,
@@ -181,10 +186,18 @@ to tomorrow ; basically a period which includes today and everything before
 to today ; does not include today!
 ```
 
-Calculate monthly expenses, optionally with each month's expenses sorted by the amount:
+Print only the transactions which include certain account, for example Cash:
+```
+ledger -f ledger.dat -p "this month" print Cash
+```
+
+This is useful if you want to extract all of your Cash transactions into a separate file in order to keep a separate ledger!
+
+Calculate monthly expenses, optionally with each month's expenses sorted by the amount, or collapsed (just the total amount for all expenses monthly and not the subaccounts):
 ```
 ledger -f ledger.dat -M register Expenses
 ledger -f ledger.dat -M --period-sort "(amount)" register Expenses
+ledger -f ledger.dat -M register Expenses --collapse
 ```
 
 ## Commodities
@@ -248,6 +261,21 @@ ledger -f ledger.dat --price-db pricedb.dat balance --market
 ```
 
 See the documentation for `--download` (`-Q`) option where you define a script which downloads the prices if needed and appends them to the pricedb file.
+
+While doing commodity reporting you can also use `--exchange` option to convert all prices (in this case EUR), collapse all accounts so that only the top one is shown (`--collapse`), define a period of reporting with `--period` or `-p` (in this case until a certain date) and set current date with `--now` so that prices of commodities are reflected on that date instead of today:
+```
+ledger -f ledger.dat --price-db pricedb.dat balance Assets --exchange EUR --collapse --period "until 2022/1" --now "2022/1"
+```
+
+Show value of commodities at the time they were acquired:
+```
+ldg -f ledger.dat --price-db pricedb.dat balance Assets --exchange EUR --no-total --historical
+```
+
+A similar option is `--basis` (and its alias `--cost`) which reports basis cost for all postings:
+```
+ldg -f ledger.dat --price-db pricedb.dat balance Assets --exchange EUR --no-total --basis
+```
 
 ## Periodic and automatic transactions
 
@@ -337,6 +365,37 @@ The second way is preferable in most situations, but the third one comes in hand
 
 This is more convenient when we want to record some items separatelly (like beer in this example) but do not want to manually subtract the amount of these items from the final bill. The bill we have makes it easy to specify amounts for separate items as well as the final bill, so we can just let ledger calculate the remainder for all other items.
 
+## Tracking multiple assets accross multiple accounts
+
+If you have multiple assets (for example, apples, oranges) accross multiple accounts, the problem is that you can aggregate their value per account but not per asset. For example:
+```
+2023/2/6 * Shopping
+    Assets:House            2 apples
+    Assets:House            3 oranges
+```
+
+You cannot see the value of apples and oranges in your house with:
+```
+ldg -f ledger.dat --price-db pricedb.dat balance Assets --exchange EUR --no-total
+```
+
+To get get values of all your assets separatelly they need to be in separate accounts:
+```
+2023/2/6 * Shopping
+    Assets:House:Apples            2 apples
+    Assets:House:Oranges            3 oranges
+```
+
+Now you can see the value of all assets with:
+```
+ldg -f ledger.dat --price-db pricedb.dat balance Assets --exchange EUR --no-total
+```
+
+To disregard subaccounts you can use the `--collapse` option, which will show only the total for the most top account:
+```
+ldg -f ledger.dat --price-db pricedb.dat balance Assets --exchange EUR --no-total --collapse
+```
+
 ## Useful options
 
 Show only accounts up to depth 2, and aggregate the rest: `--depth 2`
@@ -347,9 +406,11 @@ Show only uncleared transactions: `--uncleared`
 Show only actual postings, not automated ones: `--actual`
 Show only real posting, not virtual ones: `--real`, `-R`
 Collapse all postings in register report to subtotals: `--subtotal`, `-s`
+Collapse all accounts in balance report: `--collapse`, `-n`
 Displays posting which are related to all matched postings: `--related`, `-r`
 Do not display total balance at the end (it's uninformative): `--no-total`
 Set date format: `--date-format "%Y/%m/%d"`
+Set a current date (which might be in the past!): `--now` 
 
 Display current (`-c`) state, only real (`-R`) postings and cleared (`-C`) postings:
 ```

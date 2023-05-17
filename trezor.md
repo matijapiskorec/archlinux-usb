@@ -35,4 +35,13 @@ cp ~/tmp/download/Trezor-Suite-[version]-x86_64.AppImage ~/bin/
 cd ~/bin
 chmod +x ./Trezor-Suite-[version]-x86_64.AppImage
 ./Trezor-Suite-[version]-x86_64.AppImage
+```
+
+## Using Trezor with Exodus
+
+You can use your Trezor with Exodus desktop wallet - just make sure that Trezor Birdge is running as a daemon, plug in your Trezor and fire Exodus! Trezor will appear as a separate wallet within Exodus, you can control it with the same interface.
+
+## Using Trezor with Metamask
+
+You can connect your Trezor to the Metamask - it will show as an additional Ethereum account. Use it to interact with decentralized exchanges such as Uniswap.
 

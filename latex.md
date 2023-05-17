@@ -88,4 +88,85 @@ In theory, make can be used to reproduce the whole data scientific workflow. Mor
 
 While compiling a Latex code there can be errors due to which compiler halts and seeks input. In these cases you typically want to abort compilation and start again. To abort compilation simply type `X` into the command line and press enter.
 
+## Font Awesome in XeLaTeX
+
+If you want to use Font Awesome glyphs, for example `\faPlus` and `\faEnvelope`, in your XeLaTeX files you have to include fontspec and fontawesome packages:
+```
+% Needed for \faPlus and \faEnvelope font gylphs when using XeLaTeX
+\usepackage{fontspec}
+\usepackage{fontawesome}
+```
+
+Overview of all other Font Awesome glyphs:
+<https://ctan.ijs.si/tex-archive/fonts/fontawesome/doc/fontawesome.pdf>
+
+## Code with syntax highlighting in LaTeX
+
+If you want to include code with syntax highlighting in your LaTeX code you can use package minted which is included in Pacman. You also need python-pygments which minted uses:
+```
+sudo pacman -Syu python-pygments minted
+```
+
+Now you can include minted in your .tex file:
+```
+\usepackage{minted}
+```
+
+Make sure you are compiling with `--shell-escape` option, for example with XeLaTeX:
+```
+xelatex -interaction nonstopmode --shell-escape main
+```
+
+If you are including code in your Beamer project make sure you are adding `[fragile]` option to your slides as otherwise minted environment will break your Beamer slides (this happens with all verbatim environments). A full working example is here (along with some options for better formating):
+```
+\begin{frame}[fragile]
+\frametitle{Code example in Beamer}
+
+\begin{minted}
+[
+framesep=2mm,
+baselinestretch=1.2,
+fontsize=\footnotesize,
+linenos
+]
+{python}
+import numpy as np
+\end{minted}
+
+\end{frame}
+```
+
+You can also include inline code with `\mint` command, for example HTML:
+```
+\mint{html}|<h2>Something <b>here</b></h2>|
+```
+
+For more examples see Overleaf page:
+<https://www.overleaf.com/learn/latex/Code_Highlighting_with_minted>
+
+## Latexdiff
+
+Using Latexdiff for marking changes to Tex documents:
+<https://www.overleaf.com/learn/latex/Articles/Using_Latexdiff_For_Marking_Changes_To_Tex_Documents>
+
+Suggestion from Alberto Partida how to use latexdiff to highlight changes between two papers in LaTeX (there is an option to include abstract as well otherwise it's excluded):
+```
+latexdiff --append-context2cmd="abstract" -e utf8 oldfile.tex newfile.tex > diff-abs-final.tex
+```
+
+You can also use latediff with combination with git or some other versioning system to manage multiple revisions! For that you can use a wrapper script `latexdiff-vc`. For example, to compare two git revisions rev1 and rev2:
+```
+latexdiff-vc -r rev1 -r rev2 file.text
+```
+
+## Normal text size in Beamer slides
+
+To set the font size of the normal text in Beamer, just put this in the document header:
+```
+% Set font size of normal text!
+\setbeamerfont{normal text}{size=\small}
+\AtBeginDocument{\usebeamerfont{normal text}}
+```
+
+This is an easy way to increase the amount of text you can fit on a single slide!
 

@@ -604,8 +604,7 @@ If you booted off a Live USB installation medium, remove it now.
 
 Powerup the computer and use the machine's boot menu to boot off your newly created Arch Linux USB. We still need to configure a few things so login as the root user with the password chosen above.
 
-Check that the network interfaces have been reverted to traditional naming
-style:
+Check that the network interfaces have been reverted to traditional naming style:
 ```
 ip link
 ```

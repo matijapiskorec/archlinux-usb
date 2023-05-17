@@ -11,3 +11,8 @@ List all lines not containing string ",0" from file.txt:
 grep -v ',0' file.txt 
 ```
 
+Extract all lines containing either one of several patterns in case-insensitive way `-i` and output it to a file:
+```
+grep -ie "pattern1" -ie "patter2" file.csv > file_parsed.csv
+```
+

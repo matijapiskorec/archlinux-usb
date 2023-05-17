@@ -182,6 +182,8 @@ If the default webcam window is too large and it takes too much space on your sc
 sleep 3 ; screencast -S -W -1 -Z 160x90 test.mp4
 ```
 
+Tip: Make sure you quit the program with `q` and to leave some extra time at the end of the recording - in that case the recording will not include the last few seconds. This is useful because then the recording will not include your screen switching and pressing of `q`.
+
 ## Concatenating video files
 
 If you have MP4 files, these could be losslessly concatenated by first transcoding them to MPEG-2 transport streams. With H.264 video and AAC audio, the following can be used:
@@ -189,5 +191,19 @@ If you have MP4 files, these could be losslessly concatenated by first transcodi
 ffmpeg -i input1.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts intermediate1.ts
 ffmpeg -i input2.mp4 -c copy -bsf:v h264_mp4toannexb -f mpegts intermediate2.ts
 ffmpeg -i "concat:intermediate1.ts|intermediate2.ts" -c copy -bsf:a aac_adtstoasc output.mp4
+```
+
+## Slideshow
+
+Make a slideshow using images in the current folder, with background music in .m4a format (compatible with .mp4 so it doesn't need a recoding):
+```
+cat IMG_* | ffmpeg -y -loop 1 -framerate 1/3 -f image2pipe -i - -i music.m4a -c:v libx264 -crf 30 -c:a copy -shortest output.mp4
+```
+
+Framerate determines how many seconds to show each image - 1/3 means 3 seconds and so on. `-crf` option is for quality, lower is better, so if you want to reduce the video size increase this value.
+
+If you have problems with orientation of images you can auto orient them before making a slideshow:
+```
+mogrify -auto-orient IMG_*
 ```
 

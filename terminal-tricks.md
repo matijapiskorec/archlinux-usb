@@ -270,6 +270,11 @@ Sort first by the third, then by the second column, where columns are comma-deli
 sort -t, -k3 -k2 [FILE]
 ```
 
+Sort by the first column, considering that the first column is a numeric value (otherwise the sort will be lexicographic, so for example `11` would sort lower than `2`):
+```
+sort -t, -n -k1 [FILE]
+```
+
 ## Searching with ripgrep
 
 ripgrep is a great and fast replacement for grep, you can install it:
@@ -326,5 +331,71 @@ tail -f /tmp/pipe
 Now push some messages through in another terminal:
 ```
 echo "This is a message!" > /tmp/pipe
+```
+
+## Conversion from UNIX epoch date
+
+Convert the timestamp in UNIX epoch time to human-readable format:
+
+    date -d @1590507378
+    Tue May 26 05:36:18 PM CEST 2020
+
+## Reverse the output
+
+Reverse the output with `tac`
+```
+ls -la | tac
+```
+
+## Redirecting standard output and error
+
+Bash – Redirect both standard output and standard error to same file
+<https://linuxconfig.org/bash-redirect-both-standard-output-and-standard-error-to-same-file>
+
+Redirect standard output to a file (overwrite) and standard error to terminal:
+```
+echo "linuxconfig.org" > new-file.txt
+```
+
+Redirect standard output to a file (append) and standard error to terminal:
+```
+echo "linuxconfig.org" >> existing-file.txt
+```
+
+Redirect standard output and standard error to the same file:
+```
+echo "linuxconfig.org" > new-file.txt 2>&1
+```
+
+Supress standard output and standard error by redirecting them to `/dec/null`:
+```
+echo "linuxconfig.org" > /dev/null 2>&1
+```
+
+Redirect standard output to one file and standard error to another file:
+```
+echo "linuxconfig.org" 2> std-err.txt 1> std-out.txt
+```
+
+Redirect standard output and standard error to the same file while also seeing them both in your terminal:
+```
+echo "linuxconfig.org" 2>&1 | tee new-file.txt
+```
+
+Redirect standard output and standard error to the same file (append) while also seeing them both in your terminal:
+```
+echo "linuxconfig.org" 2>&1 | tee -a existing-file.txt
+```
+
+## Checking last login users
+
+Check the last login of users with the `lastlog`
+Show a listing of last logged in users `last`
+
+## Fetch multiple files with wget
+
+To fetch multiple files using their URL's with wget you can simply do:
+```
+wget URL1 URL2 URL3
 ```
 

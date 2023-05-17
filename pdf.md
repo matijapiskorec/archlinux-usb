@@ -32,6 +32,23 @@ Extract pages 1, 2, and 3 to 5 using pdfjam:
 pdfjam file1.pdf 1,2,3-5 -o file2.pdf
 ```
 
+Extracting page 2 using pdftk:
+```
+pdftk main.pdf cat 2 output output.pdf
+```
+
+Extracting multiple pages using pdftk:
+```
+pdftk main.pdf cat 1 3 5-6 output output.pdf
+```
+
+Combining the two single-page PDF's into a single-page PDF, where pages are on top of eachother on a single page:
+```
+pdfjam output1.pdf output2.pdf --nup 1x2 --outfile output3.pdf
+```
+
+Consider using an `--landscape` option if you need to orient the pages differently, together with the `--nup` option.
+
 ## Extraction of text from pdf
 
 You can extract text from pdf using pdftotext, which is a part of poppler package:
@@ -130,6 +147,20 @@ tesseract image.jpeg stdout -l hrv | vim -
 
 There are several pdf readers you can use - `zathura` and `mupdf` which are command line based and `FoxitReader` which is more similar to standard GUI pdf viewers.
 
+Zathura and MuPDF cannot fill in PDF forms. Foxit Reader can but sometimes there is a problem with it. So I decided to install Acrobat Reader from AUR:
+```
+git clone https://aur.archlinux.org/acroread.git
+cd acroread
+makepkg -sri
+```
+
+Unfortunatelly, it crashes often while filling in the form:-( I tried installing Adobe Reader for Wine but installation could not complete. So I tried Evince reader from the official repository:
+```
+sudo pacman -Syu evince
+```
+
+And this one works fine! So I will be using Foxit Reader and Evince for filling in the PDF forms.
+
 ## Creating a combined pdf from har archive
 
 Parse all jpeg urls from a har archive and download all images:
@@ -145,4 +176,31 @@ convert (ls -1 -cr *.jpeg) -compress jpeg -quality 25 output.pdf
 
 See more info on how to create pdf from multiple images and how to perform optical character recognition:
 <https://askubuntu.com/questions/246647/convert-a-directory-of-jpeg-files-to-a-single-pdf-document>
+
+## Converting PDF to an image
+
+You can convert a PDF to an image (in this case it makes sense if PDF is one-page):
+```
+convert file.pdf -density 300 -depth 8 -quality 85 -colorspace RGB file.png
+```
+
+## Combining separate PDF's
+
+To combine all PDF's in the current folder, assuming you are using fish interactive shell:
+```
+pdftk (ls -1 -cr *.pdf) cat output combined.pdf
+```
+
+In general you can combine multiple PDF's in the following way:
+```
+pdftk file1.pdf file2.pdf cat output combined-file.pdf
+```
+
+## Inster an image into PDF
+
+Unfortunatelly, I could not find any offline tools for inserting a simple image into PDF (for example, for a signuture). But I found this online tool which works ok:
+<https://smallpdf.com/edit-pdf>
+
+For a simple one-page PDF you can use Inkscape. Import PDF and any image you need, then export back to PDF. I have to figure out how to export multipage documents properly!
+
 

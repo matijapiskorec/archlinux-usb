@@ -30,7 +30,7 @@ Adjust brightness of a display:
 xrandr --output LVDS1 --brightness 0.8
 ```
 
-# Configuration for Thinkpad x220 with Full HD display using Nitrocaster's mod
+## Configuration for Thinkpad x220 with Full HD display using Nitrocaster's mod
 
 I have Thinkpad x220 with Full HD display using Nitrocaster's mod. Display is connected to DP3, but primary LVDS1 is still connected and active, although it does not exist anymore. The brightness keys do not work at all. One suggeston was to duplicate displays, probably with something like:
 ```
@@ -53,6 +53,8 @@ And then optionally:
 xrandr --output VGA1 --left-of DP3
 ```
 
+Sometimes upon startup the DP3 display is at the minimum brightness and cannot be made brighter with the command above. This is usually fixed by turning off the LVDS1 display with the command above. After that you can adjust the brihgtness of the DP3 display.
+
 ## Connecting to HDMI output
 
 To connect to the external HDMI output (check the exact name of your HDMI output with `xrandr`):
@@ -71,8 +73,18 @@ pactl set-card-profile 0 output:hdmi-stereo
 pactl set-card-profile 0 output:analog-stereo
 ```
 
+You can get full controls with:
+```
+pavuctlcontrol
+```
+
 To switch off HDMI output just run:
 ```
 xrandr --output HDMI1 --off
+```
+
+You can also adjust brighthess of the screen like this - this is what I use on my Thinkpad X13:
+```
+xbacklight -set 70
 ```
 

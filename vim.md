@@ -193,8 +193,7 @@ Run ex command on all lines matching a pattern: g/pattern/norm i"
 
 ### Text objects
 
-A word is a sequence of letters, digits, separated by various non-blank characters. WORD is a sequence of any characters separated by whitespaces.
-Following sentence "tmp/var e.g." consists of four words but only two WORDS!
+A word is a sequence of letters, digits, separated by various non-blank characters. WORD is a sequence of any characters separated by whitespaces. Following sentence "tmp/var e.g." consists of four words but only two WORDS!
 
 A word: aw
 Inner word: iw
@@ -309,11 +308,13 @@ Sorround visual selection with double quotes: `S"`
 
 ## Vim oneliners 
 
+Delete lines from 1 to 50: `:1,50d`
 Delete one word three times: `3dw`
 Delete three words one time: `d3w`
 Delete two words, repeated three times: `3d2w`
 Change the next match (can be repeated with .): `cgn`
 Substitute all occurrences across all lines: `:%s/pattern/replacement/g`
+Add a newline at all occurances of `;`: `:%s/;/\r/g`
 Substitute all occurrences across all lines with confirmation: `:%s/pattern/replacement/g`
 Append semicolon at the end of each line in file: `:%normal A;`
 Append semicolon at the beginning of each line in file: `:%normal I;`
@@ -343,6 +344,8 @@ Delete/change all characters until the next occurrence (but not including) of pa
 Count the number of words and characters in the visual selection: `g Ctrl-g`
 
 Download online text file directly to the current buffer (use `<Ctrl-r>+` to paste url from primary selection register): `:r ! wget -qO- [URL]`
+
+Count the number of matches and the number of lines where they appear: `:%s/pattern//gn`
 
 ## Execute command
 
@@ -389,6 +392,9 @@ Sort the current buffer in place:
 Leave only the lines containing matching pattern: `:%!grep pattern`
 View only matching lines in mini buffer: `:w ! grep pattern`
 Arrange text in columns using `&` as a delimiter (and Linux column command): `:%!column -s '&' -t`
+Reverse the selected lines: `:'<,'>! tac`
+Sort the selected lines: `:'<,'>! sort`
+Out of all selected lines, leave only the ones matching the pattern: `:'<,'>! grep .txt`
 
 ## CtrP fuzzy file finder
 
@@ -524,4 +530,124 @@ To create a temporary buffer in a separate window (and not a split window) you h
 
 Change the file encoding that is shown on the terminal: `:set encoding=utf-8`
 Change the output encoding of the file that is written: `:set fileencoding=utf-8`
+
+## Format JSON files using jq
+
+If you have `jq` installed you can pretty-print format JSON files within vim:
+```
+:%!jq .
+```
+
+NOTE: As of 1.8.2022. this appears not to work anymore! Did the syntax for `jq` changed?
+
+Set JSON syntax with:
+```
+:set syntax=json
+```
+
+## Run a terminal within Vim
+
+You can run a terminal within Vim session as a separate pane:
+```
+:terminal
+```
+
+To exit you can just type `exit` or even close it with `Ctrl-d` if your terminal is setup that way.
+
+## Pass a command while starting Vim
+
+You can pass a command as an argument to Vim using either the `-c` option or the `+` syntax. For example, you can pipe the JSON from standard output to Vim and format it with an external program and set syntax highlighting using one of the following two ways:
+```
+| vim "+%!jq ." "+set syntax=json" -
+| vim -c ":%!jq ." -c ":set syntax=json" -
+```
+
+## Change cursor based on the mode
+
+Put this configuration in `.vimrc` in order to have different cursors in different mode:
+```
+" Change the cursor in different modes
+" Ps = 0  -> blinking block.
+" Ps = 1  -> blinking block (default).
+" Ps = 2  -> steady block.
+" Ps = 3  -> blinking underline.
+" Ps = 4  -> steady underline.
+" Ps = 5  -> blinking bar (xterm).
+" Ps = 6  -> steady bar (xterm).
+let &t_SI = "\<Esc>[6 q" " bar shape in insert mode
+let &t_SR = "\<Esc>[4 q" " underline shape in replace mode
+let &t_EI = "\<Esc>[2 q" " block shape in normal mode
+if !empty($TMUX) " tmux needs special configuration for cursor
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[6 q\<Esc>\\"
+    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+endif
+```
+
+Update 10.6.2022. - this is not working anymore in tmux! Cursor change outside of tmuc works fine.
+
+## Remote editing of files with Vim
+
+You can use ssh and scp protocols to remotelly edit files with Vim. For more information see the note on Vim and the chapter `Mount remote directories with sshfs`.
+
+Open and edit a remote file on your local machine with Vim:
+```
+vim scp://<HOST>//<PATH>
+```
+
+If you have a corresponding entry in `~/.ssh/config` for the server and your username you can use this:
+```
+vim scp://server//home/user/file.txt
+```
+
+Otherwise you have to specify full username and server URL:
+```
+vim scp://user@server//home/user/file.txt
+```
+
+As an alternative you can mount remote directories locally and then use Vim to edit them:
+```
+sshfs user@host:remote_directory local_directory
+```
+
+You can now edit directory locally and the changes will persist remotelly, and vice versa. You can unmount with fusermount3 (installed automatically with sshfs):
+```
+fusermount3 -u local_directory
+```
+
+As an alternative to unmounting with fusermount3 you can also unmount with the standard umount command:
+```
+sudo umount local_directory
+```
+
+If fusermount3 and regular umount report error that target is busy or that some other device is using the mount point, you can try lazy umount which should work:
+```
+sudo umount -l local_directory
+```
+
+However, as this is not a real unmount it will be impossible to remount the network disk later on! In that case a reboot of your local machine might be neccessary.
+
+## Github copilot
+
+You can setup Github Copilot for code completion:
+<https://github.com/github/copilot.vim>
+
+To install the plugin:
+```
+git clone https://github.com/github/copilot.vim.git ~/.vim/pack/github/start/copilot.vim
+```
+
+Run the Vim and setup it with: `:Copilot setup`
+
+You will get a code which you can then enter in the provided web page. You will also have to login with your Github account and setup the payment information (first 60 days is free) and give access to the application.
+
+Check status: `:Copilot status`
+
+If it is enabled and online you are good to go! Use Tab to complete the code suggestions.
+
+Check you biling information in:
+<https://github.com/settings/billing>
+
+Disable Copilot: `:Copilot disable`
+Enable Copilot: `:Copilot enable`
 

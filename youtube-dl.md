@@ -34,3 +34,15 @@ The output video will be automatically merged and the original files will be del
 
 If none of the formats suits you, you can recode a video in another format with `--recode-video` option.
 
+## Stagnation of youtube-dl
+
+It appears that youtube-dl project become stagnant, as it was not updated since 17.12.2021.! It is recommended to install yt-dlp package which replaces it:
+```
+sudp pacman -S yt-dlp
+```
+
+yt-dlp Arch Linux repository
+<https://archlinux.org/packages/community/any/yt-dlp/>
+
+I noticed this once ytfzf stopped working in February 2023, complaining on the outdated youtube-dl!
+

@@ -31,3 +31,25 @@ Extract EXIF information from a photo:
 ```
 identify -verbose [PHOTO]
 ```
+
+## Auto-orient photos
+
+Use mogrify to auto-orient photos in the folder:
+```
+mogrify -auto-orient IMG_*
+```
+
+Otherwise you can rotate it manually:
+```
+mogrify -rotate 90 image.jpg
+```
+
+## Resize existing images
+
+To resize (reduce quality) of existing images in place (overwrites the images) you can use mogrify. For example, top reduce all JPG images to 50% of quality in the current folder:
+```
+mogrify -quality 50 *.JPG
+```
+
+
+

@@ -17,6 +17,16 @@ rsync -avzhe ssh --progress --delete user@server:~/folder .
 
 You can always add a dry run option `--dry-run` which will output results without actually copying anything.
 
+You can also syncrhonize local folder with another local folder:
+```
+rsync -av --delete ~/folder1/ ~/folder2/
+```
+
+Specifying `/` after the source directory only copies the contents of the directory. If we do not specify the `/` the source directory, the source directory will also be copied to the destination directory.
+
+`-a` specifies the archive mode, meaning you want recursion and you want to preserve almost everything
+`-v` specifies verbosity
+
 ## Synchronizing with an Arch Linux installation on USB drive
 
 First, check and mount the usb drive, main partition (`/dev/sdX3`) to `/mnt` and boot partition (`/dev/sdX2/`) to `/mnt/boot`:

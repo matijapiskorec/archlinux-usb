@@ -68,7 +68,7 @@ Generate key with rsa method:
 ssh-keygen -t rsa
 ```
 
-Copy the generated key to server (if you have more keys then specify a key with `-i` option):
+Copy the generated key to server (if you have more keys then specify a key with `-i` option, otherwise all keys will be added!):
 ```
 ssh-copy-id user@host
 ```
@@ -140,7 +140,7 @@ ssh-add -L
 
 ## Tunneling
 
-Tunnelling local->remote:
+Tunnelling local-remote:
 ```
 ssh -L<PORT>:<HOST>:<HOSTPORT>
 ```
@@ -152,7 +152,7 @@ ssh -L8080:localhost:22 some.server
 
 Now when we run `ssh localhost 8080` we'll connect to some.server! Instead of `localhost` you can put and other machine that's on the same network as some.server. Just make sure no other service listens on port 8080!
 
-Tunneling remote->local
+Tunneling remote-local
 ```
 ssh -R<PORT>:<HOST>:<HOSTPORT>
 ```
@@ -231,6 +231,16 @@ Remote editing file on remote:
 vim scp://<HOST>//<PATH>
 ```
 
+If you have a corresponding entry in `~/.ssh/config` for the server and your username you can use this:
+```
+vim scp://server//home/user/file.txt
+```
+
+Otherwise you have to specify full username and server URL:
+```
+vim scp://user@server//home/user/file.txt
+```
+
 Secure copy file from your local machine to remote:
 ```
 scp /home/user/image*.jpg user@myhost.com:/home/user
@@ -252,4 +262,22 @@ Check which ports are listening for connections:
 ```
 sudo lsof -i -P -n | grep LISTEN
 ```
+
+## Execute a command on remote server
+
+You can can execute a command on remote server and receive its output via ssh. For example, you can check the memory usage of the remote machine with the free command:
+```
+ssh user@server 'free'
+```
+
+To check the top 20 processes which are using the most CPU's on the remote machine, you can run this command:
+```
+ssh user@server "ps -eo pcpu,pmem,pid,user,args | sort -k 1 -r | head -20"
+```
+
+Similarly, if you want to check which processes are using the most memory, just put pmem option on the first place in the command above:
+```
+ssh user@server "ps -eo pmem,pcpu,pid,user,args | sort -k 1 -r | head -20"
+```
+
 

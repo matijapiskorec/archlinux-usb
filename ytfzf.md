@@ -48,3 +48,15 @@ After some time the script stopped working - it could not curl the Youtube websi
 
 However, I had problems with simple pulling the changes from the upstream repository - there were merge conflicts! So I simply deleted the local repository and cloned it again from scratch, then repeated the installation instructions.
 
+## Stagnation of youtube-dl
+
+It appears that youtube-dl project (on which ytfzf depends) become stagnant, as it was not updated since 17.12.2021.! It is recommended to install yt-dlp package which replaces it:
+```
+sudp pacman -S yt-dlp
+```
+
+yt-dlp Arch Linux repository
+<https://archlinux.org/packages/community/any/yt-dlp/>
+
+I noticed this once ytfzf stopped working in February 2023, complaining on the outdated youtube-dl!
+

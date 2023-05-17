@@ -91,3 +91,41 @@ pandoc input.md -t epub3 --toc --number-sections --filter pandoc-crossref --bibl
 
 Zathura is not capable of properly displaying MathML formulas in epub3. For proper display you can use Calibre.
  
+## Change default font in Markdown
+
+Pandoc uses LaTeX by default for PDF document generation, so in order to change the default font for the whole document you can include this command in the header:
+```
+fontfamily: opensans
+header-includes:
+  - \renewcommand{\familydefault}{\sfdefault}
+```
+
+## Structuring the slide show
+
+You can structure your Beamer Pandoc presentation by using `--slide-level 2` option while compiling and including sections and subsections within your markdown:
+<https://pandoc.org/MANUAL.html#structuring-the-slide-show>
+
+A heading at the slide level always starts a new slide.
+
+Headings below the slide level in the hierarchy create headings within a slide. (In beamer, a "block" will be created. If the heading has the class example, an exampleblock environment will be used; if it has the class alert, an alertblock will be used; otherwise a regular block will be used.)
+
+Headings above the slide level in the hierarchy create "title slides," which just contain the section title and help to break the slide show into sections.
+
+So the Markdown structure might look like this for `--slide-level 2`:
+```
+# This is a section slide
+
+## This is the first slide in this section
+ - list item 1
+ - list item 2
+
+## This is the second slide in this section
+
+### This creates a heading within a slide - a block in case of Beamer
+```
+
+## Tutorials for Pandoc
+
+Customizing pandoc to generate beautiful pdf and epub from markdown
+<https://learnbyexample.github.io/customizing-pandoc/>
+

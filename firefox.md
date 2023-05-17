@@ -24,3 +24,8 @@ Sometimes hardware acceleration can cause strange horizontal streaks when scroll
 ## Setting as the default browser
 
 You can set Firefox as the default browser from within the Preferences. It should work for Syncthing and Jupyter at least.
+
+## Bookmarks
+
+Save all open tabs in a bookmark folder: `Ctrl+Shift+d`
+

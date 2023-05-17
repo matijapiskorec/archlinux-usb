@@ -27,6 +27,8 @@ For subtitles, make sure your subtitle filename matches exactly the filename of 
 Delay subtitle in positive/negative direction by 100 ms increments: `x/z`
 Decrease/increase volume: `9/0`
 Mute/unmute: `m`
+Decrease/increase playback speed by 10%: `[/]`
+Reset playback speed to normal: `Backspace`
 
 ## My i3/tmux setup to play youtube videos
 

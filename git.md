@@ -62,6 +62,61 @@ To discard unstaged changes on a specific file:
 git restore [FILE]
 ```
 
+To unstage currently staged changes for a file:
+```
+git restore --staged [FILE]
+```
+
+List all branches, both local and remote:
+```
+git branch -a
+```
+
+View changes in unstaged files as compared to the latest commit:
+```
+git diff [FILE]
+```
+
+View changes in staged files as compared to the latest commit:
+```
+git diff --cached [FILE]
+```
+
+## Basic branching and merging
+
+Basic branching and merging from official Git documentation:
+<https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging>
+
+Create and checkout a new branch:
+```
+git checkout -b iss53
+```
+
+This is a shorthand for:
+```
+git branch iss53
+git checkout iss53
+```
+
+You do some changes and commit them, then you want to go back to the master branch to apply a hotfix:
+```
+git checkout master
+git branch -b hotfix
+```
+
+Note: You will not be able to do this if you have some uncommited changes in your working directory! Either commit all of your changes, or you stash them (see section on stashin).
+
+Once you are able to checkout the master branch, created the hotfix branch, did your hotfix and tested everything, you are ready to merge the branch hotfix back to the master branch:
+```
+git checkout master
+git merge hotfix
+```
+
+If there were no other commits on the master branch, the merge will be a simple fast-forward. The master branch will now contain changes from the hotfix branch. We can delete the hotfix branch:
+```
+git branch -d hotfix
+```
+
 ## Git configuration
 
 Git log in pretty format:
@@ -158,6 +213,10 @@ keychain github_rsa
 
 You can now check origin again with `git remote show origin`. If authorization succeeds without errors this means that your key works.
 
+Sometimes you will get an error stating that the remote host identification has changed! You just need to add github.com in the list of known hosts:
+```
+ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+```
 
 ## Managing dotfiles with git bare repositories
 
@@ -329,4 +388,93 @@ In short, I either have to setup SSH key access for all my repos or use personal
 
 But I don't see any information on using personal access token besides caching the Github credentials, which is again based on password access:
 <https://docs.github.com/en/free-pro-team@latest/github/using-git/caching-your-github-credentials-in-git>
+
+## Gitlab acces remote repository with token
+
+Some remote Gitlab repositories have token access. Go to the web interface and generate a token, then you can a new origin to your project by including the token in the URL:
+```
+git clone https://<username>:<token>@gitlab.example.com/<creator_username>/<repository_name>.git
+```
+
+Tokens usualy have expiration date, so make sure you renew them from time to time!
+
+You can save token in your local pass to use it later (although it's also stored in remote URL of your repository):
+```
+pass insert gitlab.example.com/username/AccessToken
+```
+
+## Git blame by author
+
+You can use `git blame` to see which part of the file was modified by which author.
+```
+git blame FILE
+```
+
+To extract only lines changed by a specific author with username:
+```
+git blame src/util/system.cpp | grep "username"
+```
+
+In order to process multiple files, for example all `.cpp` files in a directory, use it with `xargs`:
+```
+git ls-files -- '**/*.cpp' | xargs -I{} git blame {} | grep "username"
+```
+
+## Pulling changes from upstream
+
+If you cloned or forked a repository and made some changes to it, eventually you will want to fetch and merge the upstream changes so that your repository is up to date.
+
+Add the upstream URL, fetch the changes and merge the appropriate branch - you are still in your local branch but after fetching you can see the remote branches as well:
+```
+git remote add upstream UPSTREAM-URL
+git fetch uptsream 
+git branch -a
+git merge UPSTREAM-BRANCH
+```
+
+You can choose one of the following diff tools for Vim:
+```
+git mergetool --tool-help
+```
+
+Available tools are:
+```
+vimdiff   Use Vim with a custom layout (see `git help mergetool`'s `BACKEND SPECIFIC HINTS` section)
+vimdiff1  Use Vim with a 2 panes layout (LOCAL and REMOTE)
+vimdiff2  Use Vim with a 3 panes layout (LOCAL, MERGED and REMOTE)
+vimdiff3  Use Vim where only the MERGED file is shown
+```
+
+Set the diff tool:
+```
+git config merge.tool vimdiff3
+```
+
+Run the mergetool:
+```
+git mergetool
+```
+
+Modify the merged file, you can use the following commands to automatically apply either local or remote changes:
+```
+:diffg LOCAL
+:diffg REMOTE
+```
+
+After that you save and exit the file with `:wq`. You can abort the merge process with `:cq`.
+
+Clean the diff files:
+```
+git clean -f
+```
+
+Continue with the merge, if all conflicts are resolved this will open Vim to write a commit message (merge is resolved only when you commit your changes):
+```
+git merge --continue
+```
+
+Make sure you really have no more conflict annotations in your code:
+```
+ag "<<<<<<< HEAD"
+```
 

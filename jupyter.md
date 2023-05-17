@@ -57,7 +57,7 @@ pip install --upgrade numpy
 
 Some useful packages to install into science environment: 
 ```
-pip install numpy matplotlib pandas cython sklearn xlrd 
+pip install numpy matplotlib pandas cython sklearn xlrd requests
 ```
 
 For PyMC3 make sure you have hdf5 package installed, only then you can install pymc3 into your kernel:
@@ -302,5 +302,16 @@ You can install pip modules directly from Github if they are available there. Th
 git clone https://github.com/pathpy/pathpy pathpy3
 cd pathpy3
 pip install -e .
+```
+
+## Troubleshooting
+
+Sometimes after the upgrade of the Jupyter (or Python) package with pacman the virtual environments breaks - they cannot be activated or they can but `pip V` command returns "ModuleNotFoundError: No module named 'pip'" error. In that case simply create a new enviroment following the steps above, install all neccessary packages, and switch the kernel on the appropriate notebooks.
+
+## Running a simple Python web server
+
+To run a simple Python static server on port 8000 you can use:
+```
+python3 -m http.server 8000
 ```
 

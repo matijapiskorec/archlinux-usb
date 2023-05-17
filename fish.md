@@ -121,3 +121,10 @@ make install
 
 So basically you download a source and configure it with autoconf to install fish in your local directory with `--prefix` option. 
 
+## Aliases in Fish shell
+
+Add aliases in your fish config `~/.config/fish/config.fish`:
+```
+alias vifm 'vifmrun'
+```
+

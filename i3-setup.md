@@ -151,3 +151,40 @@ Send notifications:
 ```
 notify-send "Notification text!"
 ```
+
+## Problems with screensharing on Microsoft Teams
+
+As of 1.3.00.16851 update to Microsoft Teams they introduced screensharing red border indicator and this breaks in i3 - only a black screen with red border is visible. A quick fix is to rename this file so that it is not used:
+```
+/usr/share/teams/resources/app.asar.unpacked/node_modules/slimcore/bin/rect-overlay
+```
+
+I renamed it to `rect-overlay-BACKUP`.
+
+See this discussion for details:
+<https://docs.microsoft.com/en-us/answers/questions/42095/sharing-screen-not-working-anymore-bug.html>
+
+## Removing title bars from windows
+
+See section `4.12. Default border style for new windows`:
+<https://i3wm.org/docs/userguide.html#_layout_mode_for_new_containers>
+
+If you want to remove the title bars but keep the border of certain width put this in your i3 config:
+```
+default_border pixel 2
+default_floating_border pixel 2
+```
+
+NOTE: This is still not working? Some windows on some applications still have title bars?
+
+## Setting floating window size
+
+To set a specified floating window size add this to your i3-config:
+```
+# Set the minimim and maximum floating window size (in pixels) with width x height
+floating_minimum_size 1100 x 900
+floating_maximum_size 1100 x 900
+```
+
+This will constrain resizing your floating window! As an alternative you can always resize your window on spot with `$mod r` and move it with `$mod Shift [arrows]`.
+

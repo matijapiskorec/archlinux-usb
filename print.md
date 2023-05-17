@@ -29,4 +29,12 @@ If you have problems printing with HP printer (PCL XL Error) make sure that you 
 
 If your printer supports duplexer jobs (two-sided printing) you can set the appropriate option in the `Options Installed` settings as `installed`.
 
+## Canon iR-ADV C5560 III
+
+To setup Canon iR-ADV C5560 III printer you have to install a proper driver. I found it on the AUR:
+```
+git clone https://aur.archlinux.org/cnrdrvcups-lb.git
+cd cnrdrvcups-lb/
+makepkg -sri
+```
 

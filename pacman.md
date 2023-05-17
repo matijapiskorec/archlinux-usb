@@ -25,6 +25,11 @@ Check all explicitly installed packages (add `-q` to list only package names):
 sudo pacman -Qe | less
 ```
 
+Check all native packages (installed from the sync database): 
+```
+sudo pacman -Qn | less
+```
+
 Check whether a specific package is installed:
 ```
 pacman -Qi [package name]
@@ -129,4 +134,28 @@ sudo vim /etc/pacman.d/mirrorlist
 
 And then I manually uncommented mirrors which seemed most appropriate (worldwide and in central Europe).
  
+## Corrupted signatures
 
+If you didn't update your system with `sudo pacman -Syu` for a while it's quite likely that you will get corrupted signatures. Just run before updating the system:
+```
+sudo pacman -Sy archlinux-keyring && pacman -Su
+```
+
+This problem is described here:
+<https://wiki.archlinux.org/title/Pacman/Package_signing#Upgrade_system_regularly>
+
+## Downgrading a package
+
+You can donwgrade a package manually from cache if the version is still there:
+```
+sudo pacman -U file:///var/cache/pacman/pkg/package-old_version.pkg.tar.type
+```
+
+Note that `type` will be `xz` for older package builds, and `zst` for those following the 2020 change.
+
+Add the package to the `IgnorePkg` option in the `/etc/pacman.conf` until the problematic update is resolved:
+```
+[options]
+# Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
+IgnorePkg   = package
+```

@@ -26,6 +26,8 @@ List all AUR and other foreign packages that have been explicitly installed:
 sudo pacman -Qqem
 ```
 
+## Installing suckless software
+
 Install a suckless software, for example `dwm` (dynamic window manager):
 ```
 git clone git://git.suckless.org/dwm
@@ -37,3 +39,13 @@ And then run it with (or put it in `.xinitrc`):
 ```
 exec dwm
 ```
+
+## Updating an AUR package
+
+To update a package, just position in the appropriate folder, pull the new changes with git and rebuild the package:
+```
+cd ~/src/exodus
+git pull
+makepkg -sri
+```
+
