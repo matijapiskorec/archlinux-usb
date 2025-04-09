@@ -46,10 +46,19 @@ mogrify -rotate 90 image.jpg
 
 ## Resize existing images
 
-To resize (reduce quality) of existing images in place (overwrites the images) you can use mogrify. For example, top reduce all JPG images to 50% of quality in the current folder:
+To resize (reduce quality) of existing images in place (overwrites the images) you can use mogrify. For example, to reduce all JPG images to 50% of quality in the current folder:
 ```
 mogrify -quality 50 *.JPG
 ```
 
+Reduce the size of all JPEG images in folder to up to 2 MB and leave smaller intact (bash version):
+```
+find . -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) -size +2M -exec mogrify -define jpeg:extent=2MB {} \;
+```
+
+And fish version:
+```
+find . -type f '(' -iname "*.jpg" -o -iname "*.jpeg" ')' -size +2M -exec mogrify -define jpeg:extent=2MB '{}' ';'
+```
 
 

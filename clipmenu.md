@@ -50,3 +50,5 @@ Environment=DISPLAY=:0
 
 In the Service section of the `~/.config/systemd/user/default.target.wants/clipmenud.service`. Restarted the clipmenu service and now everything works fine!
 
+This problem appeared again in 2025 - clipmenu stopped working after update! But the problem was the same, which was indicated with the same error message ("X display is unset"). So I added the same line to the service file and restarted the service and it works now!
+

@@ -277,6 +277,11 @@ A similar option is `--basis` (and its alias `--cost`) which reports basis cost 
 ldg -f ledger.dat --price-db pricedb.dat balance Assets --exchange EUR --no-total --basis
 ```
 
+Get a current price of a commodity from the pricedb file:
+```
+ledger prices -f ledger.dat --price-db prices.dat COMMODITY -p "today"
+```
+
 ## Periodic and automatic transactions
 
 You can define periodic transaction which are used for budgeting and forecasting:

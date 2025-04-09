@@ -39,6 +39,12 @@ Use clipboard register `+` for all yank, delete, change and put operations  whic
 set clipboard=unnamedplus
 ```
 
+To enable and disable word wrap:
+```
+:set wrap
+:set nowrap
+```
+
 ## NERDTree plugin
 
 NERDTree plugin gives a filesystem viewer on a sidebar. You can install it through pacman:
@@ -321,6 +327,7 @@ Append semicolon at the beginning of each line in file: `:%normal I;`
 Delete first word after first space on each line matching pattern: `:g/pattern/norm f de`
 Copy all matching lines to the end of the file: `:g/pattern/co $`
 Select the previously selected area: `gv`
+Strip leading whitespace from all lines (unfortunatelly, there is no equivalent for trailing whitespace): `:%left`
 
 Copy all matching lines by appending them to register a: `:let @a='' | %g/pattern/y A`
 You can then paste them by: `"ap`
@@ -650,4 +657,128 @@ Check you biling information in:
 
 Disable Copilot: `:Copilot disable`
 Enable Copilot: `:Copilot enable`
+
+## vim-signature plugin
+
+Install vim-signature plugin by adding following line in your `~/.vimrc`:
+```
+Plugin 'kshenoy/vim-signature'
+```
+
+And then running `:PluginInstall`
+
+You now see marks left of the line number!
+Add a mark marked with letter `a`: `ma`
+Remove a mark marked with letter `a`: `dma`
+Remove all marks in the current buffer: `m[SPACE]`
+
+## Ack and Ag search plugins
+
+Add Ack and Ag (Silver Surfer) search support to Vim
+<https://github.com/ggreer/the_silver_searcher>
+<https://github.com/mileszs/ack.vim>
+
+Install it by adding this to `~/.vimrc`:
+```
+Plugin 'mileszs/ack.vim'
+
+" Use Ag (Silver Searcher instead of Ack, invoke it with :Ack)
+let g:ackprg = 'ag --nogroup --nocolor --column' " Report one match per line
+" let g:ackprg = 'ag --vimgrep' " Report every match on every line
+
+" If Ag is not available fallback to Ack
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+```
+
+Then install with `:PluginInstall`
+
+Now you can search with `:Ack KEYWORD`.
+
+## Recovery
+
+If your session crashes Vim will save the recovery file in the cache. When you try to open the file it will warn you about the crash and warn you whether you want to recover. By pressing `R` you will recover the old file, after which you can save it to the original location with `:w!`.
+
+The prompt will persist whenever you open the same file until you delete the recovery/swap file. If you are sure that the correct version of the file is saved in the original location (for example, if the session crashed but you didn't do any significant changes which you cannot afford to loose) you can safely delete the recovery/swap file.
+
+The same prompt will show when you want to open the same file in multiple Vim sessions. If you want to access and/or edit the original file just type `E`.
+
+## Multiple cursors
+
+You can get Sublime-like multiple cursors with the following plugin:
+<https://github.com/terryma/vim-multiple-cursors>
+
+Just add this line to your `~/.vimrc`:
+```
+Plugin 'terryma/vim-multiple-cursors'
+```
+
+And the run `:PluginInstall`
+
+Add a cursors with `Ctrl n` - you can do it after searching to add a cursor to each selected word.
+
+If you want to remap the default keys add this to your `~/.vimrc` (also serves as a reference to commands):
+```
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+```
+
+Problems - it messes my copy/paste! :-( So I will turn it of for now!
+
+## Conversion to ASCII
+
+If you copy paste a part of text and it contains typographic quotes or other special characters, you can convert it to ASCII with the following command:
+```
+!iconv -f utf-8 -t ascii//translit
+```
+
+You can also use it on a visual selection of text by first selecting the text and then typing `!iconv -f utf-8 -t ascii//translit`.
+
+## vim-ai plugin
+
+I installed vim-ai plugin for AI code completion:
+<https://github.com/madox2/vim-ai>
+
+Put your OpenAI secret key into `~/.config/openai.token`.
+
+Add `Plug 'madox2/vim-ai` to your `.vimrc` and run `:PlugInstall`.
+
+You can run the following commands (with visual selection as well):
+```
+:AI       complete text
+:AIEdit   edit text
+:AIChat   continue or open new chat
+:AIImage  generate image
+```
+
+Concatenate all Python text files in the current directory and open them in Vim, so that you can work on the whole codebase:
+```
+vim -c ':r !find . -type f -name "*.py" -exec cat {} +' -c ':set nomodified' -c ':set syntax=python'
+```
+
+Concatenate the filenames before each file, so that there is better context...
+
+Bash:
+```
+vim -c ':r !for file in $(find . -type f -name "*.py"); do echo -e "\n>>> $file"; cat "$file"; done' -c ':set nomodified' -c ':set syntax=python'
+```
+
+Fish shell:
+```
+vim -c ':r !for file in (find . -type f -name "*.py"); echo -e "\n>>> $file"; cat "$file"; end' -c ':set nomodified' -c ':set syntax=python'
+```
+
+Now you can run the command above and use `:%AIChat` along with the prompt to ask a question about the whole codebase or ask for suggestions.
+
+
 

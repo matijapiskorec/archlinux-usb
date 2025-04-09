@@ -81,3 +81,56 @@ node script.js | bzip2 > file.txt.bz2
 
 This, however, will not write continuously to a compressed file with a constant memory footprint, but will store intermediarry result in memory!
 
+## Managing Node.js versions with n
+
+n – Interactively Manage Your Node.js Versions
+<https://www.npmjs.com/package/n>
+
+You can use n for interactivelly managing your Node.js versions. Check your current (system) Node.js version:
+```
+node --version
+```
+
+Install n:
+```
+npm install -g n
+```
+
+Install a specific version of Node.js:
+```
+sudo n 16.20.1
+```
+
+Choose from installed versions of Node:
+```
+n
+```
+
+List downloaded version in cache:
+```
+n ls
+```
+
+List matching remote versions (latest, lts):
+```
+n ls-remote lts
+n ls-remote latest
+```
+
+Remove a version (you can specify only a part of the version number):
+```
+n rm 16
+```
+
+Remove installed Node version, will revert to the system version of Node:
+```
+n uninstall
+```
+
+Show a path to the downloaded Node version:
+```
+n which 16
+```
+
+You need sudo privileges because Node version are installed in `/usr/local`, but you can set prefix `N_PREFIX` and then they will be installed somewhere else.
+

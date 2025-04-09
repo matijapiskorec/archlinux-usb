@@ -83,6 +83,11 @@ Check that your public key is added to `~/.ssh/authorized_keys`:
 cat ~/.ssh/authorized_keys
 ```
 
+Generate a 4096 bits RSA key with a validity of 52 weeks and 1 day:
+```
+ssh-keygen -t rsa -b 4096 -V +52w1d
+```
+
 ## Adding keys to ssh-agent so you don't have to type password
 
 Run ssh-agent which will allow you to put keys in cache so you don't have to enter keyphrase:
@@ -207,6 +212,11 @@ You can now mount remote directories locally:
 sshfs user@host:remote_directory local_directory
 ```
 
+In order to keep connection active even if you temporarily disconect (or your laptop goes to sleep) you can use the following options:
+```
+sshfs -o workaround=rename,reconnect,ServerAliveInterval=15,ServerAliveCountMax=3 user@host:remote_directory local_directory
+```
+
 You can now edit directory locally and the changes will persist remotelly, and vice versa. You can unmount with fusermount3 (installed automatically with sshfs):
 ```
 fusermount3 -u local_directory
@@ -280,4 +290,22 @@ Similarly, if you want to check which processes are using the most memory, just 
 ssh user@server "ps -eo pmem,pcpu,pid,user,args | sort -k 1 -r | head -20"
 ```
 
+## Disable password login through SSH
+
+If you setup public key authentification for SSH, you can disable SSH password auhentification. Change the following option in `/etc/ssh/sshd_config` from `yes` to `no`:
+```
+PasswordAuthentication yes
+```
+
+Restart SSH with:
+```
+systemctl restart ssh
+```
+
+You should now be able to login only via public key. Make sure that you indeed have a public key access or else you will lock yourself from SSH access!
+
+You can check whether password access still works by forcing password authentification:
+```
+ssh user@server -o PubkeyAuthentication=no
+```
 

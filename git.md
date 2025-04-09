@@ -478,3 +478,37 @@ Make sure you really have no more conflict annotations in your code:
 ag "<<<<<<< HEAD"
 ```
 
+## Interacive mode
+
+You can enter Git interactive mode with:
+```
+git add --interactive
+```
+
+It will prompt you for individual steps. However, some functionality is counterintuitive - for example it's not easy to see untracked files:-(
+
+For a full documentation of the interactive mode see git-add documentation:
+<https://git-scm.com/docs/git-add>
+
+## Patching a file
+
+If you want to commit just a part of file you can patch it with:
+```
+git add --patch file.txt
+```
+
+It will separate your file into chunks which you can then cherry pick and choose which to include. Sometimes you will want to split one of these chunks - there is an `s` command for that but it will not always work. So it's easier to just edit the chunk with `e`. Your editor will open and then you can modify the `+/-` signs in order to choose what to include. There are instructions included in the file so it is fairly easy.
+
+## Git hooks
+
+Git hooks: How to automate actions in your Git repo
+<https://www.redhat.com/sysadmin/git-hooks>
+
+8.3 Customizing Git - Git Hooks
+<https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks>
+
+githooks - Hooks used by Git
+<https://git-scm.com/docs/githooks>
+
+A project idea - write a Git hook for introducing a commit date for each updated file!
+

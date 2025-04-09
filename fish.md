@@ -128,3 +128,46 @@ Add aliases in your fish config `~/.config/fish/config.fish`:
 alias vifm 'vifmrun'
 ```
 
+## Fish one liners
+
+Unzip all exported WhatsApp chats and change the name of the text files to the name of the group:
+```
+for f in *.zip; set -l name (echo "$f" | sed 's|\.zip|_chat\.txt|' | sed 's|WhatsApp\ Chat\ \-\ ||' | sed 's|\ |\_|' | tr -cd "[:print:]") ; unzip "$f" ; mv "_chat.txt" "$name" ; end
+```
+
+## fish history
+
+You can retrieve all fish history with the `history` command:
+```
+history
+```
+
+Or just some entries with:
+```
+history --contains "search string"
+```
+
+You can use the same command to delete entries from history:
+```
+history delete --contains "search string"
+```
+
+You can also delete entries manually by editing file `~/.local/share/fish/fish_history`.
+
+## atuin history search
+
+You can use atuin for syncing, backing up and searching your shell history:
+<https://atuin.sh/>
+
+Install it through Pacman:
+```
+sudo pacman -Syu atuin
+```
+
+Add following in your fish config in `~/.config/fish/fish.config`:
+```
+atuin init fish --disable-up-arrow | source
+```
+
+I disabled the up arrow key bindings, so there is only `Ctrl-r` - you use it to search through your shell history.
+

@@ -20,6 +20,16 @@ And unmount it with:
 umount [MOUNT-POINT]
 ```
 
+You can also unmount it with:
+```
+fusermount3 -u [MOUNT-POINT]
+```
+
+Or to do it in a lazy way, which detaches the filesystem immediately:
+```
+fusermount3 -uz [MOUNT-POINT]
+```
+
 ## Package moved to AUR
 
 It seems that package moved to AUR since some time (I noticed this in October 2020). It is available in my Pacman, but not in the repositores, so I just installed it again from the AUR:

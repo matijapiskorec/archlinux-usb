@@ -30,6 +30,7 @@ Next/previous tab: `Tab / Shift-Tab`
 Mark/unmark a file: `Space`
 Unmark all files in folder: `uv`
 Refresh: `R`
+Open task view: `w`
 
 Additional dependencies needed for viewing certain file formats:
 ```

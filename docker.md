@@ -32,6 +32,11 @@ There might be some problems while connected to the network, you might want to t
 For more information check official Arch documentation:
 <https://wiki.archlinux.org/index.php/Docker>
 
+For some common tasks you might need to install docker-compose as well:
+```
+sudo pacman -Syu docker-compose
+```
+
 ## Runing graph-tool in docker
 
 How to run graph-tool in in docker instructions:
@@ -79,4 +84,110 @@ Remove a Docker image:
 ```
 docker image rm image_name_or_id
 ```
+
+## Managing Docker containers
+
+List Docker containers:
+```
+docker container ls
+```
+
+Kill a container:
+```
+docker kill NAME
+```
+
+List all Docker images:
+```
+docker images --all
+```
+
+Remove a container:
+```
+docker rm NAME
+```
+
+## Installing pip packages with docker-compose
+
+Docker compose installing requirements.txt
+<https://stackoverflow.com/questions/41381350/docker-compose-installing-requirements-txt>
+
+This is not working for me! :-(
+
+```
+version: "3"
+
+services:
+
+  stellar:
+    image: python:3    
+    container_name: stellar
+    
+    volumes:      
+      - .:/project
+    tty: true    
+    working_dir: /project    
+    command: /bin/bash 
+    environment:                
+        PYTHONPATH: "/project"
+    depends_on:
+      - requirements
+
+  requirements:
+    image: python:3
+    volumes:
+      - .:/project
+    working_dir: /project
+    command: pip install --no-cache-dir -r requirements.txt
+```
+
+## Build a simple Docker image which runs a Python scrip and saves the output to a file
+
+Create a Dockerfile:
+```
+# Use the official Python image from Docker Hub
+FROM python:3.8.18-slim-bullseye
+ARG USER_ID
+ARG GROUP_ID
+# Set the working directory in the container
+WORKDIR /workspace
+
+# Linux dependencies
+RUN apt-get update && \
+  apt-get install -y build-essential sudo unzip bzip2 autoconf && \ 
+  rm -rf /var/lib/apt/lists/*
+  
+# Copy the Python script into the container
+COPY . /workspace
+
+# update and install packages in python
+RUN pip install --upgrade pip && \
+  pip install -r requirements.txt
+RUN echo $(ls -a)
+
+# Add your user to the environment helps with mounts and creating and saving files
+RUN groupadd -g $GROUP_ID user
+RUN useradd user -u $USER_ID -g $GROUP_ID -m -s /bin/bash
+USER user
+
+# Run the Python script
+CMD ["python", "helloworld.py"]
+```
+
+There are three files in the directory:
+
+- Dockerfile - the file above
+- requirements.txt - with pip requirements
+- helloworld.py - a simple Python script that outputs results in a file
+
+Build the Docker image while passing the user and group ID:
+```
+docker build -t matija:python38 --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
+```
+
+Run the container while mounting the directory so that it creates the output file with the same permissions as your local user:
+```
+docker run -v /home/matija/tmp/download/test-vm/:/workspace/ matija:python38
+```
+
 

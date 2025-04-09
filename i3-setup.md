@@ -188,3 +188,48 @@ floating_maximum_size 1100 x 900
 
 This will constrain resizing your floating window! As an alternative you can always resize your window on spot with `$mod r` and move it with `$mod Shift [arrows]`.
 
+## i3status
+ 
+Copy configuration from `/etc/i3status.conf` to local config:
+```
+mkdir ~/.config/i3status
+cp /etc/i3status.conf .config/i3status/config
+```
+
+If you make any changes restart configuration with `$mod-Shift-r`.
+
+I'm not actually using i3status anymore - I switched to i3blocks!
+
+## i3blocks
+
+Install i3blocks from Pacman:
+```
+sudo pacman -Sy i3blocks
+```
+
+Add i3blocks as a `status_command` in your `~/.config/i3/config`
+```
+bar {
+    ...
+    status_command i3blocks
+    ...
+}
+```
+
+Configure i3blocks in `~/.config/i3blocks/config`. You can separate rules for different blocks into different scripts, and reference them in the following way in the config:
+```
+command=~/.scripts/statusbar/$BLOCK_NAME
+```
+
+Now you can define a block `memory`:
+```
+[memory]
+interval=10
+```
+
+And configure it with the script `~/.scripts/statusbar/memory`:
+```
+free -h | awk '/^Mem:/ {print $3 " / " $2}'
+```
+
+Remember to restart i3 configuration with `$mod-Shift-r`.

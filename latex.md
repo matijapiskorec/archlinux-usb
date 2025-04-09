@@ -84,6 +84,57 @@ This will track all existing tex and bib files, as well figures in figures folde
 
 In theory, make can be used to reproduce the whole data scientific workflow. More  information on how to use it in reproducible scientific research is available [here](http://kbroman.org/minimal_make/).
 
+## Autocompile with a shell script
+
+Instead of make and Makefile you can use this script for LaTeX compilation (lets call it `compile.sh`):
+```
+#!/bin/bash
+
+TEX="pdflatex -interaction nonstopmode -shell-escape"
+BIB="bibtex"
+PAPER="main"
+BIBFILE="bibliography.bib"
+FIGURES="img/"
+
+# Check if we need to build the PDF
+if [[ $1 == "all" ]]; then
+  echo "Running pdflatex for the first time..."
+  $TEX $PAPER
+  
+  if [ -f "${PAPER}.aux" ]; then
+    echo "Running bibtex..."
+    $BIB $PAPER
+  
+    echo "Running pdflatex to incorporate references..."
+    $TEX $PAPER
+
+    echo "Running pdflatex to finalize document structure..."
+    $TEX $PAPER
+  else
+    echo "Failed to generate .aux file; skipping bibtex."
+  fi
+
+# Clean auxiliary files if so requested
+elif [[ $1 == "clean" ]]; then
+  echo "Cleaning up auxiliary files..."
+  rm -fv *.aux *.log *.bbl *.blg *.toc *.out *.lot *.lof ${PAPER}.pdf
+
+else
+  echo "Usage: $0 {all|clean}"
+fi
+```
+
+Make it executable with:
+```
+chmod +x compile.sh
+```
+
+Now you can run it with:
+```
+./compile.sh all
+./compile.sh clean
+```
+
 ## Some useful Latex commands
 
 While compiling a Latex code there can be errors due to which compiler halts and seeks input. In these cases you typically want to abort compilation and start again. To abort compilation simply type `X` into the command line and press enter.
@@ -169,4 +220,34 @@ To set the font size of the normal text in Beamer, just put this in the document
 ```
 
 This is an easy way to increase the amount of text you can fit on a single slide!
+
+## LaTeX stopped working after update
+
+After update (May 2024) XeLaTeX stopped working with the error `Fatal format error; I'm stymied`. The solution was to reinstall the `texlive-xelatex` package (I didn't have it installed before). It will update TexLive format files which will solve the problem. You can also do it manually with:
+```
+sudo fmtutil-sys --all
+```
+
+## TexTex extension for Inkscape
+
+You can use Latex formulas in Inkscape with TexText extension. Installation instructions for Linux are here:
+<https://textext.github.io/textext/install/linux.html>
+
+Basically, you download the extension from the Github release page:
+<https://github.com/textext/textext/releases>
+
+I downloaded this one:
+```
+wget https://github.com/textext/textext/releases/download/1.10.2/TexText-Linux-1.10.2.zip
+```
+
+Then you unzip it and run the `setup.py` - it will install the extension in your Inkscape extension folder which is in `~/.config/inkscape/extensions/textext`:
+```
+unzip TexText-Linux-1.10.2.zip
+cd TexText-Linux-1.10.2
+python setup.py
+```
+
+You can find the extension in Inksscape under Extensions / Text / TexText.
+
 

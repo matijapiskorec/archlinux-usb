@@ -42,6 +42,11 @@ git log | xclip -selection clip
 
 Default X selection that xclip uses is primary (can be pasted inside terminal), there is also secondary (not sure where this is used) and clipboard (can be pasted inside other applications, not terminal). 
 
+This is useful if you want to quickly find a correct full path to a file through a terminal, and then paste it somewhere else:
+```
+ls full/path/to/file.pdf | xclip
+```
+
 ## Process the command history list
 
 Process the command history list with fc. If you misstyped a command you can just run fc:
@@ -397,5 +402,17 @@ Show a listing of last logged in users `last`
 To fetch multiple files using their URL's with wget you can simply do:
 ```
 wget URL1 URL2 URL3
+```
+
+## bat for listing contents of files
+
+You can use bat as a replacement for cat to list contents of files. Install it with:
+```
+sudo pacman -Syu bat
+```
+
+And run it on a file with:
+```
+bat file.txt
 ```
 

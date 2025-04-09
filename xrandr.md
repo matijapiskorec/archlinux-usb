@@ -88,3 +88,22 @@ You can also adjust brighthess of the screen like this - this is what I use on m
 xbacklight -set 70
 ```
 
+Actually, this is not working anymore? So I'm using this:
+```
+xrandr --output eDP-1 --brightness 0.9
+```
+
+## Connecting to large HDMI display on my Thinkpad X13 laptop
+
+When connecting to a large HDMI display, you need to turn off your laptop diplay otherwise your HDMI display will be restricted to part of the screen:
+```
+xrandr --output HDMI-1 --auto
+xrandr --output eDP-1 --off
+```
+
+When disconnecting, first turn on your laptop display then turn off HDMI:
+```
+xrandr --output eDP-1 --auto
+xrandr --output HDMI-1 --off
+```
+

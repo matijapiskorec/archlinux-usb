@@ -30,7 +30,7 @@ Update or add a new file in zip archive:
 zip -u archivename.zip newfile.txt
 ```
 
-Remove a file from a zip archive:
+Remove/delete a file from a zip archive (make sure you put the full path within the archive):
 ```
 zip -d archivename.zip file-for-removal.txt
 ```
@@ -44,6 +44,12 @@ Zip can also be used as a simple way to encrypt a file with a password, just pas
 ```
 zip -e archivename.zip file.jpeg
 ``` 
+
+Exclude a certain directory from zip archive:
+```
+zip -r archivename.zip . -x excluded-directory/\*
+```
+
 
 ## Compression with gzip
 

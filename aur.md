@@ -49,3 +49,18 @@ git pull
 makepkg -sri
 ```
 
+## Problems with GPG keys
+
+Sometimes the AUR package doesn't want to update (with `makepgk -sri`) because the GPG key is unknown, for example with the AUR package screencast:
+
+```
+==> Verifying source file signatures with gpg...
+    screencast-1.6.0.tar.gz ... FAILED (unknown public key 019A7474297D8577)
+==> ERROR: One or more PGP signatures could not be verified!
+```
+
+I solved it by importing the key manually from the ubuntu keyserver (which is supposed to be most reliable):
+```
+gpg --keyserver keyserver.ubuntu.com --search-keys 019A7474297D8577
+```
+

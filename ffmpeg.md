@@ -50,6 +50,11 @@ Check available resolutions on your video recording devices:
 v4l2-ctl --list-formats-ext
 ```
 
+Play video with your available camera (my laptop camera is on `/dev/video1` while my USB camera is on `/dev/video4`):
+```
+ffplay -f v4l2 -i /dev/video1
+```
+
 Record video with your available camera:
 ```
 ffmpeg -f v4l2 -framerate 25 -video_size 640x480 -i /dev/video0 /tmp/output.mkv
@@ -165,6 +170,16 @@ You can also include webcam overlay, choosing the input, position, size, fps. Fo
 sleep 3 ; screencast --size=1920x1080 -W -1 test.mp4
 ```
 
+Define a different webcam input (the default is `/dev/video0` which is probably your laptop camera), for example `/dev/video4` (in my case this is an external USB camera):
+```
+sleep 3 ; screencast --size=1920x1080 -W -1 --webcam-input=/dev/video4 test.mp4
+```
+
+You can also set the size and FPS of the webcam:
+```
+sleep 3 ; screencast --size=1920x1080 -W -1 --webcam-input=/dev/video4 --webcam-size=320x240 --webcam-fps=25 test4.mp4
+```
+
 Sometimes you don't want the whole screen but just a single window. First, make sure you have slop installed, as it is used to select a window:
 ```
 sudo pacman -S slop
@@ -206,4 +221,12 @@ If you have problems with orientation of images you can auto orient them before 
 ```
 mogrify -auto-orient IMG_*
 ```
+
+## Compress MOV file to MP4 so that it can be sent over Gmail
+
+Compressing a MOV file of over 300 MB (recorded with iPhone) to around 10 MB so that it can be sent over email:
+```
+ffmpeg -i input.MOV -vcodec libx264 -crf 28 -preset slow -b:v 500k -maxrate 500k -bufsize 1000k -vf "scale=-2:720" -acodec aac -b:a 128k -movflags +faststart -y output.mp4
+```
+
 

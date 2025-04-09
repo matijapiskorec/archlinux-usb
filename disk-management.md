@@ -5,6 +5,16 @@ List current disk usage by partition:
 df -h
 ```
 
+If you want to see file system type as well then run:
+```
+df -hT
+```
+
+You can also list all disks with:
+```
+sudo fdisk -l
+```
+
 List block devices, which effectivelly gives you all mounted and unmounted drives available to the system:
 ```
 lsblk
@@ -109,4 +119,40 @@ udisksctl mount -b /dev/sdb1
 
 duc – A Collection Of Tools To Inspect And Visualize Disk Usage
 <https://ostechnix.com/duc-a-collection-of-tools-to-inspect-and-visualize-disk-usage/>
+
+You can install is through AUR:
+```
+git clone https://aur.archlinux.org/duc.git
+cd duc/
+makepkg -sri
+```
+
+You can now run `duc info` to see which folders are added to the index database.
+You need to run `duc index` to index your folders before you use duc.
+
+Check subfolder sizes: `duc ls FOLDER`
+
+## Making a bootable Ubuntu or Arch Linux USB drive
+
+To create a bootable USB drive with Ubuntu or Arch Linux you first have to download ISO image.
+
+ISO image download for Ubuntu:
+<https://ubuntu.com/download/desktop>
+
+ISO image download for Arch Linux:
+<https://archlinux.org/download/>
+
+Second, prepare the USB drive with enough storage. Make sure it is empty (you will loose all data from it!), stick it in your computer and check with `lsblk` that it is not mounted!
+
+Third, obtain the path to your USB drive, for example in `/dev/disk/by-id`. An example is `/dev/disk/by-id/usb-_USB_Flash_Memory_0022CFF6B89AC411E3163988-0:0`. Make sure it does not contain a partition number like `-part1` or `/dev/sdb1` or similar!
+
+Fourth, you can use multiple methods to copy the ISO image directly to the USB drive (including `cat`, `cp` and `dd`):
+<https://wiki.archlinux.org/title/USB_flash_installation_medium>
+
+I used simple `cp`:
+```
+sudo cp /path-to-iso-image/ubuntu-24.10-desktop-amd64.iso /dev/disk/by-id/usb-_USB_Flash_Memory_0022CFF6B89AC411E3163988-0:0
+```
+
+Fifth, it is suggested to execute `sync` with root privileges after the respective command ensures buffers are fully written to the device before you remove it.
 

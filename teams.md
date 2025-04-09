@@ -42,3 +42,13 @@ git pull
 makepgk -sri
 ```
 
+## Clearing cache
+
+Sometimes you want to clear cache in order to sign-in with another account. You can remove (or rename) the following folders:
+
+    /home/matija/.config/Microsoft/Microsoft Teams
+    /home/matija/.config/teams
+    /home/matija/.config/teams-for-linux
+
+The last one (teams-for-linux) is what I'm using currently.
+

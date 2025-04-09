@@ -33,3 +33,9 @@ Switch to the tabbed layout: `$mod w`
 
 At startup all windows are created as children of the same root container. If you want to nest a newly created window to be a child of already existing window, first focus to the desired parent window, then execute either `$mod v` or `$mod h`. Then all newly created windows will be children of this window, including the ones you create with `dmenu`. If you execute `$mod w` all the children windows will be tabbed under the parent window. If you want to later return focus to the parent container, to create new windows higher on the hierarchy, execute `$mod a`.
 
+Get class of active window (to be used in i3 config) (one of the bellow):
+```
+i3-msg -t get_tree | jq -r ".. | select(.focused? == true) | .window_properties.class"
+xdotool getactivewindow getwindowclassname
+```
+

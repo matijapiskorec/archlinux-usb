@@ -23,6 +23,7 @@ Toggle dual page mode: `d`
 Switch to fullscreen mode: `F11`
 Swith to presentation mode: `F5`
 Toggle status bar: `Ctrl n`
+Show menu with PDF sections: `Tab`
 Quit: `q`
 
 Commands in the command mode:

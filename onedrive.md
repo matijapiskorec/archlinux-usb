@@ -41,6 +41,11 @@ onedrive --synchronize
 
 Upon first login it will give you a web link which you should copy to your browser and authentificate. Once the authentification in browser is done you can copy the resulting URI (the webpage itself will be empty) back into the terminal.
 
+If you were inactive for a long time you might need to reauthenticate, you can do it by passing the option `--reauth`, for example, to synchronize your personal folder (which is identified with alias onedrive-personal):
+```
+onedrive-personal --sync-shared-folders --monitor --reauth
+```
+
 My OneDrive was empty and I only had shared folders. Follow the instructions here for synchronizing shared folders:
 <https://github.com/abraunegg/onedrive/blob/master/docs/BusinessSharedFolders.md>
 

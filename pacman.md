@@ -159,3 +159,29 @@ Add the package to the `IgnorePkg` option in the `/etc/pacman.conf` until the pr
 # Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
 IgnorePkg   = package
 ```
+
+## Problems with upgrading Electron
+
+(July 2023) Package electron was in conflict with package electron22, so one of them had to be removed before full system upgrade. I first updated the pacman keyring because of corrupted signatures (this happens if you didn't update in a long time), removed electron and installed electron22:
+```
+sudo pacman -Sy archlinux-keyring
+sudo pacman --remove --nodeps --nodeps electron
+sudo pacman --sync --asdeps electron22
+sudo pacman -Syu
+```
+
+## Problems with upgrading Java
+
+As of November 2023, JDK and JRE packages are conflicting, so you have to choose one of them. JDK includes both development (compilation) and runtime Java environment, while JRE only includes runtime. So if you need both it's enough to have only JDK.
+<https://archlinux.org/news/incoming-changes-in-jdk-jre-21-packages-may-require-manual-intervention/>
+
+I did the following:
+```
+sudo pacman -S jre-openjdk
+```
+
+It then prompted me to remove either jre-openjdk or jre-openjdk-headless, and I removed jre-openjdk-headless. I could then upgrade my system with:
+```
+sudo pacman -Syu
+```
+

@@ -20,9 +20,12 @@ Available commands: `Ctrl-b ?`
 Toggle fullscreen of a pane: `Ctrl-b z`
 Resize pane in direction of [arrow]: `Ctrl-b Ctrl-[arrow]`
 Rename the current window: `Ctrl-b ,`
+Rename the current session `Ctrl-b $`
 Find a window across all tmux sessions: `Ctrl-b f`
 Display numbers on panes and navigate to them: `Ctrl-q [NUMBER]`
 Kill a window: `Ctrl-b &`
+Kill a pane: `Ctrl-b x`
+List all sessions and their windows and navigate to one of them: `Ctrl-b w`
 
 Tmux can enter into copy mode where all current terminal output is available in pager.
 
@@ -89,4 +92,30 @@ Don't forget to reload tmux config:
 ```
 tmux source-file ~/.tmux.conf
 ```
+
+## Move a window into a separete session
+
+If you have a window in a session that you want to move to another session, you can do it in the following way.
+
+First, attach the tmux session from which you want to move the window:
+```
+tmux attach -t <session-name-1>
+```
+
+Second, from within the tmux session, split off the window into a new session. You can do this pressing `Ctrl+b` and `:` and typing the following command:
+```
+new-session -s <session-name-2> -d
+```
+
+You can also create the new session by running the following in the terminal (use `-d` if you are already in another tmux session):
+```
+tmux new -s <session-name-2> -d
+```
+
+Third, move the window into the new session by pressing `Ctrl+b` and `:` and typing:
+```
+move-window -s <window-index> -t <session-name-2>
+```
+
+Replace `<window-index>` with the index number of your window (use `tmux list-windows` to find it).
 

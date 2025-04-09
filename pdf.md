@@ -42,6 +42,11 @@ Extracting multiple pages using pdftk:
 pdftk main.pdf cat 1 3 5-6 output output.pdf
 ```
 
+Joining several PDF's into one using pdftk, and selecting only specific pages (this will concatenate first 5 pages of file1.pdf, all pages of file2.pdf and pages from 7 to the end of file1.pdf):
+```
+pdftk A=file1.pdf B=file2.pdf cat A1-5 B B7-end output output.pdf
+```
+
 Combining the two single-page PDF's into a single-page PDF, where pages are on top of eachother on a single page:
 ```
 pdfjam output1.pdf output2.pdf --nup 1x2 --outfile output3.pdf
@@ -196,11 +201,20 @@ In general you can combine multiple PDF's in the following way:
 pdftk file1.pdf file2.pdf cat output combined-file.pdf
 ```
 
-## Inster an image into PDF
+## Insert an image into PDF
 
 Unfortunatelly, I could not find any offline tools for inserting a simple image into PDF (for example, for a signuture). But I found this online tool which works ok:
 <https://smallpdf.com/edit-pdf>
 
 For a simple one-page PDF you can use Inkscape. Import PDF and any image you need, then export back to PDF. I have to figure out how to export multipage documents properly!
+
+## Crop PDFs
+
+This is how you crop the PDF using GraphicsMagick:
+```
+gm convert -density 150 -crop 1072x1448+200+10 test.pdf output.pdf
+```
+
+This crops to 1072x1448 pixels with 200 and 10 offsets.
 
 

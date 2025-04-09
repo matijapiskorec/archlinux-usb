@@ -1,6 +1,6 @@
 # Zoom teleconferencing
 
-Download Zoom for Arch Linux from the following webpage:
+Download Zoom for Arch Linux from the following webpage (there is Arch version as well):
 <https://us04web.zoom.us/support/down4j>
 
 Follow instructions for installation:
@@ -53,4 +53,71 @@ cd ~/src/zoom
 git checkout origin/master
 makepkg -sri
 ```
+
+Update on 2.11.2023. - I decided to pull the newest version (5.16.6-1). I checkout the master branch, did the pull and built the package:
+```
+cd ~/src/zoom
+git checkout master
+git pull
+makepkg -sri
+```
+
+However, again the Zoom doesn't want to even start:-( So I downgraded it again from 5.16.6-1 to 5.13.4-1 and now it works again:
+```
+cd ~/src/zoom
+git checkout 8641821
+makepkg -sri
+```
+
+Update on 7.11.2023. - Zoom doesn't work anymore! Updating to newest version over AUR doesn't work, so I tried installing it over Flatpak and it work for links at least, I can join a meeting. However, I cannot login with my Google account!
+
+I will try installing newest version of Zoom with the first method explained (downloading the archive and installing it over pacman directly from archive). This version works normally! I just haven't tried SSO login, but Gmail login and creation of meetings works fine.
+
+## Zoom installation over Flatpak
+
+Install flatpak package:
+```
+sudo pacman -Syu flatpak
+```
+
+You can download Zoom with:
+```
+flatpak install flathub us.zoom.Zoom
+```
+
+You can run Zoom with:
+```
+flatpak run us.zoom.Zoom
+```
+
+## Zoom not working after November 2024
+
+Zoom requires me to upgrade the client in order to work - previously I could at least join the links, and now I cannot even start it.
+
+I tried to upgrade trhough Flatpak:
+```
+flatpak update us.zoom.Zoom
+```
+
+I does start but I cannot login!
+
+They I tried to downgrade my AUR installation to 6.1.11 (the newest version 6.2 has problems as described in the AUR Zoom page):
+```
+cd ~/src/zoom
+git checkout 0b065ca
+makepkg -sri
+```
+
+But it doesn't even start:-(
+
+So in the end I'm using the web insterface for Zoom meetings, and reformating the links as described here:
+<https://wiki.archlinux.org/title/Zoom_Meetings>
+
+    The original meeting URL:  https://<subdomain>.zoom.us/j/meeting_id?pwd=password
+    Web client URL:            https://<subdomain>.zoom.us/wc/join/meeting_id?pwd=password
+
+For meeting ID and password you need the full Zoom invitation!
+
+There is also a web interface which replicates the desktop app and there you can just paste the original links in order to connect to meetings:
+<https://app.zoom.us/wc/home>
 
